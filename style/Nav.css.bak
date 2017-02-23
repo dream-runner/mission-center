@@ -1,0 +1,42 @@
+.navbar {
+    composes: navbar from 'bootstrap/dist/css/bootstrap.css';
+    composes: navbar-default from 'bootstrap/dist/css/bootstrap.css';;
+    composes: nav-wrap from 'bootstrap/dist/css/bootstrap.css';
+    margin-bottom: 10px;
+    background: #fff;
+    border: 0;
+}
+.navbar-collapse {
+    composes: collapse from 'bootstrap/dist/css/bootstrap.css';
+    composes: navbar-collapse from 'bootstrap/dist/css/bootstrap.css';
+    padding: 0;
+}
+.navbar-nav {
+    composes: nav from 'bootstrap/dist/css/bootstrap.css';
+    composes: navbar-nav from 'bootstrap/dist/css/bootstrap.css';
+}
+.navbar-nav > li > a,
+.navbar-nav > li > a:hover {
+    color:#949494;
+}
+.active {
+    composes: active from 'bootstrap/dist/css/bootstrap.css';
+}
+.navbar-nav > .active > a,
+.navbar-nav > .active > a:hover {
+    background: #2192FF;
+    color:#fff;
+}
+.navbar-form {
+    composes: navbar-right from 'bootstrap/dist/css/bootstrap.css';
+    composes: navbar-form from 'bootstrap/dist/css/bootstrap.css';
+    margin-right: 0;
+}
+.btn {
+    composes: btn-default from 'bootstrap/dist/css/bootstrap.css';
+    composes: btn from 'bootstrap/dist/css/bootstrap.css';
+    border-radius: 0;
+    background: #2192FF;
+    border-color: #2192FF;
+    color: #fff;
+}

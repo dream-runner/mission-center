@@ -1,0 +1,12 @@
+.mission-center-content {
+    background: #fff;
+    margin-bottom: 0;
+}
+.list-wrap {
+    padding: 0 40px;
+}
+.card-list-wrap { }
+.card-list-wrap :global(.alert) {
+    margin-left: 40px;
+    margin-right: 40px;
+}
