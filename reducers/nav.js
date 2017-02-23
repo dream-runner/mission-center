@@ -1,6 +1,7 @@
 import {
     CHANGE_NAV,
-    GETLIST_SUCCESS
+    GETLIST_SUCCESS,
+    CHANGE_SEARCH_TEXT
 } from '../constants/ActionTypes'
 import find from 'lodash/find'
 import map from 'lodash/map'
@@ -51,9 +52,12 @@ function setTotal(state, action) {
     }
 }
 
+
+
+
 export default function nav(state = initialState, action) {
     return {
         items: setTotal(state.items, action),
-        cur: changeNav(state.cur, action)
+        cur: changeNav(state.cur, action),
     }
 }

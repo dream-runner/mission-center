@@ -5,7 +5,9 @@ import { changeNav, openFormList } from '../actions/nav'
 import { changeSortRule } from '../actions/sort'
 import { changeFilter } from '../actions/filter'
 import { getList } from '../actions/list'
+import { getItems } from '../actions/page'
 import { show } from '../actions/formList'
+
 
 class NavContainer extends Component {
     render() {
@@ -34,16 +36,21 @@ class NavContainer extends Component {
             </nav>
         )
     }
+
     onTabClicked (e, checked) {
-        const {cur, isFetching, changeNav, changeSortRule, changeFilter, getList} = this.props
+        const {cur, isFetching, changeNav, changeSortRule, changeFilter, getList, getItems} = this.props
         e.preventDefault()
         if (!isFetching && checked != cur) {
             changeNav(checked)
             changeSortRule(0)
             changeFilter(0)
-            getList()
+            if("我填写的"==e.target.innerText)
+                 getItems()
+            else
+                 getList()
         }
     }
+
 }
 
 NavContainer.propTypes = {
@@ -56,7 +63,8 @@ NavContainer.propTypes = {
     isFetching: PropTypes.bool.isRequired,
     changeNav: PropTypes.func.isRequired,
     openFormList: PropTypes.func.isRequired,
-    getList: PropTypes.func.isRequired
+    getList: PropTypes.func.isRequired,
+    getItems: PropTypes.func.isRequired
 }
 
 const mapStateToProps = (state) => {
@@ -76,5 +84,5 @@ const mapStateToProps = (state) => {
 
 export default connect(
     mapStateToProps,
-    { changeNav, changeSortRule, changeFilter, openFormList, getList, show }
+    { changeNav,changeSortRule, changeFilter, openFormList, getList, show, getItems }
 )(NavContainer)

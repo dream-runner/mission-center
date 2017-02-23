@@ -16,8 +16,8 @@ function getFailure(message) {
     }
 }
 
-function getSuccess(pk_bo, pk_boins) {
-    let src = `${window.$ctx}/static/html/rt/browse.html?pk_bo=${pk_bo}&pk_boins=${pk_boins}`
+function getSuccess(pk_bo, pk_boins,processDefinitionId,processInstanceId) {
+    let src = `${window.$ctx}/static/html/rt/browse.html?pk_bo=${pk_bo}&pk_boins=${pk_boins}&processDefinitionId=${processDefinitionId}&processInstanceId=${processInstanceId}`
     return (dispatch) => {
         dispatch({
             type: GETFORM_SRC_SUCCESS
@@ -62,19 +62,19 @@ export function getBo(item) {
                                 let json = JSON.parse(text)
                                 let { pk_bo, pk_boins } = json
                                 if (pk_bo) {
-                                    dispatch(getSuccess(pk_bo, pk_boins))
+                                    dispatch(getSuccess(pk_bo, pk_boins,processDefinitionId,processInstanceId))
                                 } else {
-                                    dispatch(getFailure(`something error……\n${json.message}`))
+                                    dispatch(getFailure(`${json.message}`))
                                 }
                             } catch (e) {
-                                dispatch(getFailure(`something error……\n${e.message}`))
+                                dispatch(getFailure(`${e.message}`))
                             }
                         } else {
                             dispatch(getFailure('Api return nothing……'))
                         }
                     })
                 } else {
-                    dispatch(getFailure(`something error……\n${response.status} ${response.statusText}`))
+                    dispatch(getFailure(`${response.status} ${response.statusText}`))
                 }
             } )
     }

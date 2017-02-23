@@ -4,6 +4,7 @@ import map from 'lodash/map'
 import { show as formDialogShow } from '../../actions/form'
 import { show as confirmDialogShow, hide as confirmDialogHide } from '../../actions/confirm'
 import { getRandomColor } from '../../components/RandomColor'
+import  PageContainer  from '../PageContainer'
 import timeFilter from '../../filter/time'
 
 class MineContainer extends Component {
@@ -12,9 +13,12 @@ class MineContainer extends Component {
             items
         } = this.props
         return (
+        <div>
             <ul>
                 {
                     map(items, (item, i) => {
+                        if(!item.formdata)
+                            return;
                         let toolbarChildren
                         let statusClassName = ''
                         let statusText = ''
@@ -49,7 +53,7 @@ class MineContainer extends Component {
                                 statusClassName = 'complate'
                                 statusText = '已完成'
                                 try {
-                                    if (item.proInsData.id) {
+                                    if (item.proInsData&&item.proInsData.id) {
                                         timeText = `提交时间：${timeFilter(item.proInsData.historicProcessInstance.startTime)}`
                                     } else {
                                         timeText = `提交时间：${timeFilter(item.formdata.form.createTime)}`
@@ -69,6 +73,15 @@ class MineContainer extends Component {
                                     <li key={`toolbar-area-li-0-${i}`}><a href="#" onClick={this.check(item)}>查看</a></li>
                                 ]
                                 break;
+                            case '4':
+                                statusClassName = 'complate'
+                                statusText = '已保存'
+                                timeText = `创建时间：${timeFilter(item.formdata.form.createTime)}`
+                                toolbarChildren = (i) => [
+                                    <li key={`toolbar-area-li-0-${i}`}><a href="#" onClick={this.check(item)}>查看</a></li>
+                                ]
+                                break;
+
                             default:
                                 break;
                         }
@@ -98,6 +111,8 @@ class MineContainer extends Component {
                     })
                 }
             </ul>
+            <PageContainer/>
+            </div>
         )
     }
     submit (item) {

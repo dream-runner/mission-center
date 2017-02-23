@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import List from '../../components/List'
-import { getBo } from '../../actions/form'
+import { show, getBo } from '../../actions/form'
 import timeFilter from '../../filter/time'
 import map from 'lodash/map'
 
@@ -50,5 +50,5 @@ notFinishContainer.propTypes = {
 
 export default connect(
     ()=>({}),
-    { getBo }
+    { show, getBo }
 )(notFinishContainer)

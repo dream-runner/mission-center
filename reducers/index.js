@@ -8,6 +8,8 @@ import sort from './sort'
 import formList from './formList'
 import form from './form'
 import confirm from './confirm'
+import page from './page'
+import search from './search'
 
 export default combineReducers({
     nav,
@@ -16,5 +18,7 @@ export default combineReducers({
     list,
     formList,
     form,
-    confirm
+    confirm,
+    page,
+    search
 })

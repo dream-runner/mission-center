@@ -1,7 +1,22 @@
 var path = require('path')
 var webpack = require('webpack')
-var ctx = process.env.CTX_ENV ? process.env.CTX_ENV : ''
 var CopyWebpackPlugin = require('copy-webpack-plugin')
+var bufferreplace = function(buf, substr, newSubstr) {
+    if (!Buffer.isBuffer(buf)) {
+        buf = Buffer(buf);
+    }
+    var idx = buf.indexOf(substr);
+    if (~idx) {
+        if (!Buffer.isBuffer(newSubstr)) {
+            newSubstr = Buffer(newSubstr);
+        }
+        var before = buf.slice(0, idx);
+        var after = bufferreplace(buf.slice(idx + substr.length), substr, newSubstr);
+        var len = idx + newSubstr.length + after.length;
+        buf = Buffer.concat([before, newSubstr, after], len);
+    }
+    return buf;
+}
 
 module.exports = {
   devtool: 'source-map',
@@ -16,8 +31,8 @@ module.exports = {
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
-        'NODE_ENV': JSON.stringify('production'),
-        'CTX_ENV': JSON.stringify(ctx)
+        'NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+        'CTX_ENV': JSON.stringify(process.env.CTX_ENV)
       }
     }),
     new webpack.optimize.UglifyJsPlugin({
@@ -25,32 +40,22 @@ module.exports = {
         warnings: false
       }
     }),
-    new CopyWebpackPlugin([
-      {
-        from: './style/index.css',
-        to: '/Users/zhengxingcheng/work/yonyou/iweb_cloudform/iform_parent/iform_parent/design/src/main/webapp/static/css/design/mission-center.css'
+    new CopyWebpackPlugin([{
+      from: './style/index.css',
+      to: '/Users/zhengxingcheng/work/yonyou/iweb_cloudform/iform_parent/iform_parent/design/src/main/webapp/static/css/design/mission-center.css',
+        transform: function(content, path) {
+          return bufferreplace(content, 'url(../img', 'url(../../img');
+        }
       },
       {
         from: './img/**',
         to: '/Users/zhengxingcheng/work/yonyou/iweb_cloudform/iform_parent/iform_parent/design/src/main/webapp/static/'
       },
       {
-        from: {
-          glob: '**/*',
-          dot: true
-        },
-        to: '/Users/zhengxingcheng/work/yonyou/iweb_cloudform/iform_parent/iform_parent/design/src/main/webapp/static/js/design/mission-center'
+        from: './dist/*.js',
+        to: '/Users/zhengxingcheng/work/yonyou/iweb_cloudform/iform_parent/iform_parent/design/src/main/webapp/static/js/design/mission-center/'
       }
-    ],
-    {
-      ignore: [
-        {
-          glob: '**/node_modules/**/*',
-          dot: true
-        },
-        '**/.DS_Store',
-        '**/*test*'
-      ],
+    ], {
       copyUnmodified: true
     }),
     new webpack.ProvidePlugin({
@@ -64,13 +69,7 @@ module.exports = {
         loaders: [ 'babel' ],
         exclude: /node_modules/,
         include: __dirname
-    }/*,
-      {
-        test: /\.css$/,
-        exclude: /node_modules/,
-        loaders: "style!css?module&localIdentName=[hash:base64:5]&-url",
-        include: __dirname
-    },*/
+      }
     ]
   }
 }

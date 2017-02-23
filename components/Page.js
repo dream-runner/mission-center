@@ -1,25 +1,22 @@
 import React, { Component, PropTypes } from 'react'
-import map from 'lodash/map'
+import { Pagination } from 'react-bootstrap'
+import { connect } from 'react-redux'
+import { change, prepage ,nextpage } from '../actions/page'
 
 export default class Page extends Component {
     render() {
-        const { hasNext, children } = this.props
-        let node = [children]
+        let {onSelect,items,activePage} = this.props
         return (
-        	<div>{
-				[
-					children,
-					hasNext ? (<button type="button" onClick={this.nextPage.bind(this)}>加载更多</button>) : undefined
-				]
-			}</div>
-        )
-    },
-	nextPage() {
-		
-	}
-}
-
-Loading.propTypes = {
-	hasNext: propTypes.bool,
-    children: PropTypes.node
+            <Pagination
+                prev
+                next
+                first
+                last
+                bsSize="large"
+                items={items}
+                maxButtons={5}
+                activePage={activePage}
+                onSelect={onSelect} />
+        );
+    }
 }

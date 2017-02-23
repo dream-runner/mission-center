@@ -7,6 +7,11 @@
 * 启动测试服务器，开发时用的：npm start
 * 构建生产环境用的文件：npm run build
 
+### Todo
+* redux换成mobx
+* webpack升级
+* 需要编写一个output阶段修改文件的插件
+
 License
 ----
 

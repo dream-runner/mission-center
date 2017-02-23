@@ -5,6 +5,7 @@ import FilterContainer from '../FilterContainer'
 import notFinishContainer from './notFinishContainer'
 import FinishContainer from './FinishContainer'
 import MineContainer from './MineContainer'
+import SearchContainer from '../SearchContainer'
 
 const data = [
     {
@@ -44,7 +45,7 @@ class ListContainer extends Component {
         }
         return (
             <div className="row mission-center-content">
-                { hasFilter ? <FilterContainer /> : undefined }
+                { hasFilter ? <FilterContainer /> : <SearchContainer/> }
                 <Loading className={ `row  ${className}` } errorMsg={ _errorMsg } status={ _status } isFetching={ isFetching }>
                     {React.createElement(nodeClass, {items: items})}
                 </Loading>

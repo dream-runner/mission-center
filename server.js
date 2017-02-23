@@ -21,14 +21,34 @@ app.get(ctx + "/tc/curtasks", function(req, res) {
 })
 app.get(ctx + "/tc/histasks", function(req, res) {
 	setTimeout(function () {
-		res.sendFile(__dirname + '/mock/done.json')
+		res.sendFile(__dirname + '/mock/done0.json')
 	}, 2000)
 })
-app.get(ctx + "/tc/mine", function(req, res) {
+
+app.get(ctx + "/tc/getMine", function(req, res) {
   setTimeout(function () {
-    res.sendFile(__dirname + '/mock/mine.json')
+    res.sendFile(__dirname + '/mock/mine3.json')
   }, 2000)
 })
+
+app.get(ctx + "/tc/getSearchPagedItem", function(req, res) {
+  setTimeout(function () {
+    res.sendFile(__dirname + '/mock/mine3.json')
+  }, 2000)
+})
+
+app.get(ctx + "/tc/getItems", function(req, res) {
+  setTimeout(function () {
+    res.sendFile(__dirname + '/mock/items.json')
+  }, 2000)
+})
+
+app.get(ctx + "/tc/getSearchItems", function(req, res) {
+  setTimeout(function () {
+    res.sendFile(__dirname + '/mock/items.json')
+  }, 2000)
+})
+
 app.post(ctx + "/iform_ctr/iform_design_ctr/queryFormList", function(req, res) {
   setTimeout(function () {
     res.sendFile(__dirname + '/mock/formList.json')
@@ -40,6 +60,7 @@ app.get(ctx + "/tc/getbo", function(req, res) {
     res.sendFile(__dirname + '/mock/getbo.json')
   }, 2000)
 })
+
 app.listen(port, function(error) {
   if (error) {
     console.error(error)

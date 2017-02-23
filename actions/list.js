@@ -26,6 +26,7 @@ function getListSuccess(json, navKey) {
     }
 }
 
+
 export function getList() {
     return (dispatch, getState) => {
         let state = getState()
@@ -50,14 +51,14 @@ export function getList() {
 	                                dispatch(getListSuccess(json, curNavKey))
 								}
                             } catch (e) {
-                                dispatch(getListFailure(`something error……\n${e.message}`))
+                                dispatch(getListFailure(`${e.message}`))
                             }
                         } else {
                             dispatch(getListFailure('Api return nothing……'))
                         }
                     })
                 } else {
-                    dispatch(getListFailure(`something error……\n${response.status} ${response.statusText}`))
+                    dispatch(getListFailure(`${response.status} ${response.statusText}`))
                 }
             }
         )
