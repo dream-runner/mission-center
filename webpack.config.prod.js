@@ -52,7 +52,7 @@ module.exports = {
         to: '/Users/zhengxingcheng/work/yonyou/iweb_cloudform/iform_parent/iform_parent/design/src/main/webapp/static/'
       },
       {
-        from: './dist/*.js',
+        from: './dist/**',
         to: '/Users/zhengxingcheng/work/yonyou/iweb_cloudform/iform_parent/iform_parent/design/src/main/webapp/static/js/design/mission-center/'
       }
     ], {
