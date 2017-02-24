@@ -9,6 +9,12 @@ import { getList } from './actions/list'
 import App from './containers/App'
 
 let middleware = []
+let root = document.getElementById('mission-center-root')
+
+if (root === null) {
+    root = document.body.appendChild(document.createElement('div'))
+    root.setAttribute('id', 'mission-center-root')
+}
 
 if (process.env.CTX_ENV && !window.$ctx) {
     window.$ctx = process.env.CTX_ENV
@@ -43,5 +49,5 @@ render(
 	<Provider store={store}>
 	    <App />
     </Provider>,
-    document.getElementById('mission-center-root')
+    root
 )
