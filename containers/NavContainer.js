@@ -29,7 +29,7 @@ class NavContainer extends Component {
                         onTabClicked = { this.onTabClicked.bind(this) }></Tab>
                     <div className="navbar-form navbar-right">
                         <button type="button" className="btn btn-default" onClick = { show }>
-                            <i className="iconfont icon-pencil"></i> 填表单
+                             发起审批
                         </button >
                     </div>
                 </div>
@@ -44,7 +44,7 @@ class NavContainer extends Component {
             changeNav(checked)
             changeSortRule(0)
             changeFilter(0)
-            if("我填写的"==e.target.innerText)
+            if("我发起的"==e.target.innerText)
                  getItems()
             else
                  getList()

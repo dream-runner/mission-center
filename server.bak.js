@@ -14,21 +14,6 @@ app.use(webpackHotMiddleware(compiler))
 app.get("/", function(req, res) {
     res.sendFile(__dirname + '/index.html')
 })
-
-/* 新云审批接口 */
-app.get(ctx + "/process/listTodo", function(req, res){
-	res.sendFile(__dirname + '/mock/listTodo.json');
-});
-
-app.get(ctx + "/process/listCopy", function(req, res){
-	res.sendFile(__dirname + '/mock/listCopy.json');
-});
-
-app.get(ctx + "/process/listDone", function(req, res){
-	res.sendFile(__dirname + '/mock/listDone.json');
-});
-/* /新云审批接口 */
-
 app.get(ctx + "/tc/curtasks", function(req, res) {
 	setTimeout(function () {
 		res.sendFile(__dirname + '/mock/ongoing.json')

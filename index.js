@@ -24,6 +24,7 @@ if (process.env.NODE_ENV === "develop") {
     let logger = require('redux-logger')
     middleware.push(logger())
     require('bootstrap/dist/css/bootstrap.css')
+		require('./style/bootstrap-reset.css')
     require('./style/index.css')
     require('./style/loading.css')
     require('./style/iconfont/iconfont.css')
@@ -31,6 +32,7 @@ if (process.env.NODE_ENV === "develop") {
 
 if (process.env.NODE_ENV === "build") {
     require('bootstrap/dist/css/bootstrap.css')
+		require('./style/bootstrap-reset.css')
     require('./style/index.css')
     require('./style/loading.css')
     require('./style/iconfont/iconfont.css')

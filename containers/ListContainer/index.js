@@ -2,28 +2,40 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import Loading from '../../components/Loading'
 import FilterContainer from '../FilterContainer'
-import notFinishContainer from './notFinishContainer'
+import ConditionContainer from '../ConditionContainer'
+import NotFinishContainer from './notFinishContainer'
 import FinishContainer from './FinishContainer'
 import MineContainer from './MineContainer'
 import SearchContainer from '../SearchContainer'
+import CopyContainer from './copyContainer'
 
 const data = [
     {
-        tabName: '进行中',
+        tabName: '待审批',
         hasFilter: true,
         className: 'list-wrap',
-        nodeClass: notFinishContainer
+				components: ['filter-status-nonapproval','filter-sort-condition'],
+        nodeClass: NotFinishContainer
+    },
+		{
+        tabName: '抄送的',
+        hasFilter: false,
+        className: 'list-wrap',
+				components: [''],
+        nodeClass: CopyContainer
     },
     {
-        tabName: '已完成',
+        tabName: '已审批',
         hasFilter: true,
         className: 'list-wrap',
+				components: ['filter-period-condition','filter-status-condition','filter-sort-condition'],
         nodeClass: FinishContainer
     },
     {
-        tabName: '我填写',
-        hasFilter: false,
-        className: 'card-list-wrap',
+        tabName: '我发起的',
+        hasFilter: true,
+        className: 'list-wrap',
+				components: ['filter-period-condition','filter-status-mine','filter-sort-condition'],
         nodeClass: MineContainer
     }
 ]
@@ -37,21 +49,24 @@ class ListContainer extends Component {
             cur
         } = this.props
         let _errorMsg = errorMsg ? errorMsg : ''
-        let { nodeClass, className, hasFilter, tabName } = this.makeNode(cur)
+        let { nodeClass, className, hasFilter, tabName, components } = this.makeNode(cur)
         let _status
         if (!_errorMsg && !items.length) {
             _errorMsg = `还没有${tabName}的工作，喝点茶吧`
             _status = 'no-data'
         }
+
         return (
             <div className="row mission-center-content">
-                { hasFilter ? <FilterContainer /> : <SearchContainer/> }
+                { /*hasFilter ? <FilterContainer /> : <SearchContainer/>*/ }
+								{hasFilter ? <ConditionContainer components={components} /> : <div className="nav nav-tabs filter-wrap"><SearchContainer /></div>}
                 <Loading className={ `row  ${className}` } errorMsg={ _errorMsg } status={ _status } isFetching={ isFetching }>
                     {React.createElement(nodeClass, {items: items})}
                 </Loading>
             </div>
         )
     }
+
     makeNode (cur) {
         return data[cur]
     }
@@ -79,6 +94,4 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(
-    mapStateToProps
-)(ListContainer)
+export default connect(mapStateToProps)(ListContainer)

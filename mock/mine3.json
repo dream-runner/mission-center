@@ -2,7 +2,7 @@
     "data": [
         {
             "proInsData": {},
-            "status": "3",
+            "status": "1",
             "formdata": {
                 "form": {
                     "bo_name": "06201",
@@ -28,7 +28,7 @@
         },
         {
             "proInsData": {},
-            "status": "3",
+            "status": "1",
             "formdata": {
                 "form": {
                     "bo_name": "06201",

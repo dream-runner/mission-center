@@ -8,18 +8,23 @@ import map from 'lodash/map'
 
 const initialState = {
     items: [{
-        text: '进行中',
+        text: '待审批',
         key: 'curtasks',
         needTotal: true,
         total: 0
     }, {
-        text: '已完成',
+        text: '抄送的',
+        key: 'copytasks',
+        needTotal: true,
+        total: 0
+    }, {
+        text: '已审批',
         key: 'histasks',
         needTotal: false,
         total: 0
     }, {
-        text: '我填写的',
-        key: 'mine',
+        text: '我发起的',
+        key: 'getMine',
         needTotal: false,
         total: 0
     }],

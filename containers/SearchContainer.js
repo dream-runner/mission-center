@@ -3,27 +3,21 @@ import { connect } from 'react-redux'
 import { changeText } from '../actions/search'
 import { search } from '../actions/page'
 
-
 class SearchContainer extends Component {
     render() {
-        const {          
-            changeText,
-            search,
-            searchText
-        } = this.props
+        const { changeText, search, searchText } = this.props
         return (
-                    <div className="nav nav-tabs filter-wrap ">
-                     <div className="search-bar">
-                        <input type="text" name="sText" className="search-text" onChange={this.handleChange.bind(this)} />
-                        <button type="button" className="search-btn" onClick = {this.onSearchClicked.bind(this)}>
-                            <i className="iconfont icon-sousuo"></i> 搜索
-                        </button >
-                     </div> 
-                    </div>
+	         <div className="search-bar">
+						 	<form action="#" method="get" onSubmit={this.onSearchClicked.bind(this)}>
+	            	<input type="text" name="sText" className="search-text" onChange={this.handleChange.bind(this)} placeholder="搜索" />
+								<span className="btn-search"><i className="iconfont icon-sousuo"></i></span>
+							</form>
+	         </div>
         )
     }
 
     onSearchClicked(e) {
+				e.preventDefault();
         const {searchText, search} = this.props
         search(searchText);
      }
@@ -57,5 +51,3 @@ export default connect(
     mapStateToProps,
     {changeText,search}
 )(SearchContainer)
-
-

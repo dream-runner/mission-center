@@ -10,6 +10,7 @@ import form from './form'
 import confirm from './confirm'
 import page from './page'
 import search from './search'
+import dropdown from './dropdown'
 
 export default combineReducers({
     nav,
@@ -20,5 +21,6 @@ export default combineReducers({
     form,
     confirm,
     page,
-    search
+    search,
+		dropdown
 })

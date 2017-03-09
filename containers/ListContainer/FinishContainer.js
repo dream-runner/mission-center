@@ -8,40 +8,75 @@ import filter from 'lodash/filter'
 
 class FinishContainer extends Component {
     render() {
-        const { items } = this.props
-        let node = map(filter(items, (item) => {
-			return item.deleteReason &&
-				item.deleteReason != "delete" &&
-				item.historicProcessInstance &&
-				item.historicProcessInstance.deleteReason != "ACTIVITI_DELETED"
-		}), (item, i) => {
-            let {
-                    name,
-                    processDefinitionName,
-                    historicProcessInstance,
-                    startTime
-                } = item
-            return (
-                <div key={i} className="item">
-                    <div className="item-info">
-                        <h3>
-                            <span className="link">{`【${name}】`}</span>
-                            {processDefinitionName}
-                        </h3>
-                        <span className="item-info-cell">{`分配时间:${startTime && timeFilter(startTime) || ''}`}</span>
-                        <span className="item-info-cell">{`提交时间:${historicProcessInstance && historicProcessInstance.startTime && timeFilter(historicProcessInstance.startTime) || ''}`}</span>
-                        <span className="item-info-cell">{`提交人:${(historicProcessInstance && historicProcessInstance.startParticipant && historicProcessInstance.startParticipant.name)||''}`}</span>
-                    </div>
-                    <div className="button-area">
-                        <button type="button" className="btn btn-default" onClick={this.clickHandler(item).bind(this)}>查看</button>
-                    </div>
-                </div>
-            )
-        })
-        return (
-            <List>{node}</List>
-        )
+			const { items } = this.props
+			let node = map(items, (item, i) => {
+					let {historicProcessInstance, dueDate, startTime, endTime} = item;
+					let processStatusObj = {
+						processFinished: item.processFinished,
+						finished: item.finished,
+						state: item.state,
+						deleteReason: item.deleteReason
+					}
+					// let uname = (historicProcessInstance && historicProcessInstance.startParticipant && historicProcessInstance.startParticipant.name)||'';
+					let processInstance = historicProcessInstance;
+					let processCurName = processInstance.startParticipant && processInstance.startParticipant.name ? processInstance.startParticipant.name : '';
+					let processTitle = processInstance.name || '';
+					let processkeyFeature = this.getProcessKeyFeature(processInstance);
+					let processStatus = this.getProcessStatus(processInstance);
+					let processCreateTime = processInstance.startParticipant && processInstance.startTime ? new Date(processInstance.startTime).format('yyyy-MM-dd HH:mm') :  '';
+					let processDueDate = dueDate && dueDate < new Date() ? <span className="duedate">逾期</span> : '';
+					let processHandlerText = `当前环节：`;
+					return (
+							<div key={i} className="item">
+									<div className="item-info">
+										<div className="l">
+											<span className="avatar">{processCurName.substr(-2,2)}</span>
+										</div>
+										<div className="m">
+											<div>
+												<h3>{processTitle}{processDueDate}</h3>
+												{processkeyFeature}
+											</div>
+										</div>
+										<div className="r">
+											<p>
+												<span className="item-info-cell">{`提交时间：${processCreateTime}`}</span>
+												<span className="item-info-cell">{processHandlerText}</span>
+											</p>
+										</div>
+									</div>
+									<div className="item-status">
+											{processStatus}
+											{/*<button type="button" className="btn btn-default" onClick={this.clickHandler(item).bind(this)}>立即处理</button>*/}
+									</div>
+							</div>
+					)
+			})
+
+			return (<List>{node}</List>)
     }
+		getProcessKeyFeature(processInstance){
+			let str = '';
+			if(processInstance.keyFeature){
+				str = <ul className="remark-list"></ul>;
+			}
+			return str;
+		}
+		getProcessStatus(processInstance){
+			let str = '';
+			if(processInstance.endTime){
+				if(processInstance.deleteReason === 'stop'){
+					str = <span className="btn-tip btn-tip-stop">已终止</span>;
+				} else if(processInstance.deleteReason) {
+					str = <span className="btn-tip btn-tip-done">已完成</span>;
+				} else {
+					str = <span className="btn-tip btn-tip-doing">进行中</span>;
+				}
+			} else {
+				str = <span className="btn-tip btn-tip-doing">进行中</span>;
+			}
+			return str;
+		}
     clickHandler(item) {
         return (e) => {
             e.preventDefault()
