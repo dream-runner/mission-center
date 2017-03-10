@@ -1,6 +1,4 @@
-import {
-    CHANGE_FILTER
-} from '../constants/ActionTypes'
+import { CHANGE_FILTER } from '../constants/ActionTypes'
 
 export function changeFilter(filterId) {
     return {

@@ -20,7 +20,7 @@ app.get(ctx + "/process/listTodo", function(req, res){
 	res.sendFile(__dirname + '/mock/listTodo.json');
 });
 
-app.get(ctx + "/process/listCopy", function(req, res){
+app.get(ctx + "/tc/listcopy", function(req, res){
 	res.sendFile(__dirname + '/mock/listCopy.json');
 });
 

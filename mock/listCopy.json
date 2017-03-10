@@ -1,29 +1,25 @@
 {
-  "success" : true,
-  "msg" : null,
-  "data" : {
-    "total" : 1,
-    "start" : 0,
-    "size" : 1,
-    "sort" : "createTime",
-    "order" : "desc",
-    "list" : [ {
-      "id" : "cdc2a1df-fcba-11e6-b98a-067a8600043d",
-      "taskId" : "b634d10d-fcba-11e6-b98a-067a8600043d",
-      "procssInstId" : "b6325ffa-fcba-11e6-b98a-067a8600043d",
-      "title" : "2271",
-      "description" : "227A",
-      "taskassignee" : null,
-      "copyUser" : null,
-      "createTime" : 1488178992000,
-      "modifyTime" : 1488178968000,
-      "tenantId" : "s0cm9fd5",
-      "category" : null,
-      "taskStatue" : null,
-      "historicProcessInstanceResponse" : null,
-      "taskStatus" : "0"
-    } ]
-  },
-  "costTime" : -1,
-  "otherData" : null
+  "data" : [ {
+    "errcode" : 0,
+    "errmsg" : "ok",
+    "id" : "cdc2a1df-fcba-11e6-b98a-067a8600043d",
+    "url" : null,
+    "tenantId" : "s0cm9fd5",
+    "revision" : 0,
+    "taskStatus" : "0",
+    "taskId" : "b634d10d-fcba-11e6-b98a-067a8600043d",
+    "procssInstId" : "b6325ffa-fcba-11e6-b98a-067a8600043d",
+    "title" : "2271",
+    "description" : "227A",
+    "taskAssignee" : "f4fde0db-278c-4d23-a657-e018a21b4a81",
+    "copyUserId" : "f4fde0db-278c-4d23-a657-e018a21b4a81",
+    "createTime" : "2017-02-27T15:03:12.000+08:00",
+    "modifyTime" : "2017-02-27T15:02:48.000+08:00",
+    "historicProcessInstance" : null
+  } ],
+  "total" : 1,
+  "start" : 0,
+  "sort" : "createTime",
+  "order" : "desc",
+  "size" : 1
 }

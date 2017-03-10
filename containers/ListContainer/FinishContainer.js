@@ -10,47 +10,41 @@ class FinishContainer extends Component {
     render() {
 			const { items } = this.props
 			let node = map(items, (item, i) => {
-					let {historicProcessInstance, dueDate, startTime, endTime} = item;
-					let processStatusObj = {
-						processFinished: item.processFinished,
-						finished: item.finished,
-						state: item.state,
-						deleteReason: item.deleteReason
-					}
-					// let uname = (historicProcessInstance && historicProcessInstance.startParticipant && historicProcessInstance.startParticipant.name)||'';
-					let processInstance = historicProcessInstance;
-					let processCurName = processInstance.startParticipant && processInstance.startParticipant.name ? processInstance.startParticipant.name : '';
-					let processTitle = processInstance.name || '';
-					let processkeyFeature = this.getProcessKeyFeature(processInstance);
-					let processStatus = this.getProcessStatus(processInstance);
-					let processCreateTime = processInstance.startParticipant && processInstance.startTime ? new Date(processInstance.startTime).format('yyyy-MM-dd HH:mm') :  '';
-					let processDueDate = dueDate && dueDate < new Date() ? <span className="duedate">逾期</span> : '';
-					let processHandlerText = `当前环节：`;
-					return (
-							<div key={i} className="item">
-									<div className="item-info">
-										<div className="l">
-											<span className="avatar">{processCurName.substr(-2,2)}</span>
-										</div>
-										<div className="m">
-											<div>
-												<h3>{processTitle}{processDueDate}</h3>
-												{processkeyFeature}
-											</div>
-										</div>
-										<div className="r">
-											<p>
-												<span className="item-info-cell">{`提交时间：${processCreateTime}`}</span>
-												<span className="item-info-cell">{processHandlerText}</span>
-											</p>
+				let {historicProcessInstance, dueDate, createTime} = item;
+				// let uname = (historicProcessInstance && historicProcessInstance.startParticipant && historicProcessInstance.startParticipant.name)||'';
+				let processInstance = historicProcessInstance;
+				let processCurName = processInstance.startParticipant && processInstance.startParticipant.name ? <span className="uname">{processInstance.startParticipant.name.substr(-2,2)}</span> : '';
+				let processCurAvatar = processInstance.startParticipant && processInstance.startParticipant.pic ? <span className="avatar"><img src={processInstance.startParticipant.pic} alt={processInstance.startParticipant.name} /></span> : '';
+				let processTitle = processInstance.name || '';
+				let processkeyFeature = this.getProcessKeyFeature(processInstance);
+				let processStatus = this.getProcessStatus(processInstance);
+				let processCreateTime = new Date(processInstance.startTime).format('yyyy-MM-dd HH:mm');
+				let processDueDate = dueDate && dueDate < new Date() ? <span className="duedate">逾期</span> : '';
+				let processHandlerText = `当前环节：`;
+				return (
+					<div key={i} className="item">
+							<div className="box" onClick={this.showDetail(item)}>
+								<div className="item-info">
+									<div className="l">
+										{processCurName}
+										{processCurAvatar}
+									</div>
+									<div className="m">
+										<div>
+											<h3>{processTitle}{processDueDate}</h3>
+											{processkeyFeature}
 										</div>
 									</div>
-									<div className="item-status">
-											{processStatus}
-											{/*<button type="button" className="btn btn-default" onClick={this.clickHandler(item).bind(this)}>立即处理</button>*/}
+									<div className="r">
+										<span className="item-info-cell">{`提交时间：${processCreateTime}`}</span>
 									</div>
+								</div>
+								<div className="item-status">
+										{processStatus}
+								</div>
 							</div>
-					)
+					</div>
+				)
 			})
 
 			return (<List>{node}</List>)
@@ -77,7 +71,7 @@ class FinishContainer extends Component {
 			}
 			return str;
 		}
-    clickHandler(item) {
+    showDetail(item) {
         return (e) => {
             e.preventDefault()
             this.props.getBo(item)

@@ -44,9 +44,9 @@ class NavContainer extends Component {
             changeNav(checked)
             changeSortRule(0)
             changeFilter(0)
-            if("我发起的"==e.target.innerText)
-                 getItems()
-            else
+            // if("我发起的"==e.target.innerText)
+            //      getItems()
+            // else
                  getList()
         }
     }

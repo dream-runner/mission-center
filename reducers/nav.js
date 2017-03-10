@@ -14,7 +14,7 @@ const initialState = {
         total: 0
     }, {
         text: '抄送的',
-        key: 'copytasks',
+        key: 'listcopy',
         needTotal: true,
         total: 0
     }, {

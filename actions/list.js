@@ -4,7 +4,7 @@ import {
     GETLIST_FAILURE
 } from '../constants/ActionTypes'
 import { getCurNavKey } from './nav'
-import { getCurFilterKey } from './filter'
+import { getFilterDueDateOverdueKey, getFilterDatetimePeriodKey, getFilterListDoneStatusKey, getFilterListMineStatusKey } from './dropdown'
 import { getCurSortKey } from './sort'
 
 function getListFailure(message) {
@@ -29,14 +29,34 @@ function getListSuccess(json, navKey) {
 
 export function getList() {
     return (dispatch, getState) => {
-        let state = getState()
-        let curNavKey = dispatch(getCurNavKey())
-        let curFilterKey = dispatch(getCurFilterKey())
-        let curSortKey = dispatch(getCurSortKey())
+        let state = getState();
+        let curNavKey = dispatch(getCurNavKey());
+        let curSortKey = dispatch(getCurSortKey());
+				let filterDueDateOverdueKey, filterDatetimePeriodKey, filterListDoneStatusKey, filterListMineStatusKey, queryStr;
+				switch(state.dropdown.dropdownName){
+					case 'filterDueDateOverdue':
+						filterDueDateOverdueKey = dispatch(getFilterDueDateOverdueKey());
+						queryStr = filterDueDateOverdueKey === 'all' ? '' : `taskDue=${filterDueDateOverdueKey}&`;
+						break;
+					case 'filterDatetimePeriod':
+						filterDatetimePeriodKey = dispatch(getFilterDatetimePeriodKey());
+						break;
+					case 'filterListDoneStatus':
+						filterListDoneStatusKey = dispatch(getFilterListDoneStatusKey());
+						break;
+					case 'filterListMineStatus':
+						filterListMineStatusKey = dispatch(getFilterListMineStatusKey());
+						break;
+					default:
+						filterDueDateOverdueKey = dispatch(getFilterDueDateOverdueKey());
+						queryStr = filterDueDateOverdueKey === 'all' ? '' : `taskDue=${filterDueDateOverdueKey}&`;
+						break;
+				}
+
         dispatch({
             type: GETLIST_REQUEST
         })
-        return fetch(`${window.$ctx}/tc/${curNavKey}?filter=${curFilterKey}&sort=${curSortKey}&_=${Date.now()}`, {
+        return fetch(`${window.$ctx}/tc/${curNavKey}?${queryStr}sort=${curSortKey}&_=${Date.now()}`, {
                 credentials: 'include',
 				cache: 'no-cache'
             }).then( response => {

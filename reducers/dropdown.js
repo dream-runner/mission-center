@@ -1,8 +1,9 @@
-import { SHOW_MENU, HIDE_MENU } from '../constants/ActionTypes'
+import { SHOW_MENU, HIDE_MENU, CHANGE_DROPDOWN_CHECKED } from '../constants/ActionTypes'
 import guid from 'angular-uid'
 
 const initialState = {
-		"filter-status-nonapproval": {
+		"dropdownName": '',
+		"filterDueDateOverdue": {
 			key: guid(),
 			remark: '待审批筛选',
 			cur: 0,
@@ -12,32 +13,32 @@ const initialState = {
 	        key: 'all'
 	    }, {
 	        text: '逾期',
-	        key: 'overdue'
+	        key: 'dueDateoverdue'
 	    }]
 		},
-		"filter-period-condition": {
+		"filterDatetimePeriod": {
 			key: guid(),
 			remark: '根据时段筛选',
 			cur: 0,
 	    isOpen: false,
 			options: [{
 	        text: '本周',
-	        key: 'curr-week'
+	        key: 'thisWeek'
 	    }, {
 	        text: '上周',
-	        key: 'prev-week'
+	        key: 'preWeek'
 	    }, {
 	        text: '本月',
-	        key: 'curr-month'
+	        key: 'thisMonth'
 	    }, {
 					text: '上月',
-					key: 'prev-month'
+					key: 'preMonth'
 			}, {
 	        text: '全部',
 	        key: 'all'
 	    }]
 		},
-		"filter-status-condition": {
+		"filterListDoneStatus": {
 			key: guid(),
 			remark: '根据状态筛选',
 			cur: 0,
@@ -56,7 +57,7 @@ const initialState = {
 	        key: 'stop'
 	    }]
 		},
-		"filter-status-mine": {
+		"filterListMineStatus": {
 			key: guid(),
 			remark: '我发起的筛选',
 			cur: 0,
@@ -97,15 +98,30 @@ function toggleOpen(state, action) {
     }
 }
 
+function setDropdownChecked(state, action) {
+	switch (action.type) {
+			case CHANGE_DROPDOWN_CHECKED:
+					if (state == action.checked) {
+							return state
+					}
+					return action.checked
+			default:
+					return state
+	}
+}
+
 export default function dropdown(state = initialState, action) {
-	let name = action.name;
+	let name = action.name, dropdownName = '';
 	if(name && state[name]){
+		dropdownName = name;
 		state[name].isOpen = toggleOpen(state[name], action);
+		state[name].cur = setDropdownChecked(state[name].cur, action);
 	}
   return {
-		"filter-status-nonapproval": state["filter-status-nonapproval"],
-		"filter-period-condition": state["filter-period-condition"],
-		"filter-status-condition": state["filter-status-condition"],
-		"filter-status-mine": state["filter-status-mine"]
+		"dropdownName": dropdownName,
+		"filterDueDateOverdue": state["filterDueDateOverdue"],
+		"filterDatetimePeriod": state["filterDatetimePeriod"],
+		"filterListDoneStatus": state["filterListDoneStatus"],
+		"filterListMineStatus": state["filterListMineStatus"]
 	};
 }

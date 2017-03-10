@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Tab from '../components/Tab';
-import { toggleDropdown } from '../actions/dropdown';
+import { toggleDropdown, setDropdownChecked } from '../actions/dropdown';
 import { getList } from '../actions/list';
 
 class DropdownContainer extends Component {
@@ -26,12 +26,13 @@ class DropdownContainer extends Component {
   }
 
 	onTabClicked (e, checked) {
-			const {cur, isFetching, changeSortRule, toggleDropdown, getList, name} = this.props
+			const {cur, isFetching, setDropdownChecked, toggleDropdown, getList, name} = this.props
 			e.preventDefault()
 			e.stopPropagation()
 			if (!isFetching && checked != cur) {
-					toggleDropdown(name)
-					getList()
+					setDropdownChecked(name, checked);
+					toggleDropdown(name);
+					getList();
 			}
 	}
 }
@@ -45,4 +46,4 @@ function mapStateToProps(state) {
 	};
 }
 
-export default connect(mapStateToProps, {toggleDropdown, getList})(DropdownContainer);
+export default connect(mapStateToProps, {toggleDropdown, setDropdownChecked, getList})(DropdownContainer);

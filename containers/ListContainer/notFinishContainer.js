@@ -12,7 +12,8 @@ class notFinishContainer extends Component {
         let node = map(items, (item, i) => {
             let {processInstance, dueDate, createTime} = item;
 						// let uname = (historicProcessInstance && historicProcessInstance.startParticipant && historicProcessInstance.startParticipant.name)||'';
-						let processCurName = processInstance.startParticipant && processInstance.startParticipant.name ? processInstance.startParticipant.name : '';
+						let processCurName = processInstance.startParticipant && processInstance.startParticipant.name ? <span className="uname">{processInstance.startParticipant.name.substr(-2,2)}</span> : '';
+						let processCurAvatar = processInstance.startParticipant && processInstance.startParticipant.pic ? <span className="avatar"><img src={processInstance.startParticipant.pic} alt={processInstance.startParticipant.name} /></span> : '';
 						let processTitle = processInstance.name || '';
 						let processkeyFeature = this.getProcessKeyFeature(processInstance);
 						let processStatus = this.getProcessStatus(processInstance);
@@ -23,7 +24,8 @@ class notFinishContainer extends Component {
                     <div className="box" onClick={this.showDetail(item)}>
 											<div className="item-info">
 												<div className="l">
-													<span className="avatar">{processCurName.substr(-2,2)}</span>
+													{processCurName}
+													{processCurAvatar}
 												</div>
 												<div className="m">
 													<div>
