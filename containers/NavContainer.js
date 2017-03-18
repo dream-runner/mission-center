@@ -7,7 +7,7 @@ import { changeFilter } from '../actions/filter'
 import { getList } from '../actions/list'
 import { getItems } from '../actions/page'
 import { show } from '../actions/formList'
-
+import { initDropdownIndex } from '../actions/dropdown'
 
 class NavContainer extends Component {
     render() {
@@ -38,12 +38,13 @@ class NavContainer extends Component {
     }
 
     onTabClicked (e, checked) {
-        const {cur, isFetching, changeNav, changeSortRule, changeFilter, getList, getItems} = this.props
+        const {cur, isFetching, changeNav, changeSortRule, changeFilter, getList, getItems, initDropdownIndex} = this.props
         e.preventDefault()
         if (!isFetching && checked != cur) {
             changeNav(checked)
             changeSortRule(0)
             changeFilter(0)
+						initDropdownIndex()
             // if("我发起的"==e.target.innerText)
             //      getItems()
             // else
@@ -84,5 +85,5 @@ const mapStateToProps = (state) => {
 
 export default connect(
     mapStateToProps,
-    { changeNav,changeSortRule, changeFilter, openFormList, getList, show, getItems }
+    { changeNav,changeSortRule, changeFilter, openFormList, getList, show, getItems, initDropdownIndex }
 )(NavContainer)

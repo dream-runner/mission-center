@@ -17,7 +17,7 @@ class FinishContainer extends Component {
 				let processCurAvatar = processInstance.startParticipant && processInstance.startParticipant.pic ? <span className="avatar"><img src={processInstance.startParticipant.pic} alt={processInstance.startParticipant.name} /></span> : '';
 				let processTitle = processInstance.name || '';
 				let processkeyFeature = this.getProcessKeyFeature(processInstance);
-				let processStatus = this.getProcessStatus(processInstance);
+				let processStatus = this.getProcessStatus(item);
 				let processCreateTime = new Date(processInstance.startTime).format('yyyy-MM-dd HH:mm');
 				let processDueDate = dueDate && dueDate < new Date() ? <span className="duedate">逾期</span> : '';
 				let processHandlerText = `当前环节：`;
@@ -49,22 +49,28 @@ class FinishContainer extends Component {
 
 			return (<List>{node}</List>)
     }
+
 		getProcessKeyFeature(processInstance){
-			let str = '';
-			if(processInstance.keyFeature){
-				str = <ul className="remark-list"></ul>;
+			let str = null, list = null, keyFeatureStr = processInstance.keyFeature;
+			try{list = JSON.parse(processInstance.keyFeature);}catch(e){}
+			if(list && Object.prototype.toString.call(list) == '[object Array]' ){
+				str = list.map((item,index) =>{
+					return <li key={index}>{item.key}:{item.value}</li>
+				});
 			}
-			return str;
+			return <ul className="remark-list">{str}</ul>;
 		}
-		getProcessStatus(processInstance){
+		getProcessStatus(processMainInfo){
+			// 已审批中的状态逻辑(主流程)：
+			// 已完成 finished=true且deleteReason=null
+			// 已终止 finished=true且deleteReason!=null
+			// 进行中 finished=false
 			let str = '';
-			if(processInstance.endTime){
-				if(processInstance.deleteReason === 'stop'){
+			if(processMainInfo.finished){
+				if(processMainInfo.deleteReason){
 					str = <span className="btn-tip btn-tip-stop">已终止</span>;
-				} else if(processInstance.deleteReason) {
-					str = <span className="btn-tip btn-tip-done">已完成</span>;
 				} else {
-					str = <span className="btn-tip btn-tip-doing">进行中</span>;
+					str = <span className="btn-tip btn-tip-done">已完成</span>;
 				}
 			} else {
 				str = <span className="btn-tip btn-tip-doing">进行中</span>;

@@ -14,7 +14,7 @@ const data = [
         tabName: '待审批',
         hasFilter: true,
         className: 'list-wrap',
-				components: ['filterDueDateOverdue','filter-sort-condition'],
+				components: ['filterDueDateOverdue','filterTaskDate','filterCategoryIds'/*,'filter-sort-condition'*/],
         nodeClass: NotFinishContainer
     },
 		{
@@ -28,14 +28,14 @@ const data = [
         tabName: '已审批',
         hasFilter: true,
         className: 'list-wrap',
-				components: ['filterDatetimePeriod','filterListDoneStatus','filter-sort-condition'],
+				components: ['filterListDoneStatus','filterTaskDate','filterCategoryIds'/*,'filter-sort-condition'*/],
         nodeClass: FinishContainer
     },
     {
         tabName: '我发起的',
-        hasFilter: true,
+        hasFilter: false,
         className: 'list-wrap',
-				components: ['filterDatetimePeriod','filterListMineStatus','filter-sort-condition'],
+				components: [''],
         nodeClass: MineContainer
     }
 ]

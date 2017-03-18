@@ -6,6 +6,7 @@ import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
 import reducer from './reducers'
 import { getList } from './actions/list'
+import { getCategory } from './actions/dropdown'
 import App from './containers/App'
 
 let middleware = []
@@ -19,6 +20,7 @@ if (root === null) {
 if (process.env.CTX_ENV && !window.$ctx) {
     window.$ctx = process.env.CTX_ENV
 }
+
 
 if (process.env.NODE_ENV === "develop") {
     let logger = require('redux-logger')
@@ -45,7 +47,8 @@ const store = createStore(
     applyMiddleware(...middleware)
 )
 
-store.dispatch(getList())
+store.dispatch(getList());
+store.dispatch(getCategory());
 
 render(
 	<Provider store={store}>

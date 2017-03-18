@@ -42,18 +42,18 @@ module.exports = {
     }),
     new CopyWebpackPlugin([{
       from: './style/index.css',
-      to: '/Users/zhengxingcheng/work/yonyou/iweb_cloudform/iform_parent/iform_parent/design/src/main/webapp/static/css/design/mission-center.css',
+      to: '/Users/yihan/www/runtimeapp/iweb_cloudform/iform_parent/iform_parent/design/src/main/webapp/static/css/design/mission-center.css',
         transform: function(content, path) {
-          return bufferreplace(content, 'url(../img', 'url(../../img');
+          return bufferreplace(content, "url('../img", "url('../../img");
         }
       },
       {
         from: './img/**',
-        to: '/Users/zhengxingcheng/work/yonyou/iweb_cloudform/iform_parent/iform_parent/design/src/main/webapp/static/'
+        to: '/Users/yihan/www/runtimeapp/iweb_cloudform/iform_parent/iform_parent/design/src/main/webapp/static/'
       },
       {
         from: './dist/**',
-        to: '/Users/zhengxingcheng/work/yonyou/iweb_cloudform/iform_parent/iform_parent/design/src/main/webapp/static/js/design/mission-center/'
+        to: '/Users/yihan/www/runtimeapp/iweb_cloudform/iform_parent/iform_parent/design/src/main/webapp/static/js/design/mission-center/'
       }
     ], {
       copyUnmodified: true

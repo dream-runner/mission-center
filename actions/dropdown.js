@@ -1,31 +1,69 @@
-import { CHANGE_DROPDOWN_CHECKED, CHANGE_SORT, SHOW_MENU, HIDE_MENU } from '../constants/ActionTypes'
+import { CHANGE_DROPDOWN_CHECKED, CHANGE_DROPDOWN_INIT, CHANGE_SORT, SHOW_MENU, HIDE_MENU } from '../constants/ActionTypes'
+import { GETCATEGORY_REQUEST, GETCATEGORY_SUCCESS, GETCATEGORY_FAILURE } from '../constants/ActionTypes';
+import { getCurNavKey } from './nav';
+import map from 'lodash/map';
 
-export function getFilterDueDateOverdueKey() {
-	return (dispatch, getState) => {
-    let state = getState();
-		return state.dropdown['filterDueDateOverdue'].options[state.dropdown['filterDueDateOverdue'].cur].key;
-  }
+function getCategoryFailure(message) {
+    return {
+        type: GETCATEGORY_FAILURE,
+        message
+    }
 }
 
-export function getFilterDatetimePeriodKey() {
-	return (dispatch, getState) => {
-    let state = getState();
-		return state.dropdown['filterDatetimePeriod'].options[state.dropdown['filterDatetimePeriod'].cur].key;
-  }
+function getCategorySuccess(json, navKey) {
+    let data = [{key: 'all', text: '全部类型'}];
+		map(json,function(item,index){
+			data.push({key: item.id, text: item.name});
+		});
+    return (dispatch) => {
+        dispatch({
+            type: GETCATEGORY_SUCCESS,
+            data,
+            navKey
+        })
+    }
 }
 
-export function getFilterListDoneStatusKey() {
-	return (dispatch, getState) => {
-    let state = getState();
-		return state.dropdown['filterListDoneStatus'].options[state.dropdown['filterListDoneStatus'].cur].key;
-  }
+export function getCategory() {
+		let curNavKey = getCurNavKey();
+    return (dispatch, getState) => {
+        let state = getState();
+        dispatch({type: GETCATEGORY_REQUEST});
+
+        return fetch(`${window.$ctx}/tc/category?_=${Date.now()}`, {
+        	credentials: 'include',
+					cache: 'no-cache'
+        }).then( response => {
+					if (response.ok) {
+					    response.text().then(text => {
+				        if (text) {
+			            try {
+		                let json = JSON.parse(text)
+										if (json.status == 0) {
+											dispatch(getCategoryFailure(json.message))
+										} else {
+										  dispatch(getCategorySuccess(json, curNavKey))
+										}
+				          } catch (e) {
+				              dispatch(getCategoryFailure(`${e.message}`))
+				          }
+					      } else {
+				            dispatch(getCategoryFailure('Api return nothing……'))
+				        }
+					    })
+					} else {
+					    dispatch(getCategoryFailure(`${response.status} ${response.statusText}`))
+					}
+        }
+      )
+    }
 }
 
-export function getFilterListMineStatusKey() {
+export function getFilterDropdownKey(name){
 	return (dispatch, getState) => {
-		let state = getState();
-		return state.dropdown['filterListMineStatus'].options[state.dropdown['filterListMineStatus'].cur].key;
-	}
+    let state = getState();
+		return state.dropdown[name].options[state.dropdown[name].cur].key;
+  }
 }
 
 export function setDropdownChecked(name, checked){
@@ -34,6 +72,12 @@ export function setDropdownChecked(name, checked){
 		name,
 		checked
 	};
+}
+
+export function initDropdownIndex(){
+	return {
+		type: CHANGE_DROPDOWN_INIT
+	}
 }
 
 export function toggleDropdown(name) {

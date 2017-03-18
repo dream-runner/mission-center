@@ -12,11 +12,11 @@ class MineContainer extends Component {
 		render() {
 			const { items } = this.props
 			let node = map(items, (item, i) => {
-				let {startParticipant, name, dueDate, startTime} = item;
+				let {startParticipant, name, dueDate, startTime, icon} = item;
 				// let uname = (historicProcessInstance && historicProcessInstance.startParticipant && historicProcessInstance.startParticipant.name)||'';
 				let processInstance = item;
-				let processCurName = processInstance.startParticipant && processInstance.startParticipant.name ? <span className="uname">{processInstance.startParticipant.name.substr(-2,2)}</span> : '';
-				let processCurAvatar = processInstance.startParticipant && processInstance.startParticipant.pic ? <span className="avatar"><img src={processInstance.startParticipant.pic} alt={processInstance.startParticipant.name} /></span> : '';
+				let processCurName = '';
+				let processCurAvatar = icon ? <span className={"avatar avatar-"+icon}></span> : <span className={"avatar avatar-icon-1"}></span>;
 				let processTitle = name || '';
 				let processkeyFeature = this.getProcessKeyFeature(processInstance);
 				let processStatus = this.getProcessStatus(processInstance);
@@ -51,11 +51,14 @@ class MineContainer extends Component {
 			return (<List>{node}</List>)
     }
 		getProcessKeyFeature(processInstance){
-			let str = '';
-			if(processInstance.keyFeature){
-				str = <ul className="remark-list"></ul>;
+			let str = null, list = null, keyFeatureStr = processInstance.keyFeature;
+			try{list = JSON.parse(processInstance.keyFeature);}catch(e){}
+			if(list && Object.prototype.toString.call(list) == '[object Array]' ){
+				str = list.map((item,index) =>{
+					return <li key={index}>{item.key}:{item.value}</li>
+				});
 			}
-			return str;
+			return <ul className="remark-list">{str}</ul>;
 		}
 		getProcessStatus(processInstance){
 			let str = '';

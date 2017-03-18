@@ -24,11 +24,10 @@ class DropdownContainer extends Component {
 			</li>
     )
   }
-
 	onTabClicked (e, checked) {
 			const {cur, isFetching, setDropdownChecked, toggleDropdown, getList, name} = this.props
-			e.preventDefault()
-			e.stopPropagation()
+			e.preventDefault();
+			e.stopPropagation();
 			if (!isFetching && checked != cur) {
 					setDropdownChecked(name, checked);
 					toggleDropdown(name);

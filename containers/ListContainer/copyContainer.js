@@ -9,23 +9,27 @@ class copyContainer extends Component {
 	render() {
 			const { items } = this.props
 			let node = map(items, (item, i) => {
-					let {processInstance, dueDate, createTime} = item;
-					// let uname = (historicProcessInstance && historicProcessInstance.startParticipant && historicProcessInstance.startParticipant.name)||'';
-					let processCurName = processInstance.startParticipant && processInstance.startParticipant.name ? processInstance.startParticipant.name : '';
-					let processTitle = processInstance.name || '';
-					let processkeyFeature = this.getProcessKeyFeature(processInstance);
-					let processStatus = this.getProcessStatus(processInstance);
-					let processCreateTime = new Date(createTime).format('yyyy-MM-dd HH:mm');
-					let processDueDate = dueDate && dueDate < new Date() ? <span className="duedate">逾期</span> : '';
+				let {title, historicProcessInstance, taskStatus, dueDate, createTime} = item;
+				let processInstance = historicProcessInstance;
+				let processCurRead = taskStatus == '0' ? <span className="unread"><i>未读</i></span> : <span className="read"><i>已读</i></span>
+				let processCurName = processInstance.startParticipant && processInstance.startParticipant.name ? <span className="uname">{processInstance.startParticipant.name.substr(-2,2)}</span> : '';
+				let processCurAvatar = processInstance.startParticipant && processInstance.startParticipant.pic ? <span className="avatar"><img src={processInstance.startParticipant.pic} alt={processInstance.startParticipant.name} /></span> : '';
+				let processTitle = title || '';
+				let processkeyFeature = this.getProcessKeyFeature(processInstance);
+				let processStatus = this.getProcessStatus(processInstance);
+				let processCreateTime = new Date(createTime).format('yyyy-MM-dd HH:mm');
 					return (
 							<div key={i} className="item">
+								<div className="box" onClick={this.showDetail(item)}>
 									<div className="item-info">
 										<div className="l">
-											<span className="avatar">{processCurName.substr(-2,2)}</span>
+										{processCurRead}
+										{processCurName}
+										{processCurAvatar}
 										</div>
 										<div className="m">
 											<div>
-												<h3>{processTitle}{processDueDate}</h3>
+												<h3>{processTitle}</h3>
 												{processkeyFeature}
 											</div>
 										</div>
@@ -35,8 +39,8 @@ class copyContainer extends Component {
 									</div>
 									<div className="item-status">
 											{processStatus}
-											{/*<button type="button" className="btn btn-default" onClick={this.clickHandler(item).bind(this)}>立即处理</button>*/}
 									</div>
+								</div>
 							</div>
 					)
 			})
@@ -45,11 +49,14 @@ class copyContainer extends Component {
 			)
 	}
 	getProcessKeyFeature(processInstance){
-		let str = '';
-		if(processInstance.keyFeature){
-			str = <ul className="remark-list"></ul>;
+		let str = null, list = null, keyFeatureStr = processInstance.keyFeature;
+		try{list = JSON.parse(processInstance.keyFeature);}catch(e){}
+		if(list && Object.prototype.toString.call(list) == '[object Array]' ){
+			str = list.map((item,index) =>{
+				return <li key={index}>{item.key}:{item.value}</li>
+			});
 		}
-		return str;
+		return <ul className="remark-list">{str}</ul>;
 	}
 	getProcessStatus(processInstance){
 		let str = '';
@@ -62,7 +69,7 @@ class copyContainer extends Component {
 		}
 		return str;
 	}
-	clickHandler(item) {
+	showDetail(item) {
 			return (e) => {
 					e.preventDefault()
 					this.props.getBo(item)
@@ -74,4 +81,7 @@ copyContainer.propTypes = {
     items: PropTypes.array.isRequired
 }
 
-export default connect()(copyContainer)
+export default connect(
+    ()=>({}),
+    { show, getBo }
+)(copyContainer)

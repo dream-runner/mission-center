@@ -50,12 +50,16 @@ class notFinishContainer extends Component {
         )
     }
 		getProcessKeyFeature(processInstance){
-			let str = '';
-			if(processInstance.keyFeature){
-				str = <ul className="remark-list"></ul>;
+			let str = null, list = null, keyFeatureStr = processInstance.keyFeature;
+			try{list = JSON.parse(processInstance.keyFeature);}catch(e){}
+			if(list && Object.prototype.toString.call(list) == '[object Array]' ){
+				str = list.map((item,index) =>{
+					return <li key={index}>{item.key}:{item.value}</li>
+				});
 			}
-			return str;
+			return <ul className="remark-list">{str}</ul>;
 		}
+
 		getProcessStatus(processInstance){
 			let str = '';
 			if(processInstance.completed){ // 已完成
