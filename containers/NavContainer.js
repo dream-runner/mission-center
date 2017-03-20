@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import Tab from '../components/Tab'
-import { changeNav, openFormList } from '../actions/nav'
+import { changeNav } from '../actions/nav'
 import { changeSortRule } from '../actions/sort'
 import { changeFilter } from '../actions/filter'
 import { getList } from '../actions/list'
@@ -16,7 +16,6 @@ class NavContainer extends Component {
             cur,
             isFetching,
             changeNav,
-            openFormList,
             getList,
             show
         } = this.props
@@ -62,7 +61,6 @@ NavContainer.propTypes = {
     cur: PropTypes.number.isRequired,
     isFetching: PropTypes.bool.isRequired,
     changeNav: PropTypes.func.isRequired,
-    openFormList: PropTypes.func.isRequired,
     getList: PropTypes.func.isRequired,
     getItems: PropTypes.func.isRequired
 }
@@ -84,5 +82,5 @@ const mapStateToProps = (state) => {
 
 export default connect(
     mapStateToProps,
-    { changeNav,changeSortRule, changeFilter, openFormList, getList, show, getItems }
+    { changeNav,changeSortRule, changeFilter, getList, show, getItems }
 )(NavContainer)

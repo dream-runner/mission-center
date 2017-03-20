@@ -7,12 +7,6 @@ export function changeNav(navId) {
   }
 }
 
-export function openFormList() {
-  return () => {
-    window.location.href = `${window.$ctx}/iform_ctr/iform_design_ctr/design`
-  }
-}
-
 export function getCurNavKey() {
   return (dispatch, getState) => {
     var state = getState()

@@ -211,45 +211,25 @@ html, body {
     min-height: 220px;
 	overflow: auto;
 }
-/*
 .form-list-dialog .categories-list {
-    padding: 0 50px;
-    list-style: none;
+    padding: 0 40px;
 }
 .form-list-dialog .categories-list .forms-list {
-    display: none;
     list-style: none;
 }
-.form-list-dialog .categories-list .show .forms-list {
-    display: block;
-}
-.form-list-dialog .categories-list .category > a{
-    text-decoration: none;
+.form-list-dialog .categories-list .category{
     color: #333;
+    background: #f4f4f4;
     font-size: 12px;
+    margin: 10px 0 0 0;
+    padding: 10px;
 }
 .form-list-dialog .categories-list .category .category-count {
     margin-left: 10px;
     color: #999;
 }
-.form-list-dialog .categories-list .category > a > i{
-    margin-right: 10px;
-    font-size: 12px;
-    display: inline-block;
-}
-.form-list-dialog .categories-list .category > a > i:after{
-    content: '\e648'
-}
-.form-list-dialog .categories-list .category.show > a > i{
-    color: #2192FF;
-}
-.form-list-dialog .categories-list .category.show > a > i:after{
-    content: '\e649'
-}
-*/
 .form-list-dialog .forms-list {
     list-style: none;
-    text-align: center;
     padding: 0;
 }
 .form-list-dialog .forms-list li {

@@ -63,10 +63,16 @@ export function show() {
             dispatch({
                 type: GETFORMLIST_REQUEST
             })
+            let data = new URLSearchParams()
+            data.set('outage','false')
             return fetch(`${window.$ctx}/iform_ctr/iform_design_ctr/queryFormList`, {
                     method:'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+                    },
                     credentials: 'include',
-					cache: 'no-cache'
+                    cache: 'no-cache',
+                    body: data
                 }).then( response => {
                     if (response.ok) {
                         response.text().then(text => {

@@ -18,10 +18,11 @@ class FormListContainer extends Component {
     }
     let toggleCategory = this.toggleCategory.bind(this)
     let checkForm = this.checkForm.bind(this)
-    let forms = []
+    let formLists = []
     let index = 0
     let l = color.length - 1
     forEach(categories, (category, i) => {
+        let forms = []
         forEach(category.forms, (form, j) => {
             forms.push(
                 <li className={form.id == curForm ? "form active" : "form"} key={i+','+j}>
@@ -34,6 +35,12 @@ class FormListContainer extends Component {
                 </li>
             )
         })
+        formLists.push((
+            <div className="categories-list">
+                <h2 className="category">{category.name}<span className="category-count">({forms.length})</span></h2>
+                <ul className="forms-list clearfix">{forms}</ul>
+            </div>
+        ))
     })
 
     return (
@@ -42,7 +49,7 @@ class FormListContainer extends Component {
 			{tip ? <div className="alert alert-warning form-list-tip">{tip}</div> : undefined}
 			</CSSTransitionGroup>
             <Loading errorMsg={_errorMsg} status={_status} isFetching={isFetching}>
-                <ul className="forms-list clearfix">{forms}</ul>
+                {formLists}
             </Loading>
         </Dialog>
     )
