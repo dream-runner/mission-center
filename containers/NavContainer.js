@@ -83,5 +83,5 @@ const mapStateToProps = (state) => {
 
 export default connect(
     mapStateToProps,
-    { changeNav,changeSortRule, changeFilter, openFormList, getList, show, getItems, initDropdownIndex }
+    { changeNav,changeSortRule, changeFilter, getList, show, getItems, initDropdownIndex }
 )(NavContainer)
