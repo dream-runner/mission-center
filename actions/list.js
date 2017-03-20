@@ -1,11 +1,17 @@
 import {
-    GETLIST_REQUEST,
-    GETLIST_SUCCESS,
-    GETLIST_FAILURE
+	GETLIST_REQUEST,
+	GETLIST_SUCCESS,
+	GETLIST_FAILURE
 } from '../constants/ActionTypes'
-import { getCurNavKey } from './nav'
-import { getFilterDropdownKey } from './dropdown'
-import { getCurSortKey } from './sort'
+import {
+	getCurNavKey
+} from './nav'
+import {
+	getFilterDropdownKey
+} from './dropdown'
+import {
+	getCurSortKey
+} from './sort'
 
 function getListFailure(message) {
     return {
@@ -15,13 +21,16 @@ function getListFailure(message) {
 }
 
 function getListSuccess(json, navKey) {
-    let { data = [], total = 0 } = json;
+    let { data = [], total, size, start } = json;
+		console.log(json,'xxx');
     return (dispatch) => {
         dispatch({
             type: GETLIST_SUCCESS,
             data,
             total,
-            navKey
+						size,
+						start,
+            navKey,
         })
     }
 }

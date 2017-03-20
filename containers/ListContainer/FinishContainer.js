@@ -5,10 +5,12 @@ import { show, getBo } from '../../actions/form'
 import timeFilter from '../../filter/time'
 import map from 'lodash/map'
 import filter from 'lodash/filter'
+import PageContainer from '../PageContainer'
 
 class FinishContainer extends Component {
     render() {
-			const { items } = this.props
+			const { items, pagination } = this.props;
+			const showPagination = pagination.pageTotal > 1 ? <PageContainer items={pagination.pageTotal} /> : '';
 			let node = map(items, (item, i) => {
 				let {historicProcessInstance, dueDate, createTime} = item;
 				// let uname = (historicProcessInstance && historicProcessInstance.startParticipant && historicProcessInstance.startParticipant.name)||'';
@@ -47,7 +49,12 @@ class FinishContainer extends Component {
 				)
 			})
 
-			return (<List>{node}</List>)
+			return (
+				<div className="main-list-wrap">
+					<List>{node}</List>
+					{showPagination}
+				</div>
+			)
     }
 
 		getProcessKeyFeature(processInstance){
@@ -66,11 +73,13 @@ class FinishContainer extends Component {
 			// 已终止 finished=true且deleteReason!=null
 			// 进行中 finished=false
 			let str = '';
-			if(processMainInfo.finished){
-				if(processMainInfo.deleteReason){
+			if(processMainInfo.processFinished){
+				if(processMainInfo.deleteReason == 'completed'){
+					str = <span className="btn-tip btn-tip-done">已完成</span>;
+				} else if(processMainInfo.deleteReason == 'delete'){
 					str = <span className="btn-tip btn-tip-stop">已终止</span>;
 				} else {
-					str = <span className="btn-tip btn-tip-done">已完成</span>;
+					str = <span className="btn-tip btn-tip-doing">进行中</span>;
 				}
 			} else {
 				str = <span className="btn-tip btn-tip-doing">进行中</span>;
@@ -86,7 +95,8 @@ class FinishContainer extends Component {
 }
 
 FinishContainer.propTypes = {
-    items: PropTypes.array.isRequired
+    items: PropTypes.array.isRequired,
+		pagination: PropTypes.object.isRequired
 }
 
 export default connect(

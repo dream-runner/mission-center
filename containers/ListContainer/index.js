@@ -44,6 +44,7 @@ class ListContainer extends Component {
     render() {
         const {
             items,
+						pagination,
             isFetching,
             errorMsg,
             cur
@@ -61,7 +62,7 @@ class ListContainer extends Component {
                 { /*hasFilter ? <FilterContainer /> : <SearchContainer/>*/ }
 								{hasFilter ? <ConditionContainer components={components} /> : <div className="nav nav-tabs filter-wrap"><SearchContainer /></div>}
                 <Loading className={ `row  ${className}` } errorMsg={ _errorMsg } status={ _status } isFetching={ isFetching }>
-                    {React.createElement(nodeClass, {items: items})}
+                    {React.createElement(nodeClass, {items: items, pagination: pagination})}
                 </Loading>
             </div>
         )
@@ -74,6 +75,7 @@ class ListContainer extends Component {
 
 ListContainer.propTypes = {
     items: PropTypes.array.isRequired,
+		pagination: PropTypes.object.isRequired,
     isFetching: PropTypes.bool.isRequired,
     errorMsg: PropTypes.string.isRequired,
     cur: PropTypes.number.isRequired
@@ -82,12 +84,14 @@ ListContainer.propTypes = {
 function mapStateToProps(state) {
     let {
         items,
+				pagination,
         errorMsg,
         isFetching
     } = state.list
     let cur = state.nav.cur
     return {
         items,
+				pagination,
         isFetching,
         errorMsg,
         cur

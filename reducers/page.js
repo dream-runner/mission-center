@@ -3,8 +3,8 @@
 } from '../constants/ActionTypes'
 
 const initialState = {
-    items: 10,
-    activePage: 1,
+    items: 10, // 每页显示条数
+    activePage: 1, // 当前页数
     isSearch:'n'
 }
 
@@ -36,7 +36,7 @@ function changePage(state, action) {
         case CHANGE_PREPAGE:
             return action.activePage==0?0:state.activePage-1
         case CHANGE_NEXTPAGE:
-            return action.activePage+1          
+            return action.activePage+1
         default:
             return state.activePage
     }

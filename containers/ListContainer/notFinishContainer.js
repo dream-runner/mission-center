@@ -5,10 +5,14 @@ import { show, getBo } from '../../actions/form'
 import timeFilter from '../../filter/time'
 import map from 'lodash/map'
 import '../../utils/index'
+import PageContainer from '../PageContainer'
+
 
 class notFinishContainer extends Component {
     render() {
-        const { items } = this.props
+        const { items, pagination } = this.props;
+				const showPagination = pagination.pageTotal > 1 ? <PageContainer items={pagination.pageTotal} /> : '';
+
         let node = map(items, (item, i) => {
             let {processInstance, dueDate, createTime} = item;
 						// let uname = (historicProcessInstance && historicProcessInstance.startParticipant && historicProcessInstance.startParticipant.name)||'';
@@ -46,7 +50,10 @@ class notFinishContainer extends Component {
             )
         })
         return (
-            <List>{node}</List>
+						<div className="main-list-wrap">
+							<List>{node}</List>
+							{showPagination}
+						</div>
         )
     }
 		getProcessKeyFeature(processInstance){
@@ -80,7 +87,8 @@ class notFinishContainer extends Component {
 }
 
 notFinishContainer.propTypes = {
-    items: PropTypes.array.isRequired
+    items: PropTypes.array.isRequired,
+		pagination: PropTypes.object.isRequired
 }
 
 export default connect(

@@ -203,6 +203,10 @@ html, body {
 	border-bottom: 1px solid #EDEDED;
 }
 
+#mission-center-root .list-wrap .table-list .box.hadread .unread{
+    display: none;
+}
+
 #mission-center-root .list-wrap .table-list .item-info{
 	display: -webkit-box;
 	-webkit-box-flex: 1;

@@ -7,19 +7,30 @@
 }
 
 /* 分页重置 */
+.pagination-wrap{
+	padding: 20px 0;
+	margin: 0 -20px;
+	background: #fff;
+	overflow: hidden;
+}
+.pagination{
+	margin: 0;
+	display: block;
+	text-align: center;
+}
 .pagination li{
-	margin: 0 2px;
+	display: inline-block;
+	margin: 0 4px;
 	border: 1px solid 0;
 }
 
 .pagination > li > a,
 .pagination > li > span{
-	color: #666;
-	border-radius: 3px;
-}
-
-.pagination > li > a,
-.pagination > li > span{
+	width: 32px;
+	height: 32px;
+	padding: 0;
+	line-height: 32px;
+	text-align: center;
 	color: #666;
 	border-radius: 3px;
 }

@@ -23,13 +23,6 @@ class SearchContainer extends Component {
 				let { getList } = this.props;
         getList('search', searchText);
      }
-
-    handleChange(){
-         let {changeText} = this.props
-         let text = arguments[0].target.value?arguments[0].target.value:''
-         changeText(text)
-    }
-
 }
 
 

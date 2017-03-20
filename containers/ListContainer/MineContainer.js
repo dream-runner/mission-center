@@ -10,7 +10,8 @@ import timeFilter from '../../filter/time'
 
 class MineContainer extends Component {
 		render() {
-			const { items } = this.props
+			const { items, pagination } = this.props;
+			const showPagination = pagination.pageTotal > 1 ? <PageContainer items={pagination.pageTotal} /> : '';
 			let node = map(items, (item, i) => {
 				let {startParticipant, name, dueDate, startTime, icon} = item;
 				// let uname = (historicProcessInstance && historicProcessInstance.startParticipant && historicProcessInstance.startParticipant.name)||'';
@@ -48,7 +49,12 @@ class MineContainer extends Component {
 				)
 			})
 
-			return (<List>{node}</List>)
+			return (
+				<div className="main-list-wrap">
+					<List>{node}</List>
+					{showPagination}
+				</div>
+			)
     }
 		getProcessKeyFeature(processInstance){
 			let str = null, list = null, keyFeatureStr = processInstance.keyFeature;
@@ -118,6 +124,7 @@ class MineContainer extends Component {
 
 MineContainer.propTypes = {
     items: PropTypes.array.isRequired,
+		pagination: PropTypes.object.isRequired,
     formDialogShow: PropTypes.func.isRequired,
     confirmDialogShow: PropTypes.func.isRequired,
     confirmDialogHide: PropTypes.func.isRequired
@@ -125,5 +132,5 @@ MineContainer.propTypes = {
 
 export default connect(
     ()=>({}),
-    { formDialogShow, confirmDialogShow, confirmDialogHide }
+    { formDialogShow, confirmDialogShow, confirmDialogHide, show, getBo }
 )(MineContainer)

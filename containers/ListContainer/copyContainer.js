@@ -4,14 +4,16 @@ import List from '../../components/List'
 import { show, getBo } from '../../actions/form'
 import timeFilter from '../../filter/time'
 import map from 'lodash/map'
+import PageContainer from '../PageContainer'
 
 class copyContainer extends Component {
 	render() {
-			const { items } = this.props
+			const { items, pagination } = this.props;
+			const showPagination = pagination.pageTotal > 1 ? <PageContainer items={pagination.pageTotal} /> : '';
 			let node = map(items, (item, i) => {
 				let {title, historicProcessInstance, taskStatus, dueDate, createTime} = item;
 				let processInstance = historicProcessInstance;
-				let processCurRead = taskStatus == '0' ? <span className="unread"><i>未读</i></span> : <span className="read"><i>已读</i></span>
+				let processCurRead = taskStatus == '0' ? <span className="unread" ref="unread" data-status="0"><i>未读</i></span> : <span className="read" ref="read" data-status="1"><i>已读</i></span>
 				let processCurName = processInstance.startParticipant && processInstance.startParticipant.name ? <span className="uname">{processInstance.startParticipant.name.substr(-2,2)}</span> : '';
 				let processCurAvatar = processInstance.startParticipant && processInstance.startParticipant.pic ? <span className="avatar"><img src={processInstance.startParticipant.pic} alt={processInstance.startParticipant.name} /></span> : '';
 				let processTitle = title || '';
@@ -45,7 +47,10 @@ class copyContainer extends Component {
 					)
 			})
 			return (
+				<div className="main-list-wrap">
 					<List>{node}</List>
+					{showPagination}
+				</div>
 			)
 	}
 	getProcessKeyFeature(processInstance){
@@ -70,15 +75,19 @@ class copyContainer extends Component {
 		return str;
 	}
 	showDetail(item) {
-			return (e) => {
-					e.preventDefault()
-					this.props.getBo(item)
-			}
+		return (e) => {
+				e.preventDefault();
+				if(this.refs.unread.getAttribute('data-status') == '0'){
+					e.currentTarget.className = 'box hadread';
+				}
+				this.props.getBo(item);
+		}
 	}
 }
 
 copyContainer.propTypes = {
-    items: PropTypes.array.isRequired
+    items: PropTypes.array.isRequired,
+		pagination: PropTypes.object.isRequired
 }
 
 export default connect(
