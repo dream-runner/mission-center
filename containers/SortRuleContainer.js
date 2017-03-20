@@ -18,7 +18,7 @@ class SortRuleContainer extends Component {
         } = this.props
         const wrapClassName = isOpen ? "dropdown open" : "dropdown"
         return (
-            <li className={ wrapClassName } style = {{ float: "right" }}>
+            <li className={ wrapClassName }>
                 <a className="dropdown-toggle" href="#" onClick={(e) => {
                     e.preventDefault()
                     e.stopPropagation()

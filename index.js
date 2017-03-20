@@ -6,6 +6,7 @@ import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
 import reducer from './reducers'
 import { getList } from './actions/list'
+import { getCategory } from './actions/dropdown'
 import App from './containers/App'
 
 let middleware = []
@@ -20,10 +21,12 @@ if (process.env.CTX_ENV && !window.$ctx) {
     window.$ctx = process.env.CTX_ENV
 }
 
+
 if (process.env.NODE_ENV === "develop") {
     let logger = require('redux-logger')
     middleware.push(logger())
     require('bootstrap/dist/css/bootstrap.css')
+		require('./style/bootstrap-reset.css')
     require('./style/index.css')
     require('./style/loading.css')
     require('./style/iconfont/iconfont.css')
@@ -31,6 +34,7 @@ if (process.env.NODE_ENV === "develop") {
 
 if (process.env.NODE_ENV === "build") {
     require('bootstrap/dist/css/bootstrap.css')
+		require('./style/bootstrap-reset.css')
     require('./style/index.css')
     require('./style/loading.css')
     require('./style/iconfont/iconfont.css')
@@ -43,7 +47,8 @@ const store = createStore(
     applyMiddleware(...middleware)
 )
 
-store.dispatch(getList())
+store.dispatch(getList());
+store.dispatch(getCategory());
 
 render(
 	<Provider store={store}>

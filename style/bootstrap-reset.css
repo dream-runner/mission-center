@@ -1,0 +1,56 @@
+.table tr td{
+	border-bottom: 1px solid #EDEDED;
+}
+
+.table tr:hover{
+	background: #F8F8F8;
+}
+
+/* 分页重置 */
+.pagination-wrap{
+	padding: 20px 0;
+	margin: 0 -20px;
+	background: #fff;
+	overflow: hidden;
+}
+.pagination{
+	margin: 0;
+	display: block;
+	text-align: center;
+}
+.pagination li{
+	display: inline-block;
+	margin: 0 4px;
+	border: 1px solid 0;
+}
+
+.pagination > li > a,
+.pagination > li > span{
+	width: 32px;
+	height: 32px;
+	padding: 0;
+	line-height: 32px;
+	text-align: center;
+	color: #666;
+	border-radius: 3px;
+}
+
+.pagination > li > a:hover,
+.pagination > li > span:hover,
+.pagination > li > a:focus,
+.pagination > li > span:focus{
+	background: #29B6F6;
+	color: #fff;
+	border: 1px solid #29B6F6;
+}
+
+.pagination > .active > a,
+.pagination > .active > span,
+.pagination > .active > a:hover,
+.pagination > .active > span:hover,
+.pagination > .active > a:focus,
+.pagination > .active > span:focus{
+	background: #29B6F6;
+	color: #fff;
+	border: 1px solid #29B6F6;
+}

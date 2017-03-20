@@ -8,25 +8,25 @@ export default class Loading extends Component {
         if (isFetching) {
             node = (
                 <div className="loading-wrap">
-                    <div className="loading-spinner">
-        				<div className="main-loader">
-        					<div className="wBall wBall_1">
-        						<div className="wInnerBall"> </div>
-        					</div>
-        					<div className="wBall wBall_2">
-        						<div className="wInnerBall"> </div>
-        					</div>
-        					<div className="wBall wBall_3">
-        						<div className="wInnerBall"> </div>
-        					</div>
-        					<div className="wBall wBall_4">
-        						<div className="wInnerBall"> </div>
-        					</div>
-        					<div className="wBall wBall_5">
-        						<div className="wInnerBall"> </div>
-        					</div>
-        				</div>
-        			</div>
+                  <div className="loading-spinner">
+		        				<div className="main-loader">
+		        					<div className="wBall wBall_1">
+		        						<div className="wInnerBall"> </div>
+		        					</div>
+		        					<div className="wBall wBall_2">
+		        						<div className="wInnerBall"> </div>
+		        					</div>
+		        					<div className="wBall wBall_3">
+		        						<div className="wInnerBall"> </div>
+		        					</div>
+		        					<div className="wBall wBall_4">
+		        						<div className="wInnerBall"> </div>
+		        					</div>
+		        					<div className="wBall wBall_5">
+		        						<div className="wInnerBall"> </div>
+		        					</div>
+		        				</div>
+		        			</div>
                 </div>
             )
         } else if (errorMsg) {

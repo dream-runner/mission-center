@@ -1,11 +1,17 @@
 import {
-    GETLIST_REQUEST,
-    GETLIST_SUCCESS,
-    GETLIST_FAILURE
+	GETLIST_REQUEST,
+	GETLIST_SUCCESS,
+	GETLIST_FAILURE
 } from '../constants/ActionTypes'
-import { getCurNavKey } from './nav'
-import { getCurFilterKey } from './filter'
-import { getCurSortKey } from './sort'
+import {
+	getCurNavKey
+} from './nav'
+import {
+	getFilterDropdownKey
+} from './dropdown'
+import {
+	getCurSortKey
+} from './sort'
 
 function getListFailure(message) {
     return {
@@ -15,52 +21,112 @@ function getListFailure(message) {
 }
 
 function getListSuccess(json, navKey) {
-    let { data = [], total = 0 } = json
+    let { data = [], total, size, start } = json;
+		console.log(json,'xxx');
     return (dispatch) => {
         dispatch({
             type: GETLIST_SUCCESS,
             data,
             total,
-            navKey
+						size,
+						start,
+            navKey,
         })
     }
 }
 
-
-export function getList() {
+export function getList(moduleName, param) {
     return (dispatch, getState) => {
-        let state = getState()
-        let curNavKey = dispatch(getCurNavKey())
-        let curFilterKey = dispatch(getCurFilterKey())
-        let curSortKey = dispatch(getCurSortKey())
+        let state = getState();
+        let curNavKey = dispatch(getCurNavKey());
+        let curSortKey = dispatch(getCurSortKey());
+				let dropdownKey = '', queryStr = '';
+				let tabNavData = {
+					curtasks: [
+						{key: 'taskDue', name: 'filterDueDateOverdue'},
+						{key: 'taskDate', name: 'filterTaskDate'},
+						{key: 'categoryIds', name: 'filterCategoryIds'}
+					],
+					histasks: [
+						{key: 'isFinished', name: 'filterListDoneStatus'},
+						{key: 'taskDate', name: 'filterTaskDate'},
+						{key: 'categoryIds', name: 'filterCategoryIds'}
+					],
+					listcopy: [],
+					getMine: []
+
+				};
+
+				switch(state.dropdown.dropdownName){
+					case 'filterDueDateOverdue':
+						dropdownKey = dispatch(getFilterDropdownKey(state.dropdown.dropdownName));
+						queryStr = dropdownKey === 'all' ? '' : `taskDue=${dropdownKey}&`;
+						break;
+					case 'filterCategoryIds':
+						dropdownKey = dispatch(getFilterDropdownKey(state.dropdown.dropdownName));
+						queryStr = dropdownKey === 'all' ? '' : `categoryIds=${dropdownKey}&`;
+						break;
+					case 'filterTaskDate':
+						dropdownKey = dispatch(getFilterDropdownKey(state.dropdown.dropdownName));
+						queryStr = dropdownKey === 'all' ? '' : `taskDate=${dropdownKey}&`;
+						break;
+					case 'filterDatetimePeriod':
+						dropdownKey = dispatch(getFilterDropdownKey(state.dropdown.dropdownName));
+						queryStr = dropdownKey === 'all' ? '' : `filter=${dropdownKey}&`;
+						break;
+					case 'filterListDoneStatus':
+						dropdownKey = dispatch(getFilterDropdownKey(state.dropdown.dropdownName));
+						queryStr = dropdownKey === 'all' ? '' : `isFinished=${dropdownKey}&`;
+						break;
+					case 'filterListMineStatus':
+						dropdownKey = dispatch(getFilterDropdownKey(state.dropdown.dropdownName));
+						queryStr = dropdownKey === 'all' ? '' : `isFinished=${dropdownKey}&`;
+						break;
+					default:
+						queryStr = '';
+						break;
+				}
+
+				for(let i = 0, len = tabNavData[curNavKey].length; i < len; i++){
+					if(tabNavData[curNavKey][i].name != state.dropdown.dropdownName){
+						let tmp = state.dropdown[tabNavData[curNavKey][i].name];
+						queryStr += tmp.options[tmp.cur].key === 'all' ? '' : `${tabNavData[curNavKey][i].key}=${tmp.options[tmp.cur].key}&`;
+					}
+				}
+
+				if(moduleName && moduleName == 'search'){
+					queryStr += param == '' ? '' : `searchedItem=${param}&`;
+				}
+
         dispatch({
             type: GETLIST_REQUEST
         })
-        return fetch(`${window.$ctx}/tc/${curNavKey}?filter=${curFilterKey}&sort=${curSortKey}&_=${Date.now()}`, {
-                credentials: 'include',
-				cache: 'no-cache'
-            }).then( response => {
-                if (response.ok) {
-                    response.text().then(text => {
-                        if (text) {
-                            try {
-                                let json = JSON.parse(text)
-								if (json.status == 0) {
-									dispatch(getListFailure(json.message))
-								} else {
-	                                dispatch(getListSuccess(json, curNavKey))
-								}
-                            } catch (e) {
-                                dispatch(getListFailure(`${e.message}`))
-                            }
-                        } else {
-                            dispatch(getListFailure('Api return nothing……'))
-                        }
-                    })
-                } else {
-                    dispatch(getListFailure(`${response.status} ${response.statusText}`))
-                }
-            }
-        )
+				/*sort=${curSortKey}&*/
+        return fetch(`${window.$ctx}/tc/${curNavKey}?${queryStr}_=${Date.now()}`, {
+        	credentials: 'include',
+					cache: 'no-cache'
+        }).then( response => {
+					if (response.ok) {
+					    response.text().then(text => {
+				        if (text) {
+			            try {
+		                let json = JSON.parse(text)
+										if (json.status == 0) {
+											dispatch(getListFailure(json.message))
+										} else {
+										  dispatch(getListSuccess(json, curNavKey))
+										}
+				          } catch (e) {
+				              dispatch(getListFailure(`${e.message}`))
+				          }
+					      } else {
+				            dispatch(getListFailure('Api return nothing……'))
+				        }
+					    })
+					} else {
+					    dispatch(getListFailure(`${response.status} ${response.statusText}`))
+					}
+        }
+      )
     }
 }

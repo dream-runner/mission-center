@@ -5,26 +5,27 @@ import React, {
 
 export default class List extends Component {
     render() {
-        const { key, children } = this.props
-        let node = React.Children.map(children, (child, i) => {
-            let [infos, btns] = child.props.children
-            return (
-                <tr>
-                    <td className={ infos.props.className }>
-                        { infos.props.children }
-                    </td>
-                    <td className={ btns.props.className }>
-                        { btns.props.children }
-                    </td>
-                </tr>
-            )
-        })
+        // const { key, children } = this.props
+        // let node = React.Children.map(children, (child, i) => {
+				// 		console.log(child.props.children,'xxxaa');
+        //     let [infos, btns] = child.props.children
+        //     return (
+        //         <div className="item">
+				// 						<div className="box">
+	      //               <div className={ infos.props.className }>
+	      //                   { infos.props.children }
+	      //               </div>
+	      //               <div className={ btns.props.className }>
+	      //                   { btns.props.children }
+	      //               </div>
+				// 						</div>
+        //         </div>
+        //     )
+        // })
         return (
-            <table className="table">
-                <tbody>
-                    { node }
-                </tbody>
-            </table>
+            <div className="table-list">
+            	{ this.props.children }
+            </div>
         )
     }
 }

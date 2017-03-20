@@ -1,120 +1,93 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
+import List from '../../components/List'
+import { show as formDialogShow, show, getBo } from '../../actions/form'
 import map from 'lodash/map'
-import { show as formDialogShow } from '../../actions/form'
 import { show as confirmDialogShow, hide as confirmDialogHide } from '../../actions/confirm'
 import { getRandomColor } from '../../components/RandomColor'
 import  PageContainer  from '../PageContainer'
 import timeFilter from '../../filter/time'
 
 class MineContainer extends Component {
-    render() {
-        const {
-            items
-        } = this.props
-        return (
-        <div>
-            <ul>
-                {
-                    map(items, (item, i) => {
-                        if(!item.formdata)
-                            return;
-                        let toolbarChildren
-                        let statusClassName = ''
-                        let statusText = ''
-                        let timeText = ''
-                        let time = ''
-                        let bgcolor = getRandomColor(item.formdata.form.botype_name || '其他')
-                        switch (item.status.toString()) {
-                            case '0':
-                                statusClassName = 'notSubmit'
-                                statusText = '未提交'
-                                timeText = `填写时间：${timeFilter(item.formdata.form.createTime)}`
-                                toolbarChildren = (i) => [
-                                    <li key={`toolbar-area-li-2-${i}`}><a href="#" onClick={this.edit(item)}>编辑</a></li>,
-                                    <li key={`toolbar-area-li-1-${i}`}><a href="#" onClick={this.delete(item)}>删除</a></li>,
-                                    <li key={`toolbar-area-li-0-${i}`}><a href="#" onClick={this.submit(item)}>提交</a></li>
-                                ]
-                                break;
-                            case '1':
-                                statusClassName = 'inHandle'
-                                statusText = '处理中'
-                                try {
-                                    timeText = `提交时间：${timeFilter(item.proInsData.historicProcessInstance.startTime)}`
-                                } catch(err) {
-                                    time = timeFilter(item.formdata.form.createTime)
-                                    timeText = `提交时间：${time ? time : '--'}`
-                                }
-                                toolbarChildren = (i) => [
-                                    <li key={`toolbar-area-li-0-${i}`}><a href="#" onClick={this.check(item)}>查看</a></li>
-                                ]
-                                break;
-                            case '2':
-                                statusClassName = 'complate'
-                                statusText = '已完成'
-                                try {
-                                    if (item.proInsData&&item.proInsData.id) {
-                                        timeText = `提交时间：${timeFilter(item.proInsData.historicProcessInstance.startTime)}`
-                                    } else {
-                                        timeText = `提交时间：${timeFilter(item.formdata.form.createTime)}`
-                                    }
-                                } catch(err) {
-                                    timeText = '提交时间：--'
-                                }
-                                toolbarChildren = (i) => [
-                                    <li key={`toolbar-area-li-0-${i}`}><a href="#" onClick={this.check(item)}>查看</a></li>
-                                ]
-                                break;
-                            case '3':
-                                statusClassName = 'complate'
-                                statusText = '已提交'
-                                timeText = `提交时间：${timeFilter(item.formdata.form.createTime)}`
-                                toolbarChildren = (i) => [
-                                    <li key={`toolbar-area-li-0-${i}`}><a href="#" onClick={this.check(item)}>查看</a></li>
-                                ]
-                                break;
-                            case '4':
-                                statusClassName = 'complate'
-                                statusText = '已保存'
-                                timeText = `创建时间：${timeFilter(item.formdata.form.createTime)}`
-                                toolbarChildren = (i) => [
-                                    <li key={`toolbar-area-li-0-${i}`}><a href="#" onClick={this.check(item)}>查看</a></li>
-                                ]
-                                break;
+		render() {
+			const { items, pagination } = this.props;
+			const showPagination = pagination.pageTotal > 1 ? <PageContainer items={pagination.pageTotal} /> : '';
+			let node = map(items, (item, i) => {
+				let {startParticipant, name, dueDate, startTime, icon} = item;
+				// let uname = (historicProcessInstance && historicProcessInstance.startParticipant && historicProcessInstance.startParticipant.name)||'';
+				let processInstance = item;
+				let processCurName = '';
+				let processCurAvatar = icon ? <span className={"avatar avatar-"+icon}></span> : <span className={"avatar avatar-icon-1"}></span>;
+				let processTitle = name || '';
+				let processkeyFeature = this.getProcessKeyFeature(processInstance);
+				let processStatus = this.getProcessStatus(processInstance);
+				let processCreateTime = new Date(startTime).format('yyyy-MM-dd HH:mm');
+				let processHandlerText = `当前环节：`;
+				return (
+					<div key={i} className="item">
+							<div className="box" onClick={this.showDetail(item)}>
+								<div className="item-info">
+									<div className="l">
+										{processCurName}
+										{processCurAvatar}
+									</div>
+									<div className="m">
+										<div>
+											<h3>{processTitle}</h3>
+											{processkeyFeature}
+										</div>
+									</div>
+									<div className="r">
+										<span className="item-info-cell">{`提交时间：${processCreateTime}`}</span>
+									</div>
+								</div>
+								<div className="item-status">
+										{processStatus}
+								</div>
+							</div>
+					</div>
+				)
+			})
 
-                            default:
-                                break;
-                        }
-                        return (
-                            <li key={`card-list-item${i}`} className="card-list-item">
-                                <ul key={`info-area${i}`} className="info-area">
-                                    <li key={`info-area-li-0-${i}`}>{timeText}</li>
-                                    <li key={`info-area-li-1-${i}`} className={statusClassName}>{statusText}</li>
-                                    { item.proInsData && item.proInsData.curHandler ? (<li key={`info-area-li-2-${i}`}>当前处理人: {item.proInsData.curHandler}</li>) : undefined }
-                                </ul>
-                                <h3 key={`h3${i}`}>
-                                    <span key={`category-name${i}`} style={{"backgroundColor":bgcolor}} className="category-name">{item.formdata.form.botype_name || '其他'}</span>
-                                    {item.formdata.form.bo_name}
-                                </h3>
-                                <ul key={`fields-area${i}`} className="fields-area clearfix">
-                                    {
-                                        map(item.formdata.fields, (field, i) => (
-                                            <li key={i}>{field.name}: {field.value}</li>
-                                        ))
-                                    }
-                                </ul>
-                                <ul key={`toolbar-area${i}`} className="toolbar-area">
-                                    {typeof toolbarChildren == 'function' ? toolbarChildren(i) : undefined}
-                                </ul>
-                            </li>
-                        )
-                    })
-                }
-            </ul>
-            <PageContainer/>
-            </div>
-        )
+			return (
+				<div className="main-list-wrap">
+					<List>{node}</List>
+					{showPagination}
+				</div>
+			)
     }
+		getProcessKeyFeature(processInstance){
+			let str = null, list = null, keyFeatureStr = processInstance.keyFeature;
+			try{list = JSON.parse(processInstance.keyFeature);}catch(e){}
+			if(list && Object.prototype.toString.call(list) == '[object Array]' ){
+				str = list.map((item,index) =>{
+					return <li key={index}>{item.key}:{item.value}</li>
+				});
+			}
+			return <ul className="remark-list">{str}</ul>;
+		}
+		getProcessStatus(processInstance){
+			let str = '';
+			if(processInstance.endTime){
+				if(processInstance.deleteReason === 'stop'){
+					str = <span className="btn-tip btn-tip-stop">已终止</span>;
+				} else if(processInstance.deleteReason) {
+					str = <span className="btn-tip btn-tip-done">已完成</span>;
+				} else {
+					str = <span className="btn-tip btn-tip-doing">进行中</span>;
+				}
+			} else {
+				str = <span className="btn-tip btn-tip-doing">进行中</span>;
+			}
+			return str;
+		}
+    showDetail(item) {
+        return (e) => {
+            e.preventDefault()
+            this.props.getBo(item)
+        }
+    }
+
     submit (item) {
         return (e) => {
             e.preventDefault()
@@ -148,8 +121,10 @@ class MineContainer extends Component {
         }
     }
 }
+
 MineContainer.propTypes = {
     items: PropTypes.array.isRequired,
+		pagination: PropTypes.object.isRequired,
     formDialogShow: PropTypes.func.isRequired,
     confirmDialogShow: PropTypes.func.isRequired,
     confirmDialogHide: PropTypes.func.isRequired
@@ -157,5 +132,5 @@ MineContainer.propTypes = {
 
 export default connect(
     ()=>({}),
-    { formDialogShow, confirmDialogShow, confirmDialogHide }
+    { formDialogShow, confirmDialogShow, confirmDialogHide, show, getBo }
 )(MineContainer)

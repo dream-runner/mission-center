@@ -7,7 +7,7 @@ import { changeFilter } from '../actions/filter'
 import { getList } from '../actions/list'
 import { getItems } from '../actions/page'
 import { show } from '../actions/formList'
-
+import { initDropdownIndex } from '../actions/dropdown'
 
 class NavContainer extends Component {
     render() {
@@ -28,7 +28,7 @@ class NavContainer extends Component {
                         onTabClicked = { this.onTabClicked.bind(this) }></Tab>
                     <div className="navbar-form navbar-right">
                         <button type="button" className="btn btn-default" onClick = { show }>
-                            <i className="iconfont icon-pencil"></i> 填表单
+                             发起审批
                         </button >
                     </div>
                 </div>
@@ -37,15 +37,16 @@ class NavContainer extends Component {
     }
 
     onTabClicked (e, checked) {
-        const {cur, isFetching, changeNav, changeSortRule, changeFilter, getList, getItems} = this.props
+        const {cur, isFetching, changeNav, changeSortRule, changeFilter, getList, getItems, initDropdownIndex} = this.props
         e.preventDefault()
         if (!isFetching && checked != cur) {
             changeNav(checked)
             changeSortRule(0)
             changeFilter(0)
-            if("我填写的"==e.target.innerText)
-                 getItems()
-            else
+						initDropdownIndex()
+            // if("我发起的"==e.target.innerText)
+            //      getItems()
+            // else
                  getList()
         }
     }
@@ -82,5 +83,5 @@ const mapStateToProps = (state) => {
 
 export default connect(
     mapStateToProps,
-    { changeNav,changeSortRule, changeFilter, getList, show, getItems }
+    { changeNav,changeSortRule, changeFilter, openFormList, getList, show, getItems, initDropdownIndex }
 )(NavContainer)
