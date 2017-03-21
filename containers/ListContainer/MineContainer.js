@@ -70,7 +70,7 @@ class MineContainer extends Component {
 			let str = '';
 			if(processInstance.endTime){
 				if(processInstance.deleteReason === 'stop'){
-					str = <span className="btn-tip btn-tip-stop">已终止</span>;
+					str = <span className="btn-tip btn-tip-stop">已中止</span>;
 				} else if(processInstance.deleteReason) {
 					str = <span className="btn-tip btn-tip-done">已完成</span>;
 				} else {

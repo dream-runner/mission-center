@@ -40,9 +40,14 @@ module.exports = {
         warnings: false
       }
     }),
-    new CopyWebpackPlugin([{
-      from: './style/index.css',
-      to: '/Users/yihan/www/runtimeapp/iweb_cloudform/iform_parent/iform_parent/design/src/main/webapp/static/css/design/mission-center.css',
+    new CopyWebpackPlugin([
+			{
+        from: './style/bootstrap-reset.css',
+        to: '/Users/yihan/www/runtimeapp/iweb_cloudform/iform_parent/iform_parent/design/src/main/webapp/static/css/design/bootstrap-reset.css'
+      },
+			{
+      	from: './style/index.css',
+      	to: '/Users/yihan/www/runtimeapp/iweb_cloudform/iform_parent/iform_parent/design/src/main/webapp/static/css/design/mission-center.css',
         transform: function(content, path) {
           return bufferreplace(content, "url('../img", "url('../../img");
         }

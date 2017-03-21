@@ -22,7 +22,6 @@ function getListFailure(message) {
 
 function getListSuccess(json, navKey) {
     let { data = [], total, size, start } = json;
-		console.log(json,'xxx');
     return (dispatch) => {
         dispatch({
             type: GETLIST_SUCCESS,
