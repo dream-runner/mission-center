@@ -17,7 +17,7 @@ class MineContainer extends Component {
 				// let uname = (historicProcessInstance && historicProcessInstance.startParticipant && historicProcessInstance.startParticipant.name)||'';
 				let processInstance = item;
 				let processCurName = '';
-				let processCurAvatar = icon ? <span className={"avatar avatar-"+icon}></span> : <span className={"avatar avatar-icon-1"}></span>;
+				let processCurAvatar = icon ? <span className={"avatar mine-avatar avatar-"+icon}></span> : <span className={"avatar mine-avatar avatar-icon-1"}></span>;
 				let processTitle = name || '';
 				let processkeyFeature = this.getProcessKeyFeature(processInstance);
 				let processStatus = this.getProcessStatus(processInstance);
