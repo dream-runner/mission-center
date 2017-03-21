@@ -5,9 +5,10 @@ import { changeNav } from '../actions/nav'
 import { changeSortRule } from '../actions/sort'
 import { changeFilter } from '../actions/filter'
 import { getList } from '../actions/list'
-import { getItems } from '../actions/page'
+import { getItems, initActivePage } from '../actions/page'
 import { show } from '../actions/formList'
 import { initDropdownIndex } from '../actions/dropdown'
+
 
 class NavContainer extends Component {
     render() {
@@ -37,17 +38,18 @@ class NavContainer extends Component {
     }
 
     onTabClicked (e, checked) {
-        const {cur, isFetching, changeNav, changeSortRule, changeFilter, getList, getItems, initDropdownIndex} = this.props
+        const {cur, isFetching, changeNav, changeSortRule, changeFilter, getList, getItems, initDropdownIndex, initActivePage} = this.props
         e.preventDefault()
         if (!isFetching && checked != cur) {
             changeNav(checked)
             changeSortRule(0)
             changeFilter(0)
 						initDropdownIndex()
+						initActivePage(1)
             // if("我发起的"==e.target.innerText)
             //      getItems()
             // else
-                 getList()
+          	getList()
         }
     }
 
@@ -83,5 +85,5 @@ const mapStateToProps = (state) => {
 
 export default connect(
     mapStateToProps,
-    { changeNav,changeSortRule, changeFilter, getList, show, getItems, initDropdownIndex }
+    { changeNav,changeSortRule, changeFilter, openFormList, getList, show, getItems, initDropdownIndex, initActivePage }
 )(NavContainer)

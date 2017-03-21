@@ -17,7 +17,7 @@ class MineContainer extends Component {
 				// let uname = (historicProcessInstance && historicProcessInstance.startParticipant && historicProcessInstance.startParticipant.name)||'';
 				let processInstance = item;
 				let processCurName = '';
-				let processCurAvatar = icon ? <span className={"avatar avatar-"+icon}></span> : <span className={"avatar avatar-icon-1"}></span>;
+				let processCurAvatar = icon ? <span className={"avatar mine-avatar avatar-"+icon}></span> : <span className={"avatar mine-avatar avatar-icon-1"}></span>;
 				let processTitle = name || '';
 				let processkeyFeature = this.getProcessKeyFeature(processInstance);
 				let processStatus = this.getProcessStatus(processInstance);
@@ -70,7 +70,7 @@ class MineContainer extends Component {
 			let str = '';
 			if(processInstance.endTime){
 				if(processInstance.deleteReason === 'stop'){
-					str = <span className="btn-tip btn-tip-stop">已终止</span>;
+					str = <span className="btn-tip btn-tip-stop">已中止</span>;
 				} else if(processInstance.deleteReason) {
 					str = <span className="btn-tip btn-tip-done">已完成</span>;
 				} else {

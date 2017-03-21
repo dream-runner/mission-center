@@ -252,6 +252,10 @@ html, body {
 	z-index: 10;
 }
 
+#mission-center-root .list-wrap .table-list .item-info .mine-avatar{
+	border-radius: 0;
+}
+
 #mission-center-root .list-wrap .table-list .item-info .avatar img{
 	width: 100%;
 	height: 100%;

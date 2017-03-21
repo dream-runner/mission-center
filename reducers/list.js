@@ -32,7 +32,7 @@ function setPagination(state, action){
 	switch (action.type) {
 		case GETLIST_SUCCESS:
 			let { total, size, start } = action;
-			state.pageTotal = Math.ceil(total / (state.pageSize - 1));
+			state.pageTotal = Math.ceil(total / state.pageSize);
 			state.pageNumber = total || state.pageNumber;
 			state.pageCurrent = Math.ceil(start / (state.pageSize - 1)) || 1;
 			return state;

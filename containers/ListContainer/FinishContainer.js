@@ -70,14 +70,14 @@ class FinishContainer extends Component {
 		getProcessStatus(processMainInfo){
 			// 已审批中的状态逻辑(主流程)：
 			// 已完成 finished=true且deleteReason=null
-			// 已终止 finished=true且deleteReason!=null
+			// 已中止 finished=true且deleteReason!=null
 			// 进行中 finished=false
 			let str = '';
 			if(processMainInfo.processFinished){
-				if(processMainInfo.deleteReason == 'completed'){
+				if(processMainInfo.historicProcessInstance.deleteReason == 'completed'){
 					str = <span className="btn-tip btn-tip-done">已完成</span>;
-				} else if(processMainInfo.deleteReason == 'delete'){
-					str = <span className="btn-tip btn-tip-stop">已终止</span>;
+				} else if(processMainInfo.historicProcessInstance.deleteReason == 'delete'){
+					str = <span className="btn-tip btn-tip-stop">已中止</span>;
 				} else {
 					str = <span className="btn-tip btn-tip-doing">进行中</span>;
 				}

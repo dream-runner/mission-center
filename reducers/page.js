@@ -1,5 +1,5 @@
  import {
-    CHANGE_ACTIVEPAGE,CHANGE_PREPAGE,CHANGE_NEXTPAGE,GETLIST_SUCCESS,GET_ITEMS_SUCCESS, GET_ITEMS_FAILURE,IS_SEARCH
+	 CHANGE_ACTIVEPAGE,CHANGE_PREPAGE,CHANGE_NEXTPAGE,GETLIST_SUCCESS,GET_ITEMS_SUCCESS, GET_ITEMS_FAILURE,IS_SEARCH
 } from '../constants/ActionTypes'
 
 const initialState = {
@@ -34,7 +34,7 @@ function changePage(state, action) {
         case CHANGE_ACTIVEPAGE:
             return action.activePage
         case CHANGE_PREPAGE:
-            return action.activePage==0?0:state.activePage-1
+            return action.activePage == 0 ? 0:state.activePage-1
         case CHANGE_NEXTPAGE:
             return action.activePage+1
         default:

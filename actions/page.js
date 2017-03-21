@@ -406,6 +406,13 @@ function getActivePage(activePage) {
 	}
 }
 
+export function initActivePage(activePage){
+	return {
+		type: CHANGE_ACTIVEPAGE,
+		activePage
+	}
+}
+
 function getListSuccess(json, navKey) {
 	let {
 		data = [], total = 0
@@ -426,9 +433,6 @@ function getListFailure(message) {
 		message
 	}
 }
-
-
-
 
 export function prepage() {
 	return (dispatch, getState) => {
