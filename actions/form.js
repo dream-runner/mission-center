@@ -5,6 +5,7 @@ import {
     GETFORM_SRC_SUCCESS,
     GETFORM_SRC_FAILURE
 } from '../constants/ActionTypes'
+import { getCurNavKey } from './nav';
 
 function getFailure(message) {
     return (dispatch) => {
@@ -46,7 +47,11 @@ export function show(src) {
 
 export function getBo(item) {
     return (dispatch, getState) => {
-        let { id, processDefinitionId, processInstanceId } = item
+        let { taskId, id, processDefinitionId, processInstanceId, procssInstId } = item;
+				// 我抄送的 参数为 procssInstId taskdId
+				processInstanceId = processInstanceId || procssInstId;
+				taskId = taskId || id;
+
         let url = `${window.$ctx}/tc/getbo?processDefinitionId=${processDefinitionId}&processInstanceId=${processInstanceId}&_=${Date.now()}`
         dispatch({
             type: GETFORM_SRC_REQUEST
@@ -62,7 +67,7 @@ export function getBo(item) {
                                 let json = JSON.parse(text)
                                 let { pk_bo, pk_boins } = json
                                 if (pk_bo) {
-                                    dispatch(getSuccess(id, pk_bo, pk_boins,processDefinitionId,processInstanceId))
+                                    dispatch(getSuccess(taskId, pk_bo, pk_boins,processDefinitionId,processInstanceId))
                                 } else {
                                     dispatch(getFailure(`${json.message}`))
                                 }
