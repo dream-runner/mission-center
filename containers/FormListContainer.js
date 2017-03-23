@@ -25,12 +25,10 @@ class FormListContainer extends Component {
         let forms = []
         forEach(category.forms, (form, j) => {
             forms.push(
-                <li className={form.id == curForm ? "form active" : "form"} key={i+','+j}>
-                    <a href="#" onClick={checkForm(form.id)}>
-                        <div className="form-title">
-                            <span>{form.name}</span>
-                        </div>
-                        <span className="category-title" style={{background: color[(index++)%l]}}>{category.name}</span>
+                <li className={form.id == curForm ? "item active" : "item"} key={i+','+j}>
+                    <a href="#" onDoubleClick={this.doubleClickHandle(form.id).bind(this)}>
+												<div className="pic"><span className="fillin-avatar avatar-icon-1"></span></div>
+                        <div className="txt"><span>{form.name}</span></div>
                     </a>
                 </li>
             )
@@ -44,16 +42,25 @@ class FormListContainer extends Component {
     })
 
     return (
-        <Dialog show={isOpen} onHide={hide} onPrimary={primary} dialogClassName="form-list-dialog" title="表单列表">
-			<CSSTransitionGroup className="form-list-tip-wrap" component="div" transitionName="form-list-tip" transitionEnterTimeout={500} transitionLeaveTimeout={300}>
-			{tip ? <div className="alert alert-warning form-list-tip">{tip}</div> : undefined}
-			</CSSTransitionGroup>
-            <Loading errorMsg={_errorMsg} status={_status} isFetching={isFetching}>
-                {formLists}
-            </Loading>
+        <Dialog show={isOpen} onHide={hide} onPrimary={primary} noFooter={true} dialogClassName="form-list-dialog" title="表单列表">
+					<CSSTransitionGroup className="form-list-tip-wrap" component="div" transitionName="form-list-tip" transitionEnterTimeout={500} transitionLeaveTimeout={300}>
+					{tip ? <div className="alert alert-warning form-list-tip">{tip}</div> : undefined}
+					</CSSTransitionGroup>
+          <Loading errorMsg={_errorMsg} status={_status} isFetching={isFetching}>
+              {formLists}
+          </Loading>
         </Dialog>
     )
   }
+
+	doubleClickHandle(id){
+		return (e) => {
+			console.log('iddd');
+			this.props.checkForm(id);
+			this.props.primary();
+		}
+	}
+
   toggleCategory (id) {
       return (e) => {
           e.preventDefault()
@@ -62,8 +69,7 @@ class FormListContainer extends Component {
   }
   checkForm (id) {
       return (e) => {
-          e.preventDefault()
-          this.props.checkForm(id)
+          e.preventDefault();
       }
   }
 }

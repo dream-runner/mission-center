@@ -99,7 +99,8 @@ export function checkForm (id) {
 export function primary () {
     return checkFlag((dispatch, getState) => {
         let state = getState()
-        let curForm = state.formList.curForm
+        let curForm = state.formList.curForm;
+				console.log(curForm,'xxxx');
         if (curForm) {
             flag = false
             window.location.href = `${window.$ctx}/static/html/rt/fill-in.html?pk_bo=${curForm}`
