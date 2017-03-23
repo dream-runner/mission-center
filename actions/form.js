@@ -48,9 +48,11 @@ export function show(src) {
 export function getBo(item) {
     return (dispatch, getState) => {
         let { taskId, id, processDefinitionId, processInstanceId, procssInstId } = item;
-				// 我抄送的 参数为 procssInstId taskdId
+				// 我抄送的 参数为 processDefinitionId, procssInstId taskdId
+				processDefinitionId = processDefinitionId || item.historicProcessInstance.processDefinitionId;
 				processInstanceId = processInstanceId || procssInstId;
 				taskId = taskId || id;
+
 
         let url = `${window.$ctx}/tc/getbo?processDefinitionId=${processDefinitionId}&processInstanceId=${processInstanceId}&_=${Date.now()}`
         dispatch({
