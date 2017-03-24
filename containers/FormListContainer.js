@@ -24,21 +24,25 @@ class FormListContainer extends Component {
     forEach(categories, (category, i) => {
         let forms = []
         forEach(category.forms, (form, j) => {
+						var icon = form.icon ? form.icon : 'icon-1';
             forms.push(
                 <li className={form.id == curForm ? "item active" : "item"} key={i+','+j}>
                     <a href="#" onDoubleClick={this.doubleClickHandle(form.id).bind(this)}>
-												<div className="pic"><span className="fillin-avatar avatar-icon-1"></span></div>
+												<div className="pic"><span className={`fillin-avatar avatar-${icon}`}></span></div>
                         <div className="txt"><span>{form.name}</span></div>
                     </a>
                 </li>
             )
         })
-        formLists.push((
-            <div className="categories-list">
-                <h2 className="category">{category.name}<span className="category-count">({forms.length})</span></h2>
-                <ul className="forms-list clearfix">{forms}</ul>
-            </div>
-        ))
+				if(forms.length > 0){
+					formLists.push((
+	            <div className="categories-list">
+	                <h2 className="category">{category.name}<span className="category-count">({forms.length})</span></h2>
+	                <ul className="forms-list clearfix">{forms}</ul>
+	            </div>
+	        ));
+				}
+
     })
 
     return (
@@ -55,7 +59,6 @@ class FormListContainer extends Component {
 
 	doubleClickHandle(id){
 		return (e) => {
-			console.log('iddd');
 			this.props.checkForm(id);
 			this.props.primary();
 		}
