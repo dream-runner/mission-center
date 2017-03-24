@@ -66,18 +66,19 @@ class MineContainer extends Component {
 			}
 			return <ul className="remark-list">{str}</ul>;
 		}
+		// 我发起的几种状态 state: run 审批中 end 已完成 delete 已中止
 		getProcessStatus(processInstance){
 			let str = '';
-			if(processInstance.endTime){
-				if(processInstance.deleteReason === 'stop'){
+			if(processInstance.processDefinitionId.indexOf('processKey') > -1){
+				str = <span className="btn-tip btn-tip-done">已提交</span>;
+			} else {
+				if(processInstance.state === 'delete'){
 					str = <span className="btn-tip btn-tip-stop">已中止</span>;
-				} else if(processInstance.deleteReason) {
+				} else if(processInstance.state == 'end') {
 					str = <span className="btn-tip btn-tip-done">已完成</span>;
-				} else {
+				} else if(processInstance.state == 'run'){
 					str = <span className="btn-tip btn-tip-doing">进行中</span>;
 				}
-			} else {
-				str = <span className="btn-tip btn-tip-doing">进行中</span>;
 			}
 			return str;
 		}
