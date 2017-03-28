@@ -229,6 +229,10 @@ html, body {
     border-radius: 50%;
     background: #FA4F52;
 }
+#mission-center-root .list-wrap .table-list .item-info .read{
+    display: none;
+}
+
 
 #mission-center-root .list-wrap .table-list .item-info .uname,
 #mission-center-root .list-wrap .table-list .item-info .avatar{
