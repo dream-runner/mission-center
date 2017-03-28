@@ -18,8 +18,13 @@ function getFailure(message) {
 }
 
 function getSuccess(copyToId, taskId, pk_bo, pk_boins,processDefinitionId,processInstanceId) {
-    let src = `${window.$ctx}/static/html/rt/browse.html?copyToId=${copyToId}&taskId=${taskId}&pk_bo=${pk_bo}&pk_boins=${pk_boins}&processDefinitionId=${processDefinitionId}&processInstanceId=${processInstanceId}`
-    return (dispatch) => {
+    let src = '';
+		if(copyToId){
+			src = `${window.$ctx}/static/html/rt/browse.html?copyToId=${copyToId}&taskId=${taskId}&pk_bo=${pk_bo}&pk_boins=${pk_boins}&processDefinitionId=${processDefinitionId}&processInstanceId=${processInstanceId}`
+		} else {
+			src = `${window.$ctx}/static/html/rt/browse.html?taskId=${taskId}&pk_bo=${pk_bo}&pk_boins=${pk_boins}&processDefinitionId=${processDefinitionId}&processInstanceId=${processInstanceId}`
+		}
+		return (dispatch) => {
         dispatch({
             type: GETFORM_SRC_SUCCESS
         })
@@ -54,9 +59,15 @@ export function getBo(item) {
 				processInstanceId = processInstanceId || procssInstId || id;
 				taskId = taskId || id;
 
-				let copyToId = id;
+				let curNavKey = dispatch(getCurNavKey());
+				let copyToId = 0, url = '';
+				if(curNavKey == 'listcopy'){
+					copyToId = id;
+					url = `${window.$ctx}/tc/getbo?processDefinitionId=${processDefinitionId}&processInstanceId=${processInstanceId}&copyToId=${copyToId}&_=${Date.now()}`
+				} else {
+					url = `${window.$ctx}/tc/getbo?processDefinitionId=${processDefinitionId}&processInstanceId=${processInstanceId}&_=${Date.now()}`
+				}
 
-        let url = `${window.$ctx}/tc/getbo?processDefinitionId=${processDefinitionId}&processInstanceId=${processInstanceId}&copyToId=${copyToId}&_=${Date.now()}`
         dispatch({
             type: GETFORM_SRC_REQUEST
         })
