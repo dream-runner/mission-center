@@ -128,7 +128,7 @@ html, body {
 #mission-center-root .dropdown{
 	height: 30px;
 	margin: 10px 0 0 0;
-	padding: 0 5px;
+	padding: 0 10px;
 	border: 1px solid #ededed;
 	border-radius: 4px;
 }
@@ -630,10 +630,10 @@ html, body {
     /*padding-top: 30px;*/
     /*height: 100%;*/
     position: absolute;
-    left: 60px;
-    right: 60px;
-    top: 30px;
-    bottom: 30px;
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
 }
 .form-dialog .form-iframe-wrap {
     height:100%;
