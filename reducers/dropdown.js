@@ -119,18 +119,18 @@ const initialState = {
 		}
 }
 
-function toggleOpen(state, action) {
-    switch (action.type) {
-        case SHOW_MENU:
-            if (action.name && state) {
-                return true
-            }
-            return state.isOpen
-        case HIDE_MENU:
-            return false
-        default:
-            return state.isOpen
-    }
+// 同时只能打开一个下拉框
+function toggleOneOpen(state, action) {
+		for(var k in state){
+			if(state[k].isOpen){
+				state[k].isOpen = false;
+			}
+		}
+		if(action.type === SHOW_MENU){
+			return true;
+		} else {
+			return false;
+		}
 }
 
 function setDropdownChecked(state, action) {
@@ -194,8 +194,10 @@ export default function dropdown(state = initialState, action) {
 	} else {
 		if(name && state[name]){
 			dropdownName = name;
-			state[name].isOpen = toggleOpen(state[name], action);
+			state[name].isOpen = toggleOneOpen(state, action);
 			state[name].cur = setDropdownChecked(state[name].cur, action);
+		} else {
+			toggleOneOpen(state, action);
 		}
 
 	  return {
