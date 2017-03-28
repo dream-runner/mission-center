@@ -46,7 +46,7 @@ class FormListContainer extends Component {
     })
 
     return (
-        <Dialog show={isOpen} onHide={hide} onPrimary={primary} noFooter={true} dialogClassName="form-list-dialog" title="表单列表">
+        <Dialog show={isOpen} onHide={hide} onPrimary={primary} noFooter={true} dialogClassName="form-list-dialog" title="选择模板">
 					<CSSTransitionGroup className="form-list-tip-wrap" component="div" transitionName="form-list-tip" transitionEnterTimeout={500} transitionLeaveTimeout={300}>
 					{tip ? <div className="alert alert-warning form-list-tip">{tip}</div> : undefined}
 					</CSSTransitionGroup>
