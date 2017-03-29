@@ -71,7 +71,7 @@ class FinishContainer extends Component {
 			// 已审批中的状态逻辑：
 			// 已完成 processFinished=true且历史流程中的deleteReason!=delete
 			// 已中止 processFinished=true且deleteReason==delete
-			// 进行中 processFinished=false
+			// 审批中 processFinished=false
 			let str = '';
 			if(processMainInfo.processFinished){
 				if(processMainInfo.historicProcessInstance.deleteReason == 'delete'){
@@ -80,7 +80,7 @@ class FinishContainer extends Component {
 					str = <span className="btn-tip btn-tip-done">已完成</span>;
 				}
 			} else {
-				str = <span className="btn-tip btn-tip-doing">进行中</span>;
+				str = <span className="btn-tip btn-tip-doing">审批中</span>;
 			}
 			return str;
 		}

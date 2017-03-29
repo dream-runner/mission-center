@@ -77,7 +77,7 @@ class MineContainer extends Component {
 				} else if(processInstance.state == 'end') {
 					str = <span className="btn-tip btn-tip-done">已完成</span>;
 				} else if(processInstance.state == 'run'){
-					str = <span className="btn-tip btn-tip-doing">进行中</span>;
+					str = <span className="btn-tip btn-tip-doing">审批中</span>;
 				}
 			}
 			return str;
