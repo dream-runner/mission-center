@@ -12,7 +12,6 @@ class copyContainer extends Component {
 			const showPagination = pagination.pageTotal > 1 ? <PageContainer items={pagination.pageTotal} /> : '';
 			let node = map(items, (item, i) => {
 				let {title, historicProcessInstance, taskStatus, dueDate, createTime} = item;
-
 				let processInstance = historicProcessInstance;
 				let processCurRead = taskStatus == '0' ? <span className="unread" ref="unread" data-status="0"><i>未读</i></span> : <span className="read" ref="read" data-status="1"><i>已读</i></span>
 				let processCurName = processInstance.startParticipant && processInstance.startParticipant.name ? <span className="uname">{processInstance.startParticipant.name.substr(-2,2)}</span> : '';
@@ -78,8 +77,10 @@ class copyContainer extends Component {
 	showDetail(item) {
 		return (e) => {
 				e.preventDefault();
-				if(this.refs.unread.getAttribute('data-status') == '0'){
-					e.currentTarget.className = 'box hadread';
+				if(item.taskStatus == '0'){
+					if(this.refs.unread.getAttribute('data-status') == '0'){
+						e.currentTarget.className = 'box hadread';
+					}
 				}
 				this.props.getBo(item);
 		}
