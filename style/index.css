@@ -612,6 +612,7 @@ html, body {
 }
 .form-dialog .modal-header{
 	border-bottom: 1px solid #EDEDED;
+	text-align: center;
 }
 .form-dialog .modal-title{
 	color: #262626;
@@ -631,6 +632,32 @@ html, body {
     z-index: 100;
     line-height: 32px;
 	outline:none;
+}
+.form-dialog .dialog_detail_close{
+	float: left;
+	border: 0;
+	padding: 0;
+	outline: none;
+}
+.form-dialog .dialog_detail_close span{
+	float: left;
+	transform:rotate(180deg);
+	-ms-transform:rotate(180deg); 	/* IE 9 */
+	-moz-transform:rotate(180deg); 	/* Firefox */
+	-webkit-transform:rotate(180deg); /* Safari 和 Chrome */
+	-o-transform:rotate(180deg);
+	color: #9E9E9E;
+}
+.form-dialog .dialog_detail_close a{
+	float: left;
+	color: #9E9E9E;
+	text-decoration: none;
+	font-size: 14px;
+	margin-top: 2px;
+}
+.form-dialog .dialog_detail_close a:hover, a:active{
+	color: #9E9E9E;
+	text-decoration: none;
 }
 .form-dialog .modal-body {
     padding: 0;

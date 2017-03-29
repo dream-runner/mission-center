@@ -3,14 +3,26 @@ import { Modal, Button } from 'react-bootstrap'
 
 export default class Dialog extends Component {
     render() {
-        const { show, onHide, onPrimary, children, title, dialogClassName, noFooter } = this.props
+        const { show, onHide, onPrimary, children, title, dialogClassName, noFooter, customClose } = this.props
 
         return (
             <Modal show={show} onHide={onHide} dialogClassName={dialogClassName}  bsSize="large">
+
+							{customClose ? (
+								<Modal.Header>
+									<Button className="dialog_detail_close" onClick={onHide}>
+										<span > <i className="iconfont icon-jiantou"> </i> </span>
+										<a className="dialog_back_text" >返回</a>
+									</Button>
+									<text>{ title }</text>
+								</Modal.Header>
+							) : (
 								<Modal.Header closeButton>
-                    <Modal.Title>{ title }</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
+									<Modal.Title>{ title }</Modal.Title>
+								</Modal.Header>
+							)}
+
+							<Modal.Body>
                     { children }
                 </Modal.Body>
                 {noFooter ? undefined : (<Modal.Footer>
