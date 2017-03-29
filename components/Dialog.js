@@ -5,8 +5,6 @@ export default class Dialog extends Component {
     render() {
         const { show, onHide, onPrimary, children, title, dialogClassName, noFooter } = this.props
 
-				window.onHide = onHide;
-
         return (
             <Modal show={show} onHide={onHide} dialogClassName={dialogClassName}  bsSize="large">
 								<Modal.Header closeButton>
