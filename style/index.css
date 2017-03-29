@@ -608,12 +608,15 @@ html, body {
     border: 0 none;
     border-radius: 0;
     box-shadow: none;
-    background: transparent;
     height: 100%;
 }
-.form-dialog .modal-header {
-    padding: 0;
-    border: 0 none;
+.form-dialog .modal-header{
+	border-bottom: 1px solid #EDEDED;
+}
+.form-dialog .modal-title{
+	color: #262626;
+	font-size: 16px;
+	text-align: center;
 }
 .form-dialog .modal-header .close {
 	display: none;
@@ -632,12 +635,12 @@ html, body {
 .form-dialog .modal-body {
     padding: 0;
     /*padding-top: 30px;*/
-    /*height: 100%;*/
-    position: absolute;
+    height: 100%;
+    /* position: absolute;
     left: 0px;
     right: 0px;
     top: 0px;
-    bottom: 0px;
+    bottom: 0px; */
 }
 .form-dialog .form-iframe-wrap {
     height:100%;

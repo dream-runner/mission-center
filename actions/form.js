@@ -52,6 +52,7 @@ export function show(src) {
 
 export function getBo(item) {
     return (dispatch, getState) => {
+				dispatch(show());
         let { taskId, id, processDefinitionId, processInstanceId, procssInstId } = item;
 				// 我抄送的 参数为 processDefinitionId = historicProcessInstance.processDefinitionId, procssInstId taskdId
 				// 我发起的 参数为 processInstanceId = id
@@ -71,6 +72,7 @@ export function getBo(item) {
         dispatch({
             type: GETFORM_SRC_REQUEST
         })
+
         return fetch(url, {
                 credentials: 'include',
 				cache: 'no-cache'

@@ -14,7 +14,7 @@ class FormContainer extends Component {
         _status = 'no-data'
     }
     return (
-        <Dialog show={isOpen} onHide={()=>{hide()}} dialogClassName="form-dialog" title="" noFooter={true}>
+        <Dialog show={isOpen} onHide={()=>{hide()}} dialogClassName="form-dialog" title="审批流程" noFooter={true}>
             <Loading className="form-iframe-wrap" errorMsg={_errorMsg} status={_status} isFetching={isFetching}>
                 <iframe className="form-iframe" src={src}/>
             </Loading>
