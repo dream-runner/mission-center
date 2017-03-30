@@ -4,16 +4,15 @@ import { Modal, Button } from 'react-bootstrap'
 export default class Dialog extends Component {
     render() {
         const { show, onHide, onPrimary, children, title, dialogClassName, noFooter, customClose } = this.props
-
+				console.log(customClose);
         return (
             <Modal show={show} onHide={onHide} dialogClassName={dialogClassName}  bsSize="large">
 
 							{customClose ? (
 								<Modal.Header>
-									<Button className="dialog_detail_close" onClick={onHide}>
-										<span > <i className="iconfont icon-jiantou"> </i> </span>
-										<a className="dialog_back_text" >返回</a>
-									</Button>
+									<span className="dialog_detail_close" onClick={onHide}>
+										<span className="dialog_back_text" >返回</span>
+									</span>
 									<text>{ title }</text>
 								</Modal.Header>
 							) : (

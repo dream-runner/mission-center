@@ -143,13 +143,17 @@ html, body {
 	text-decoration: none;
 }
 #mission-center-root .dropdown-menu > .active > a {
-    background: #E4E4E4;
-    color: #29B6F6;
+    /* background: #F5F5F5; */
 }
 #mission-center-root .dropdown-menu a {
     color: #666;
     background: #fff;
 }
+
+#mission-center-root .dropdown-menu a:hover{
+    background: #F5F5F5;
+}
+
 #mission-center-root .list-wrap {
     padding: 0;
 	position: absolute;
@@ -469,6 +473,7 @@ html, body {
 .form-list-dialog .modal-body {
 	max-height: 500px;
     min-height: 250px;
+	padding: 20px;
 	overflow: auto;
 }
 
@@ -635,28 +640,24 @@ html, body {
 	outline:none;
 }
 .form-dialog .dialog_detail_close{
+	display: inline-block;
+	height: 16px;
 	float: left;
 	border: 0;
-	padding: 0;
+	padding: 0 0 0 12px;
 	outline: none;
+	cursor: pointer;
+	background: url('../img/back.png') no-repeat left center;
+	background-size: 8px 14px;
 }
 .form-dialog .dialog_detail_close span{
-	float: left;
-	transform:rotate(180deg);
-	-ms-transform:rotate(180deg); 	/* IE 9 */
-	-moz-transform:rotate(180deg); 	/* Firefox */
-	-webkit-transform:rotate(180deg); /* Safari 和 Chrome */
-	-o-transform:rotate(180deg);
-	color: #9E9E9E;
-}
-.form-dialog .dialog_detail_close a{
 	float: left;
 	color: #9E9E9E;
 	text-decoration: none;
 	font-size: 14px;
-	margin-top: 2px;
+	line-height: 16px;
 }
-.form-dialog .dialog_detail_close a:hover, a:active{
+.form-dialog .dialog_detail_close span:hover{
 	color: #9E9E9E;
 	text-decoration: none;
 }
@@ -904,7 +905,7 @@ html, body {
 .search-bar .search-text{
 	display: inline-block;
 	margin: 0 0 0 26px;
-	height: 26px;
+	height: 28px;
 	border: none;
 	outline: none;
 	font-size: 12px;
@@ -923,8 +924,10 @@ html, body {
 	height: 26px;
 	line-height: 26px;
 	text-align: center;
+	background: url('../img/search.png') no-repeat center;
 }
 .search-bar .btn-search .iconfont{
+	display:none;
 	font-size: 14px;
 	color: #ccc;
 }
