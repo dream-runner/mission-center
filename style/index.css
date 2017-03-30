@@ -198,6 +198,7 @@ html, body {
 }
 
 #mission-center-root .list-wrap .table-list .box{
+    cursor: pointer;
 	display: -webkit-box;
 	padding: 10px 0;
 	border-bottom: 1px solid #EDEDED;
