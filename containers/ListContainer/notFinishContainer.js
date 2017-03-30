@@ -15,6 +15,7 @@ class notFinishContainer extends Component {
 
         let node = map(items, (item, i) => {
             let {processInstance, dueDate, createTime} = item;
+						if(!processInstance) return;
 						// let uname = (historicProcessInstance && historicProcessInstance.startParticipant && historicProcessInstance.startParticipant.name)||'';
 						let processCurName = processInstance.startParticipant && processInstance.startParticipant.name ? <span className="uname">{processInstance.startParticipant.name.substr(-2,2)}</span> : '';
 						let processCurAvatar = processInstance.startParticipant && processInstance.startParticipant.pic ? <span className="avatar"><img src={processInstance.startParticipant.pic} alt={processInstance.startParticipant.name} /></span> : '';
