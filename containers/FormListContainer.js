@@ -24,12 +24,15 @@ class FormListContainer extends Component {
     forEach(categories, (category, i) => {
         let forms = []
         forEach(category.forms, (form, j) => {
-						var icon = form.icon ? form.icon : 'icon-1';
+						var icon = form.icon ? form.icon : 'icon-21';
             forms.push(
                 <li className={form.id == curForm ? "item active" : "item"} key={i+','+j}>
                     <a href="#" onClick={this.doubleClickHandle(form.id).bind(this)} title={form.name}>
-												<div className="pic"><span className={`fillin-avatar avatar-${icon}`}></span></div>
-                        <div className="txt"><span>{form.name}</span></div>
+												<div className="content">
+													<div className="title"><span>{form.name}</span></div>
+													<div className="pic"><span className={`fillin-avatar avatar-${icon}`}></span></div>
+                        	<div className="txt"><span>{form.name}</span></div>
+												</div>
                     </a>
                 </li>
             )

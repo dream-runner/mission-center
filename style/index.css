@@ -373,6 +373,10 @@ html, body {
     background-size: cover;
 }
 
+.avatar-icon-21{
+	background: url('../img/icon-21.png') no-repeat 0 0;
+	background-size: cover;
+}
 
 #mission-center-root .list-wrap .table-list .item-info .duedate{
 	background: #FA4F52;
@@ -519,7 +523,7 @@ html, body {
     list-style: none;
 }
 .form-list-dialog .categories-list .category{
-    color: #262626;
+    color: #9E9E9E;
 	font-weight: normal;
     font-size: 14px;
 	margin:0;
@@ -538,16 +542,21 @@ html, body {
 .form-list-dialog .forms-list li {
 	display: inline-block;
 	float: left;
-	width: 100px;
+	width: 241px;
 	height: 100px;
 	margin-right: 20px;
+	margin-bottom: 10px;
 	border-radius: 6px;
+	background-color: #FBFBFB;
+	border: 1px solid #EDEDED;
 }
 .form-list-dialog .forms-list li:hover {
-    background: #F5F5F5;
+    background: #E9F8FE;
+	border: 1px solid #8BD5F6;
 }
 .form-list-dialog .forms-list li.active {
-    background: #F5F5F5;
+	background: #E9F8FE;
+	border-color: #8BD5F6;
     position: relative;
 }
 /* .form-list-dialog .forms-list li.active:after{
@@ -571,7 +580,14 @@ html, body {
     text-decoration: none;
 }
 .form-list-dialog .forms-list .pic {
-	margin: 20px auto 10px;
+	/*margin: 20px auto 10px;*/
+	float: left;
+	margin-top: -22px;
+	/*width: 40px;*/
+	/*height: 40px;*/
+	border-radius: 5px;
+	padding-left: 15px;
+	padding-right: 15px;
 }
 .form-list-dialog .forms-list .pic .fillin-avatar{
 	display: inline-block;
@@ -583,15 +599,30 @@ html, body {
 	vertical-align: middle;
 	text-align: center;
 }
-
-.form-list-dialog .forms-list .txt {
-
+.form-list-dialog .forms-list .content{
+	padding-right: 10px;
 }
-.form-list-dialog .forms-list .txt span{
+.form-list-dialog .forms-list .title {
+	color: #262626;
+	font-size: 16px;
+	margin: 20px 0 0 67px;
+	line-height: 30px;
+	font-weight: 400;
+	text-align: left;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+.form-list-dialog .forms-list .txt{
 	display: block;
-	font-size: 14px;
+	font-size: 12px;
 	color: #9E9E9E;
     white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	margin-left: 60px;
+	text-align: left;
+	white-space: nowrap;
 	text-overflow: ellipsis;
 	overflow: hidden;
 }
