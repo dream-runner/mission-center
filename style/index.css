@@ -35,7 +35,7 @@ html, body {
 #mission-center-root .navbar-default .navbar-nav > .active > a:hover {
     background: #fff;
     color:#29B6F6;
-    border-bottom: 1px solid #29B6F6;
+    border-bottom: 2px solid #29B6F6;
 }
 #mission-center-root .navbar-default .navbar-nav > li > a,
 #mission-center-root .navbar-default .navbar-nav > li > a:hover {
