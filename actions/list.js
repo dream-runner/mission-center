@@ -21,7 +21,7 @@ function getListFailure(message) {
 }
 
 function getListSuccess(json, navKey) {
-    let { data = [], total, size, start } = json;
+    let { data = [], total, size, start, unReadCount } = json;
     return (dispatch) => {
         dispatch({
             type: GETLIST_SUCCESS,
@@ -30,6 +30,7 @@ function getListSuccess(json, navKey) {
 						size,
 						start,
             navKey,
+						unReadCount
         })
     }
 }
