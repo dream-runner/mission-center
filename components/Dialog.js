@@ -4,7 +4,7 @@ import { Modal, Button } from 'react-bootstrap'
 export default class Dialog extends Component {
     render() {
         const { show, onHide, onPrimary, children, title, dialogClassName, noFooter, customClose } = this.props
-				console.log(customClose);
+
         return (
             <Modal show={show} onHide={onHide} dialogClassName={dialogClassName}  bsSize="large">
 
