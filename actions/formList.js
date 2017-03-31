@@ -63,7 +63,7 @@ export function show() {
             dispatch({
                 type: GETFORMLIST_REQUEST
             })
-            return fetch(`${window.$ctx}/iform_ctr/iform_design_ctr/queryFormList`, {
+            return fetch(`${window.$ctx}/iform_ctr/iform_design_ctr/queryFormList?outage=false`, {
                     method:'POST',
                     credentials: 'include',
 					cache: 'no-cache'
@@ -100,7 +100,6 @@ export function primary () {
     return checkFlag((dispatch, getState) => {
         let state = getState()
         let curForm = state.formList.curForm;
-				console.log(curForm,'xxxx');
         if (curForm) {
             flag = false
             window.location.href = `${window.$ctx}/static/html/rt/fill-in.html?pk_bo=${curForm}`
