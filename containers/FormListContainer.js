@@ -31,7 +31,7 @@ class FormListContainer extends Component {
 												<div className="content">
 													<div className="title"><span>{form.name}</span></div>
 													<div className="pic"><span className={`fillin-avatar avatar-${icon}`}></span></div>
-                        	<div className="txt"><span>{form.name}</span></div>
+                        	<div className="txt"><span>{form.descripsion}</span></div>
 												</div>
                     </a>
                 </li>
