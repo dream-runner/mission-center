@@ -290,7 +290,9 @@ export function getListNew(moduleName, activePage) {
 		if(moduleName && moduleName == 'pagination'){
 			let pageSize = pagination.pageSize;
 			let pageStart = (activePage - 1) * pageSize;
+			let searchText = state.search.searchText + '';
 			queryStr += `size=${pageSize}&start=${pageStart}&`;
+			queryStr += searchText ? `searchedItem=${searchText}&` : '';
 		}
 
 		dispatch({

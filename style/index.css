@@ -553,6 +553,7 @@ html, body {
 .form-list-dialog .forms-list li:hover {
     background: #E9F8FE;
 	border: 1px solid #8BD5F6;
+	cursor: pointer;
 }
 .form-list-dialog .forms-list li.active {
 	background: #E9F8FE;
