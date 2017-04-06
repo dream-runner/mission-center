@@ -85,7 +85,7 @@ const initialState = {
 	        text: '已完成',
 	        key: 'true'
 	    }, {
-	        text: '进行中',
+	        text: '审批中',
 	        key: 'false'
 	    },/* {
 	        text: '已终止',

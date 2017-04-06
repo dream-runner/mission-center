@@ -123,6 +123,8 @@ html, body {
 #mission-center-root .dropdown-menu {
     right: auto;
     left: 0;
+    max-height: 200px;
+    overflow: scroll;
 	border: 1px solid #ededed;
 }
 #mission-center-root .dropdown{

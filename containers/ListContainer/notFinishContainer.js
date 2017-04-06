@@ -23,7 +23,8 @@ class notFinishContainer extends Component {
 						let processkeyFeature = this.getProcessKeyFeature(processInstance);
 						let processStatus = this.getProcessStatus(processInstance);
 						let processCreateTime = new Date(createTime).format('yyyy-MM-dd HH:mm');
-						let processDueDate = dueDate && dueDate < new Date() ? <span className="duedate">逾期</span> : '';
+						let dueDateTime = dueDate && new Date(dueDate).getTime();
+						let processDueDate =  dueDateTime < new Date().getTime() ? <span className="duedate">逾期</span> : '';
 						return (
                 <div key={i} className="item">
                     <div className="box" onClick={this.showDetail(item)}>
