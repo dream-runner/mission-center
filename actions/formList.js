@@ -102,7 +102,8 @@ export function primary () {
         let curForm = state.formList.curForm;
         if (curForm) {
             flag = false
-            window.location.href = `${window.$ctx}/static/html/rt/fill-in.html?pk_bo=${curForm}`
+            // window.location.href = `${window.$ctx}/static/html/rt/fill-in.html?pk_bo=${curForm}`
+						window.location.href = `${window.$ctx}/static/dist/rt/html/fill-in.html?pk_bo=${curForm}`
         } else {
 			dispatch({
 				type: SET_FORMLIST_TIP,
