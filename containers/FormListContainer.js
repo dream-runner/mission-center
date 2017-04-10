@@ -40,7 +40,7 @@ class FormListContainer extends Component {
         })
 				if(forms.length > 0){
 					formLists.push((
-	            <div className="categories-list">
+	            <div className="categories-list" key={i}>
 	                <h2 className="category">{category.name}<span className="category-count">({forms.length})</span></h2>
 	                <ul className="forms-list clearfix">{forms}</ul>
 	            </div>
