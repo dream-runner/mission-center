@@ -427,7 +427,7 @@ html, body {
     margin-top: 10px;
 }
 .form-list-dialog {
-    width: 940px;
+    width: 806px;
 }
 .form-list-dialog .modal-content {
     border-radius: 4px;
@@ -482,6 +482,7 @@ html, body {
     min-height: 250px;
 	padding: 20px;
 	overflow: auto;
+	padding-right: 0px;
 }
 
 /* .form-list-dialog .categories-list {
