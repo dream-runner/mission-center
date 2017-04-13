@@ -63,7 +63,7 @@ export function show() {
             dispatch({
                 type: GETFORMLIST_REQUEST
             })
-            return fetch(`${window.$ctx}/iform_ctr/iform_design_ctr/queryFormList?outage=false`, {
+            return fetch(`${window.$ctx}/iform_ctr/iform_design_ctr/queryFormList?outage=false&hideCount=1`, {
                     method:'POST',
                     credentials: 'include',
 					cache: 'no-cache'
