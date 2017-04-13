@@ -49,7 +49,7 @@ app.get(ctx + "/tc/copytasks", function(req, res) {
 
 app.get(ctx + "/tc/histasks", function(req, res) {
 	setTimeout(function () {
-		res.sendFile(__dirname + '/mock/done0.json')
+		res.sendFile(__dirname + '/mock/listDone.json');
 	}, 2000)
 })
 
