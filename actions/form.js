@@ -20,9 +20,9 @@ function getFailure(message) {
 function getSuccess(copyToId, taskId, pk_bo, pk_boins,processDefinitionId,processInstanceId) {
     let src = '';
 		if(copyToId){
-			src = `${window.$ctx}/static/dist/rt/html/browse.html?copyToId=${copyToId}&taskId=${taskId}&pk_bo=${pk_bo}&pk_boins=${pk_boins}&processDefinitionId=${processDefinitionId}&processInstanceId=${processInstanceId}`
+			src = `${window.$ctx}/static/dist/rt/html/browse.html?copyToId=${copyToId}&taskId=${taskId}&pk_bo=${pk_bo}&pk_boins=${pk_boins}&processDefinitionId=${processDefinitionId}&processInstanceId=${processInstanceId}&from=mission`
 		} else {
-			src = `${window.$ctx}/static/dist/rt/html/browse.html?taskId=${taskId}&pk_bo=${pk_bo}&pk_boins=${pk_boins}&processDefinitionId=${processDefinitionId}&processInstanceId=${processInstanceId}`
+			src = `${window.$ctx}/static/dist/rt/html/browse.html?taskId=${taskId}&pk_bo=${pk_bo}&pk_boins=${pk_boins}&processDefinitionId=${processDefinitionId}&processInstanceId=${processInstanceId}&from=mission`
 		}
 		return (dispatch) => {
         dispatch({
