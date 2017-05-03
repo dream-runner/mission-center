@@ -65,9 +65,9 @@ class copyContainer extends Component {
 	}
 	getProcessStatus(processInstance){
 		let str = '';
-		if(processInstance.completed){ // 已完成
+		if(processInstance.state === 'end'){ // 已完成
 			str = <span className="btn-tip btn-tip-done">已完成</span>;
-		} else if(processInstance.ended){ // 已终止
+		} else if(processInstance.state === 'delete'){ // 已中止
 			str = <span className="btn-tip btn-tip-stop">已中止</span>;
 		} else { // 审批中
 			str = <span className="btn-tip btn-tip-doing">审批中</span>;

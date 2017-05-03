@@ -12,7 +12,7 @@ class FormListContainer extends Component {
     const { categories, curForm, isFetching, errorMsg, isOpen, hide, primary, tip } = this.props
     let _errorMsg = errorMsg ? errorMsg : ''
     let _status
-    if (!_errorMsg && !categories.length) {
+    if ((!_errorMsg && !categories.length) || ((categories.length === 1) && (categories[0].forms.length === 0))) {
         _errorMsg = '没有找到能填写的表单'
         _status = 'no-data'
     }
