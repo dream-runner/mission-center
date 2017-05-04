@@ -13,6 +13,10 @@ class copyContainer extends Component {
 			let node = map(items, (item, i) => {
 				let {title, historicProcessInstance, taskStatus, dueDate, createTime} = item;
 				let processInstance = historicProcessInstance;
+				if(processInstance === null){
+					console.info('historicProcessInstance数据异常为null',item);
+					return;
+				}
 				let processCurRead = taskStatus == '0' ? <span className="unread" ref="unread" data-status="0"><i>未读</i></span> : <span className="read" ref="read" data-status="1"><i>已读</i></span>
 				let processCurName = processInstance.startParticipant && processInstance.startParticipant.name ? <span className="uname">{processInstance.startParticipant.name.substr(-2,2)}</span> : '';
 				let processCurAvatar = processInstance.startParticipant && processInstance.startParticipant.pic ? <span className="avatar"><img src={processInstance.startParticipant.pic} alt={processInstance.startParticipant.name} /></span> : '';
