@@ -75,7 +75,7 @@ class MineContainer extends Component {
 				if(processInstance.state === 'end' && processInstance.deleteReason === 'ACTIVITI_DELETED'){
 					str = <span className="btn-tip btn-tip-stop">已中止</span>;
 				} else if(processInstance.state === 'end' && processInstance.deleteReason == null){
-					str = <span className="btn-tip btn-tip-stop">已完成</span>;
+					str = <span className="btn-tip btn-tip-done">已完成</span>;
 				} else if(processInstance.state == 'delete') {
 					str = <span className="btn-tip btn-tip-stop">已中止</span>;
 				} else {
