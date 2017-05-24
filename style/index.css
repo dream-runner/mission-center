@@ -206,6 +206,7 @@ html, body {
 #mission-center-root .list-wrap .table-list .box{
     cursor: pointer;
 	display: -webkit-box;
+	display: -ms-flexbox;
 	padding: 10px 0;
 	min-height: 80px;
 	border-bottom: 1px solid #EDEDED;
@@ -217,7 +218,9 @@ html, body {
 
 #mission-center-root .list-wrap .table-list .item-info{
 	display: -webkit-box;
+	display: -ms-flexbox;
 	-webkit-box-flex: 1;
+	-ms-flex: 1;
 
 }
 
@@ -392,11 +395,15 @@ html, body {
 #mission-center-root .list-wrap .table-list .item-info .m,
 #mission-center-root .list-wrap .table-list .item-info .r{
 	display: -webkit-box;
+	display: -ms-flexbox;
 	-webkit-box-align: center;
 	position: relative;
 }
 #mission-center-root .list-wrap .table-list .item-info .l{width: 38px; margin-right: 12px; -webkit-box-pack: center;}
-#mission-center-root .list-wrap .table-list .item-info .m{-webkit-box-flex: 1;}
+#mission-center-root .list-wrap .table-list .item-info .m{
+	-webkit-box-flex: 1;
+	-ms-flex: 1;
+}
 
 #mission-center-root .list-wrap .table-list .item-info .r{width: 300px; -webkit-box-pack: center;}
 
@@ -408,6 +415,7 @@ html, body {
 
 #mission-center-root .list-wrap .item-status {
 	display: -webkit-box;
+	display: -ms-flexbox;
 	-webkit-box-align: center;
     text-align: center;
     vertical-align: middle;
