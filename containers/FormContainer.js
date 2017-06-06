@@ -28,7 +28,8 @@ class FormContainer extends Component {
   }
 	hideDialog(){
 		this.props.hide();
-		this.props.getList();
+		let activePageBtn = document.querySelector('.pagination .active a');
+		activePageBtn===null?this.props.getList():activePageBtn.click();
 	}
 }
 
