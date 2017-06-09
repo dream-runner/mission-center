@@ -17,13 +17,10 @@ app.get("/", function(req, res) {
     res.sendFile(__dirname + '/index.html')
 })
 
-
-
 app.get(ctx + "/tc/category", function(req, res){
 	res.sendFile(__dirname + '/mock/category.json');
 });
 /* /新云审批接口 */
-
 app.get(ctx + "/tc/curtasks", function(req, res) {
 	setTimeout(function () {
 		res.sendFile(__dirname + '/mock/ongoing.json')
