@@ -419,6 +419,7 @@ html, body {
 	-webkit-box-align: center;
     text-align: center;
     vertical-align: middle;
+	align-items: center;
 }
 #mission-center-root .list-wrap .item-status .btn-tip {
 	min-width: 60px;

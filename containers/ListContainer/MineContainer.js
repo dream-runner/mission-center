@@ -72,20 +72,21 @@ class MineContainer extends Component {
 			if(processInstance.processDefinitionId.indexOf('processKey') > -1){
 				str = <span className="btn-tip btn-tip-done">已提交</span>;
 			} else {
-				if(processInstance.state === 'end' && processInstance.deleteReason === 'ACTIVITI_DELETED'){
+				if(/^tempSave/.test(processInstance.processDefinitionId)){
+						str = <span className="btn-tip btn-tip-done">草稿</span>;
+				} else if(processInstance.state === 'end' && processInstance.deleteReason === 'ACTIVITI_DELETED'){
 					str = <span className="btn-tip btn-tip-stop">已中止</span>;
+				} else if(processInstance.state === 'end' && processInstance.deleteReason === 'WITHDRAW_SUBMIT'){
+					str = <span className="btn-tip btn-tip-done">草稿</span>;
 				} else if(processInstance.state === 'end' && processInstance.deleteReason == null){
-					if(/^tempSave/.test(processInstance.processDefinitionId)){
-						str = <span className="btn-tip btn-tip-doing">草稿</span>;
-					}else{
 						str = <span className="btn-tip btn-tip-done">已完成</span>;
-					}
 				} else if(processInstance.state == 'delete') {
 					str = <span className="btn-tip btn-tip-stop">已中止</span>;
 				} else {
 					str = <span className="btn-tip btn-tip-doing">审批中</span>;
 				}
 			}
+			// str = processInstance.processDefinitionId;
 			return str;
 		}
     showDetail(item) {
