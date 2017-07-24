@@ -6,8 +6,10 @@ import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
 import reducer from './reducers'
 import { getList } from './actions/list'
+import { changeNav } from './actions/nav'
 import { getCategory } from './actions/dropdown'
 import App from './containers/App'
+let Url = require('url')
 
 let middleware = []
 let root = document.getElementById('mission-center-root')
@@ -46,7 +48,9 @@ const store = createStore(
     reducer,
     applyMiddleware(...middleware)
 )
-
+let curNav = Url.parse(location.href,true).query.curNav-0;
+curNav = curNav||0;
+store.dispatch(changeNav(curNav));
 store.dispatch(getList());
 store.dispatch(getCategory());
 
