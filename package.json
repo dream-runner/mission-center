@@ -17,6 +17,7 @@
   "dependencies": {
     "angular-uid": "^0.1.1",
     "babel-polyfill": "^6.3.14",
+    "babel-preset-stage-0": "^6.24.1",
     "bootstrap": "^3.3.0",
     "isomorphic-fetch": "^2.1.1",
     "lodash": "^4.0.0",

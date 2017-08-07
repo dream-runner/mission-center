@@ -17,15 +17,15 @@ function getFailure(message) {
     }
 }
 
-function getSuccess(copyToId, taskId, pk_bo, pk_boins,processDefinitionId,processInstanceId) {
+function getSuccess(copyToId, taskId, pk_bo, pk_boins,processDefinitionId,processInstanceId,dispatch) {
     let src = '';
 		if(copyToId){
 			src = `${window.$ctx}/static/dist/rt/html/browse.html?copyToId=${copyToId}&taskId=${taskId}&pk_bo=${pk_bo}&pk_boins=${pk_boins}&processDefinitionId=${processDefinitionId}&processInstanceId=${processInstanceId}&from=mission`
 		} else {
 			if(/tempSave/.test(processDefinitionId)){
-				src = `${window.$ctx}/static/dist/rt/html/fill-in.html?taskId=${taskId}&pk_bo=${pk_bo}&pk_boins=${pk_boins}&processDefinitionId=${processDefinitionId}&processInstanceId=${processInstanceId}&from=mission`
+				src = `${window.$ctx}/static/dist/rt/html/fill-in.html?taskId=${taskId}&pk_bo=${pk_bo}&pk_boins=${pk_boins}&processDefinitionId=${processDefinitionId}&processInstanceId=${processInstanceId}&from=mission&fromcat=${dispatch(getCurNavKey())}`
 			}else{
-				src = `${window.$ctx}/static/dist/rt/html/browse.html?taskId=${taskId}&pk_bo=${pk_bo}&pk_boins=${pk_boins}&processDefinitionId=${processDefinitionId}&processInstanceId=${processInstanceId}&from=mission`
+				src = `${window.$ctx}/static/dist/rt/html/browse.html?taskId=${taskId}&pk_bo=${pk_bo}&pk_boins=${pk_boins}&processDefinitionId=${processDefinitionId}&processInstanceId=${processInstanceId}&from=mission&fromcat=${dispatch(getCurNavKey())}`
 			}
 		}
 		return (dispatch) => {
@@ -55,7 +55,7 @@ export function show(src) {
 }
 
 export function getBo(item) {
-    return (dispatch, getState) => {
+    return (dispatch, getState) => {debugger;
 				dispatch(show());
         let { taskId, id, processDefinitionId, processInstanceId, procssInstId } = item;
 				// 我抄送的 参数为 processDefinitionId = historicProcessInstance.processDefinitionId, procssInstId taskdId
@@ -88,7 +88,7 @@ export function getBo(item) {
                                 let json = JSON.parse(text)
                                 let { pk_bo, pk_boins } = json
                                 if (pk_bo) {
-                                    dispatch(getSuccess(copyToId, taskId, pk_bo, pk_boins,processDefinitionId,processInstanceId))
+                                    dispatch(getSuccess(copyToId, taskId, pk_bo, pk_boins,processDefinitionId,processInstanceId,dispatch))
                                 } else {
                                     dispatch(getFailure(`${json.message}`))
                                 }
