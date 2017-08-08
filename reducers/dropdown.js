@@ -30,7 +30,8 @@ const initialState = {
 			options: [{
 	        text: '全部类型',
 	        key: 'all'
-	    }]
+	    }],
+			selected:{}
 		},
 		"filterTaskDate": {
 			key: guid(),
@@ -196,6 +197,7 @@ export default function dropdown(state = initialState, action) {
 			dropdownName = name;
 			state[name].isOpen = toggleOneOpen(state, action);
 			state[name].cur = setDropdownChecked(state[name].cur, action);
+			state[name].selected = setDropdownChecked(state[name].selected,action);
 		} else {
 			toggleOneOpen(state, action);
 		}
@@ -203,6 +205,7 @@ export default function dropdown(state = initialState, action) {
 	  return {
 			"dropdownName": dropdownName,
 			"filterCategoryIds": {
+				selected:state["filterCategoryIds"].selected,
 				cur: state["filterCategoryIds"].cur,
 		    isOpen: state["filterCategoryIds"].isOpen,
 				options: setOptions(state["filterCategoryIds"].options, action),

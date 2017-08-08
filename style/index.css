@@ -983,3 +983,72 @@ html, body {
 	filter: alpha(opacity=0);
 	opacity: 0;
 }
+.rc-tree-select-dropdown-hidden{
+	display:block!important;
+}
+.rc-tree-select-dropdown{
+	z-index:2000;
+	width:599px!important;
+	border: 0!important;
+	border-top: 1px solid #ccc!important;
+	border-bottom: 1px solid #ccc!important;
+	box-shadow: none!important;
+	padding-left: 20px;
+	border-radius: 0;
+}
+.modal-bd{
+	height: 250px;
+	overflow-y: auto;
+}
+.rc-tree-select-selection{
+	width: 0;
+	height: 0;
+	opacity: 0;
+}
+.rc-tree-select-tree li span.rc-tree-select-tree-switcher{
+	background: transparent!important;
+	border: 5px solid transparent;
+	border-left-color: #000;
+	width: 0;
+	height: 0;
+}
+.rc-tree-select-tree li span.rc-tree-select-tree-switcher.rc-tree-select-tree-switcher_open{
+	border-left-color: transparent;
+	border-top-color: #000;
+}
+.rc-tree-select-tree li span.rc-tree-select-tree-switcher.rc-tree-select-tree-switcher-noop{
+	display: none;
+}
+.rc-tree-select-tree-title{
+	display: inline-block;
+	vertical-align: middle;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	max-width: 400px;
+}
+.form-pic-modal #modal-label{
+	padding-left: 20px;
+}
+.form-pic-modal .btn{
+	margin-right: 20px;
+	float: right;
+}
+.form-pic-modal .btn.btn-primary{
+	background: #29b6f6;
+	border-color: #29b6f6;
+}
+.form-pic-modal .btn.btn-primary:hover{
+	background: #25a6e0;
+	border-color: #25a6e0;
+}
+.form-pic-modal .modal-dialog,
+.form-pic-modal .modal-content{
+	position: static!important;
+}
+.form-pic-modal .modal-dialog{
+	transform: none!important;
+}
+.sort-rule-wrap{
+	/*display: none!important;*/
+}
