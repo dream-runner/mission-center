@@ -27,6 +27,7 @@ if (process.env.CTX_ENV && !window.$ctx) {
 if (process.env.NODE_ENV === "develop") {
     let logger = require('redux-logger')
     middleware.push(logger())
+    require('rc-tree/assets/index.css')
     require('bootstrap/dist/css/bootstrap.css')
 		require('./style/bootstrap-reset.css')
     require('./style/index.css')
@@ -36,6 +37,7 @@ if (process.env.NODE_ENV === "develop") {
 
 if (process.env.NODE_ENV === "build") {
     require('bootstrap/dist/css/bootstrap.css')
+    require('rc-tree/assets/index.css')
 		require('./style/bootstrap-reset.css')
     require('./style/index.css')
     require('./style/loading.css')

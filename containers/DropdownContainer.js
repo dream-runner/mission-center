@@ -2,139 +2,172 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Tab from '../components/Tab';
 import { toggleDropdown, hideMenu, setDropdownChecked } from '../actions/dropdown';
+import { setSelectedFormsId,setSelectedCategoryId } from '../actions/formFilters';
 import { getList } from '../actions/list';
-
 //弹框
 import { Modal } from 'react-bootstrap'
 //树
-import 'rc-tree-select/assets/index.css';
-import TreeSelect, { TreeNode, SHOW_PARENT } from 'rc-tree-select';
+import Tree, { TreeNode } from 'rc-tree';
+import * as Cookies from "js-cookie";
 import Loading from '../components/Loading';
-
-
 class DropdownContainer extends Component {
 	constructor(props){
 		super(props);
-		this.state = { showFormPicker: false,
-			tsOpen: true,
-			visible: true,
+		this.state = {
+			showFormPicker: false,
 			multipleValue: [],
 			isFetching:false,
-			gData : []
+			gData : [],
+			treeData: [],
+			checkedKeys: [],
+			checkedCategoryId:'',
+			checkedFormsId:[],
+			namesMap:{}
 		};
 	}
-	onopen(){
-		document.querySelector('.rc-tree-select-search__field__placeholder').click();
-	}
+
 	showFormPicker=()=>{
 		let gData = [];
 		this.setState({isFetching:true});
 		fetch(
 			`${window.$ctx}/iform_ctr/iform_design_ctr/queryFormList`,
-			{method:'post'}
+			{
+				method:'post',
+				credentials: 'include',
+				cache: 'no-cache'
+			}
 		).then((response)=>{
 			response.text().then(text => {
+				let namesMap = {}
 				gData = JSON.parse(text)['formCategories'];
 				gData = gData.map(function (val) {
 					val.label = val.name;
-					val.key = val.id+'_p';
+					val.key = val.id+'_par__';
 					val.value = val.id;
 					if(!!val.forms )val.children = val.forms.map(function (valIner) {
 						valIner.label = valIner.name;
-						valIner.key = valIner.id+'_c';
+						valIner.key = valIner.id+'_chl__';
 						valIner.value = valIner.id;
+						namesMap[valIner.id]=valIner.name;
 						return valIner;
 					})
 					return val;
 				})
-				this.setState({isFetching:false,gData:gData});
+				this.setState({isFetching:false,treeData:gData,checkedKeys:[],namesMap});
 			})
 		})
 		this.setState({showFormPicker:true});
 	}
-	confirmPick(name){debugger;
-		const { getList} = this.props
-		setDropdownChecked(name,{id:90})
+	confirmPick(name){
+		const { getList} = this.props;
+		let formsName = [];
+		this.state.checkedFormsId.forEach((val)=>{
+			formsName.push(this.state.namesMap[val])
+		})
+		Cookies.set('filterInfo',JSON.stringify({formsName:formsName.join(','),selectedCategoryId:this.state.checkedCategoryId.replace('_par__','')}))
 		getList()
 		this.closeFormPicker();
 
 	}
+	onShow=()=>{
+		this.setState({
+			selectedCategoryId:''
+		})
+	}
 	closeFormPicker(){
 		this.setState({showFormPicker:false});
 	}
-	isLeaf(value) {
-		if (!value) {
-			return false;
-		}
-		let queues = [...this.state.gData];
-		while (queues.length) { // BFS
-			const item = queues.shift();
-			if (item.value === value) {
-				if (!item.children) {
-					return true;
-				}
-				return false;
+
+	 generateTreeNodes=(treeNode)=>{
+	const arr = [];
+	const key = treeNode.props.eventKey;
+	for (let i = 0; i < 3; i++) {
+		arr.push({ name: `leaf ${key}-${i}`, key: `${key}-${i}` });
+	}
+	return arr;
+}
+
+	setLeaf=(treeData, curKey, level)=>{
+	const loopLeaf = (data, lev) => {
+		const l = lev - 1;
+		data.forEach((item) => {
+			if ((item.key.length > curKey.length) ? item.key.indexOf(curKey) !== 0 :
+					curKey.indexOf(item.key) !== 0) {
+				return;
 			}
 			if (item.children) {
-				queues = queues.concat(item.children);
+				loopLeaf(item.children, l);
+			} else if (l < 1) {
+				item.isLeaf = true;
+			}
+		});
+	};
+	loopLeaf(treeData, level + 1);
+}
+
+	 getNewTreeData=(treeData, curKey, child, level)=>{
+	const loop = (data) => {
+		if (level < 1 || curKey.length - 3 > level * 2) return;
+		data.forEach((item) => {
+			if (curKey.indexOf(item.key) === 0) {
+				if (item.children) {
+					loop(item.children);
+				} else {
+					item.children = child;
+				}
+			}
+		});
+	};
+	loop(treeData);
+	this.setLeaf(treeData, curKey, level);
+}
+
+	onSelect=(info)=>{
+		console.log('selected', info);
+	}
+	onCheck=(checkedKeys,e)=> {
+		let curKey = e.node.props.eventKey;
+		let isParent = curKey.indexOf('_par__')>-1;
+		let checkedFormsId = [];
+		//父节点只允许单选
+		if(isParent){
+			if(e.checked){
+				checkedKeys = [curKey]
+				this.setState({checkedCategoryId:curKey})
+			}else{
+				this.setState({checkedCategoryId:''})
+			}
+		}else{
+			if(this.state.checkedCategoryId){
+				checkedKeys.splice(checkedKeys.indexOf(this.state.checkedCategoryId),1);
+				this.setState({checkedCategoryId:''})
 			}
 		}
-		return false;
-	}
-	onClick = () => {
+		checkedKeys.forEach((val,index)=>{
+			if(val.indexOf('_chl__')>-1){
+				checkedFormsId.push(val.replace('_chl__',''))
+			}
+		})
 		this.setState({
-			visible: true,
+			checkedKeys,
+			checkedFormsId
 		});
-	}
-
-	onClose = () => {
-		this.setState({
-			visible: false,
-		});
-	}
-
-
-	onChange = (value) => {
-
-		debugger;
-		console.log('onChange', arguments);
-		this.setState({ value });
-	}
-
-	onChangeChildren = (value) => {debugger;
-		console.log('onChangeChildren', arguments);
-		const pre = value ? this.state.value : undefined;
-		this.setState({ value: isLeaf(value) ? value : pre });
-	}
-
-
-	onMultipleChange = (value) => {debugger;
-		console.log('onMultipleChange', arguments);
-		this.setState({ multipleValue: value });
-	}
-
-	onSelect = (e) => {
-		debugger;
-		return false;
-		console.log(arguments);
-	}
-
-	onDropdownVisibleChange = (visible, info) => {
-		console.log(visible, this.state.value, info);
-		if (Array.isArray(this.state.value) && this.state.value.length > 1
-			&& this.state.value.length < 3) {
-			alert('please select more than two item or less than one item.');
-			return false;
-		}
-		return true;
-	}
-
-	filterTreeNode = (input, child) => {
-		return String(child.props.title).indexOf(input) === 0;
 	}
 
   render() {
-
+		const loop = (data) => {
+			return data.map((item) => {
+				if (item.children) {
+					return <TreeNode title={item.name} key={item.key}>{loop(item.children)}</TreeNode>;
+				}
+				return (
+					<TreeNode title={item.name} key={item.key} isLeaf={item.isLeaf}
+										disabled={item.key === '0-0-0'}
+					/>
+				);
+			});
+		};
+		const treeNodes = loop(this.state.treeData);
 		const modalStyle = {
 			position: 'fixed',
 			zIndex: 1040,
@@ -143,7 +176,7 @@ class DropdownContainer extends Component {
 
 		const backdropStyle = {
 			...modalStyle,
-			zIndex: 'auto',
+			zIndex: '1000',
 			backgroundColor: '#000',
 			opacity: 0.5
 		};
@@ -186,7 +219,7 @@ class DropdownContainer extends Component {
 					backdropStyle={backdropStyle}
 					show={this.state.showFormPicker}
 					onHide={this.close}
-					onShow={this.onopen}
+					onShow = {this.onShow}
 					className="form-pic-modal"
 				>
 					<div style={dialogStyle()} >
@@ -194,24 +227,14 @@ class DropdownContainer extends Component {
 						<div className="modal-bd">
 							<Loading className="form-iframe-wrap" isFetching={this.state.isFetching}>
 							</Loading>
-							<TreeSelect
-								className="check-select"
-								dropdownStyle={{ height: 200, overflow: 'auto',width:'100%' }}
-								dropdownPopupAlign={{ overflow: { adjustY: 0, adjustX: 0 }, offset: [0, 2] }}
-								onDropdownVisibleChange={this.onDropdownVisibleChange}
-								placeholder={<i>请下拉选择</i>}
-								searchPlaceholder="please search"
-								treeLine maxTagTextLength={10}
-								value={this.state.value}
-								inputValue={null}
-								treeData={this.state.gData}
-								notFoundContent=""
-								treeNodeFilterProp="title"
-								treeCheckable showCheckedStrategy={SHOW_PARENT}
+							<Tree
+								onSelect={this.onSelect}
 								onChange={this.onChange}
-								treeCheckStrictly = {false}
-								onCheck={this.onSelect}
-							/>
+								checkable onCheck={this.onCheck} checkedKeys={this.state.checkedKeys}
+								checkStrictly={true}
+							>
+								{treeNodes}
+							</Tree>
 						</div>
 						<button className="btn btn-primary" onClick={()=>{this.confirmPick.apply(this,[name])}}>确定</button>
 						<button className="btn btn-default" onClick={()=>{this.closeFormPicker.apply(this)}}>取消</button>
@@ -229,12 +252,13 @@ class DropdownContainer extends Component {
 				e.stopPropagation()
 				if('filterCategoryIds'===name){
 					showFormPicker();
+					return;
 				};
 				toggleDropdown(name)
 			}}>{ options[cur].text } < span className = {'filterCategoryIds'===name?'':'caret'} >< /span></a>
 			<Tab items={ options }
 					 cur={ cur }
-					 className="dropdown-menu sort-rule-wrap"
+					 className={"dropdown-menu sort-rule-wrap "}
 					 name = {name}
 					 onTabClicked={ this.onTabClicked.bind(this) }></Tab>
 		</li>)
@@ -262,4 +286,4 @@ function mapStateToProps(state) {
 	};
 }
 
-export default connect(mapStateToProps, {toggleDropdown, hideMenu, setDropdownChecked, getList})(DropdownContainer);
+export default connect(mapStateToProps, {toggleDropdown, hideMenu, setDropdownChecked, getList,setSelectedFormsId,setSelectedCategoryId})(DropdownContainer);

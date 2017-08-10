@@ -26,6 +26,12 @@ app.get(ctx + "/tc/curtasks", function(req, res) {
 		res.sendFile(__dirname + '/mock/ongoing.json')
 	}, 2000)
 })
+/* /新云审批接口 */
+app.post(ctx + "/tc/curtasks", function(req, res) {
+	setTimeout(function () {
+		res.sendFile(__dirname + '/mock/ongoing.json')
+	}, 2000)
+})
 
 app.get(ctx + "/tc/listcopy", function(req, res){
 	res.sendFile(__dirname + '/mock/listCopy.json');

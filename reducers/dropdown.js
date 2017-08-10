@@ -1,4 +1,4 @@
-import { SHOW_MENU, HIDE_MENU, CHANGE_DROPDOWN_CHECKED, CHANGE_DROPDOWN_INIT } from '../constants/ActionTypes'
+import { SHOW_MENU, HIDE_MENU, CHANGE_DROPDOWN_CHECKED, CHANGE_DROPDOWN_INIT,SET_SELECTEDFORMSID,SET_SELECTEDCATEGORYID } from '../constants/ActionTypes'
 import { GETCATEGORY_REQUEST, GETCATEGORY_SUCCESS, GETCATEGORY_FAILURE} from '../constants/ActionTypes'
 import guid from 'angular-uid'
 
@@ -31,7 +31,6 @@ const initialState = {
 	        text: '全部类型',
 	        key: 'all'
 	    }],
-			selected:{}
 		},
 		"filterTaskDate": {
 			key: guid(),
@@ -145,6 +144,28 @@ function setDropdownChecked(state, action) {
 					return state
 	}
 }
+function setSelectedFormsId(state, action) {debugger;
+	switch (action.type) {
+			case SET_SELECTEDFORMSID:
+					if (state == action.selectedFormsId) {
+							return state
+					}
+					return action.selectedFormsId
+			default:
+					return state
+	}
+}
+function setSelectedCategoryId(state, action) {
+	switch (action.type) {
+			case SET_SELECTEDCATEGORYID:
+					if (state == action.selectedCategoryId) {
+							return state
+					}
+					return action.selectedCategoryId
+			default:
+					return state
+	}
+}
 
 
 function setOptions(state, action) {
@@ -197,7 +218,6 @@ export default function dropdown(state = initialState, action) {
 			dropdownName = name;
 			state[name].isOpen = toggleOneOpen(state, action);
 			state[name].cur = setDropdownChecked(state[name].cur, action);
-			state[name].selected = setDropdownChecked(state[name].selected,action);
 		} else {
 			toggleOneOpen(state, action);
 		}
@@ -205,7 +225,6 @@ export default function dropdown(state = initialState, action) {
 	  return {
 			"dropdownName": dropdownName,
 			"filterCategoryIds": {
-				selected:state["filterCategoryIds"].selected,
 				cur: state["filterCategoryIds"].cur,
 		    isOpen: state["filterCategoryIds"].isOpen,
 				options: setOptions(state["filterCategoryIds"].options, action),

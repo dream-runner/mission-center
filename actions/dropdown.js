@@ -1,4 +1,4 @@
-import { CHANGE_DROPDOWN_CHECKED, CHANGE_DROPDOWN_INIT, CHANGE_SORT, SHOW_MENU, HIDE_MENU } from '../constants/ActionTypes'
+import { CHANGE_DROPDOWN_CHECKED, CHANGE_DROPDOWN_INIT, CHANGE_SORT, SHOW_MENU, HIDE_MENU,SET_SELECTEDFORMSID,SET_SELECTEDCATEGORYID } from '../constants/ActionTypes'
 import { GETCATEGORY_REQUEST, GETCATEGORY_SUCCESS, GETCATEGORY_FAILURE } from '../constants/ActionTypes';
 import { getCurNavKey } from './nav';
 import map from 'lodash/map';
@@ -69,6 +69,20 @@ export function getFilterDropdownKey(name){
 export function setDropdownChecked(name, checked){
 	return {
 		type: CHANGE_DROPDOWN_CHECKED,
+		name,
+		checked
+	};
+}
+export function setSelectedFormsId(name, checked){debugger;
+	return {
+		type: SET_SELECTEDFORMSID,
+		name,
+		checked
+	};
+}
+export function setSelectedCategoryId(name, checked){
+	return {
+		type: SET_SELECTEDCATEGORYID,
 		name,
 		checked
 	};
