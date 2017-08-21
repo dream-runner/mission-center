@@ -1,16 +1,9 @@
-import { SET_SELECTEDCATEGORYID,
-	SET_SELECTEDFORMSID } from '../constants/ActionTypes'
 
-export function setSelectedFormsId(data) {
+export function setFormFilters(data) {
     return {
-        type: SET_SELECTEDFORMSID,
+        type: 'SET_FORM_FILTERS',
         data
     }
 }
-export function setSelectedCategoryId(data) {
-    return {
-        type: SET_SELECTEDCATEGORYID,
-        data
-    }
-}
+
 

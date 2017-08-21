@@ -18,7 +18,6 @@ import {
 import {
 	getCurSortKey
 } from './sort'
-import * as Cookies from "js-cookie";
 
 
 export function getItems() {
@@ -298,18 +297,15 @@ export function getListNew(moduleName, activePage) {
 		dispatch({
 			type: GETLIST_REQUEST
 		})
-		debugger;
+
+		/*sort=${curSortKey}&*/
 		let fetchParam = {
 			credentials: 'include',
-			cache: 'no-cache'
+			cache: 'no-cache',
+			method : 'post'
 		};
-		let filterInfo = Cookies.get('filterInfo')?JSON.parse(Cookies.get('filterInfo')):{}
-		if('filterCategoryIds'===state.dropdown.dropdownName){
-			queryStr = filterInfo.selectedCategoryId?`categoryIds=${filterInfo.selectedCategoryId}&`:'';
-			fetchParam.method = 'post';
-			fetchParam.body=JSON.stringify({processInstanceNames:filterInfo.formsName});
-		}
-		/*sort=${curSortKey}&*/
+		queryStr += (state.formFilters.categoryId?`categoryIds=${state.formFilters.categoryId}&`:'');
+		state.formFilters.formNames && (fetchParam.body=JSON.stringify({processInstanceNames:state.formFilters.formNames}));
 		return fetch(`${window.$ctx}/tc/${curNavKey}?${queryStr}_=${Date.now()}`, fetchParam).then(response => {
 			if (response.ok) {
 				response.text().then(text => {

@@ -259,6 +259,12 @@ html, body {
 	float: left;
 	margin-right: 10px;
 }
+#mission-center-root .dropdown-wrap .dropdown.active{
+	border: 1px solid #29B6F6;
+}
+#mission-center-root .dropdown-wrap .dropdown.active a{
+	color: #29b6f6;
+}
 
 #mission-center-root .filter-wrap > li {
     margin-bottom: -2px;

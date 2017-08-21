@@ -1,25 +1,15 @@
-import {
-	SET_SELECTEDCATEGORYID,
-	SET_SELECTEDFORMSID
-} from '../constants/ActionTypes'
-
 const initialState = {
-  selectedFormsId:[],
-	selectedCategoryId:''
+  categoryId:'',
+	formNames:''
 }
-
-function setSelectedFormsId(state, action) {
-    state.selectedFormsId = action.selectedFormsId
-}
-function setSelectedCategoryId(state, action) {
-	state.selectedCategoryId = action.selectedCategoryId
-}
-
-
 
 export default function formFilters(state = initialState, action) {
-    return {
-			selectedFormsId: setSelectedFormsId(state, action),
-			selectedCategoryId: setSelectedCategoryId(state, action),
-    }
+		if(action.type=='SET_FORM_FILTERS'){
+			state.categoryId = action.data.categoryId
+			state.formsName = action.data.formsName
+		}
+		return {
+			categoryId: state.categoryId,
+			formsName: state.formsName,
+		}
 }

@@ -1,14 +1,13 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Tab from '../components/Tab';
-import { toggleDropdown, hideMenu, setDropdownChecked } from '../actions/dropdown';
-import { setSelectedFormsId,setSelectedCategoryId } from '../actions/formFilters';
+import { toggleDropdown, hideMenu, setDropdownChecked,isFormFilerOn } from '../actions/dropdown';
+import { setFormFilters } from '../actions/formFilters';
 import { getList } from '../actions/list';
 //弹框
 import { Modal } from 'react-bootstrap'
 //树
 import Tree, { TreeNode } from 'rc-tree';
-import * as Cookies from "js-cookie";
 import Loading from '../components/Loading';
 class DropdownContainer extends Component {
 	constructor(props){
@@ -27,6 +26,10 @@ class DropdownContainer extends Component {
 	}
 
 	showFormPicker=()=>{
+		if(this.state.formsLoaded){
+			this.setState({showFormPicker:true});
+			return;
+		}
 		let gData = [];
 		this.setState({isFetching:true});
 		fetch(
@@ -38,11 +41,12 @@ class DropdownContainer extends Component {
 			}
 		).then((response)=>{
 			response.text().then(text => {
+				this.setState({formsLoaded:true});
 				let namesMap = {}
 				gData = JSON.parse(text)['formCategories'];
 				gData = gData.map(function (val) {
 					val.label = val.name;
-					val.key = val.id+'_par__';
+					val.key = (val.id||'other')+'_par__';
 					val.value = val.id;
 					if(!!val.forms )val.children = val.forms.map(function (valIner) {
 						valIner.label = valIner.name;
@@ -59,12 +63,13 @@ class DropdownContainer extends Component {
 		this.setState({showFormPicker:true});
 	}
 	confirmPick(name){
-		const { getList} = this.props;
+		const { getList,setFormFilters } = this.props;
 		let formsName = [];
 		this.state.checkedFormsId.forEach((val)=>{
 			formsName.push(this.state.namesMap[val])
 		})
-		Cookies.set('filterInfo',JSON.stringify({formsName:formsName.join(','),selectedCategoryId:this.state.checkedCategoryId.replace('_par__','')}))
+		setFormFilters({formsName:formsName.join(','),categoryId:this.state.checkedCategoryId.replace('_par__','')});
+		setDropdownChecked(name);
 		getList()
 		this.closeFormPicker();
 
@@ -126,6 +131,7 @@ class DropdownContainer extends Component {
 		console.log('selected', info);
 	}
 	onCheck=(checkedKeys,e)=> {
+		const { setFormFilters } = this.props
 		let curKey = e.node.props.eventKey;
 		let isParent = curKey.indexOf('_par__')>-1;
 		let checkedFormsId = [];
@@ -148,6 +154,7 @@ class DropdownContainer extends Component {
 				checkedFormsId.push(val.replace('_chl__',''))
 			}
 		})
+		if(0===checkedKeys.length && !this.state.checkedCategoryId) setFormFilters({formsName:'',categoryId:''})
 		this.setState({
 			checkedKeys,
 			checkedFormsId
@@ -200,17 +207,16 @@ class DropdownContainer extends Component {
 		};
 
 
-  const { isFetching, getList, name, dropdown, toggleDropdown } = this.props;
+  const { isFetching, getList, name, dropdown, toggleDropdown,isFormFilerOn } = this.props;
 		const { isOpen, cur, options } = dropdown[name];
-		const wrapClassName = isOpen ? "dropdown open" : "dropdown";
-    return 1>0?(
+		let wrapClassName = isOpen ? "dropdown open" : "dropdown";
+		wrapClassName += ('filterCategoryIds'===name && isFormFilerOn()?' active':'');
+    return 'filterCategoryIds'===name?(
 			<li className={ wrapClassName }>
 				<a className="dropdown-toggle" href="#" onClick={(e) => {
 					e.preventDefault()
 					e.stopPropagation()
-					if('filterCategoryIds'===name){
-						this.showFormPicker();
-					};
+					this.showFormPicker();
 					toggleDropdown(name)
 				}}>{ options[cur].text } < span className = {'filterCategoryIds'===name?'':'caret'} >< /span></a>
 				<Modal
@@ -252,13 +258,12 @@ class DropdownContainer extends Component {
 				e.stopPropagation()
 				if('filterCategoryIds'===name){
 					showFormPicker();
-					return;
 				};
 				toggleDropdown(name)
 			}}>{ options[cur].text } < span className = {'filterCategoryIds'===name?'':'caret'} >< /span></a>
 			<Tab items={ options }
 					 cur={ cur }
-					 className={"dropdown-menu sort-rule-wrap "}
+					 className={"dropdown-menu sort-rule-wrap"}
 					 name = {name}
 					 onTabClicked={ this.onTabClicked.bind(this) }></Tab>
 		</li>)
@@ -286,4 +291,4 @@ function mapStateToProps(state) {
 	};
 }
 
-export default connect(mapStateToProps, {toggleDropdown, hideMenu, setDropdownChecked, getList,setSelectedFormsId,setSelectedCategoryId})(DropdownContainer);
+export default connect(mapStateToProps, {toggleDropdown, hideMenu, setDropdownChecked, getList,isFormFilerOn,setFormFilters})(DropdownContainer);

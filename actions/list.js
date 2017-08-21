@@ -1,7 +1,8 @@
 import {
 	GETLIST_REQUEST,
 	GETLIST_SUCCESS,
-	GETLIST_FAILURE
+	GETLIST_FAILURE,
+	CHANGE_ACTIVEPAGE
 } from '../constants/ActionTypes'
 import {
 	getCurNavKey
@@ -12,7 +13,6 @@ import {
 import {
 	getCurSortKey
 } from './sort'
-import * as Cookies from "js-cookie";
 function getListFailure(message) {
     return {
         type: GETLIST_FAILURE,
@@ -64,7 +64,6 @@ export function getList(moduleName, param) {
 						break;
 					case 'filterCategoryIds':
 						dropdownKey = dispatch(getFilterDropdownKey(state.dropdown.dropdownName));
-						queryStr = dropdownKey === 'all' ? '' : `categoryIds=${dropdownKey}&`;
 						break;
 					case 'filterTaskDate':
 						dropdownKey = dispatch(getFilterDropdownKey(state.dropdown.dropdownName));
@@ -101,17 +100,18 @@ export function getList(moduleName, param) {
         dispatch({
             type: GETLIST_REQUEST
         })
+			dispatch({
+            type: CHANGE_ACTIVEPAGE,
+						activePage:1
+        })
 				/*sort=${curSortKey}&*/
 				let fetchParam = {
 					credentials: 'include',
-					cache: 'no-cache'
+					cache: 'no-cache',
+					method : 'post'
 				};
-			let filterInfo = Cookies.get('filterInfo')?JSON.parse(Cookies.get('filterInfo')):{}
-				if('filterCategoryIds'===state.dropdown.dropdownName){
-					queryStr = filterInfo.selectedCategoryId?`categoryIds=${filterInfo.selectedCategoryId}&`:'';
-					fetchParam.method = 'post';
-					fetchParam.body=JSON.stringify({processInstanceNames:filterInfo.formsName});
-				}
+				queryStr += (state.formFilters.categoryId?`categoryIds=${state.formFilters.categoryId}&`:'');
+				state.formFilters.formsName && (fetchParam.body=JSON.stringify({processInstanceNames:state.formFilters.formsName}));
         return fetch(`${window.$ctx}/tc/${curNavKey}?${queryStr}_=${Date.now()}`, fetchParam).then( response => {
 					if (response.ok) {
 					    response.text().then(text => {

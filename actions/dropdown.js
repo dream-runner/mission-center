@@ -73,20 +73,6 @@ export function setDropdownChecked(name, checked){
 		checked
 	};
 }
-export function setSelectedFormsId(name, checked){debugger;
-	return {
-		type: SET_SELECTEDFORMSID,
-		name,
-		checked
-	};
-}
-export function setSelectedCategoryId(name, checked){
-	return {
-		type: SET_SELECTEDCATEGORYID,
-		name,
-		checked
-	};
-}
 
 export function initDropdownIndex(){
 	return {
@@ -98,6 +84,13 @@ export function toggleDropdown(name) {
 	return (dispatch, getState) => {
     let state = getState();
 		state.dropdown[name].isOpen ? dispatch(hideMenu(name)) : dispatch(showMenu(name));
+  }
+}
+export function isFormFilerOn() {
+	return (dispatch, getState) => {
+    let state = getState();
+    // debugger
+		return (!!state.formFilters.formsName || !!state.formFilters.categoryId)
   }
 }
 

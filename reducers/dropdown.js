@@ -144,7 +144,7 @@ function setDropdownChecked(state, action) {
 					return state
 	}
 }
-function setSelectedFormsId(state, action) {debugger;
+function setSelectedFormsId(state, action) {
 	switch (action.type) {
 			case SET_SELECTEDFORMSID:
 					if (state == action.selectedFormsId) {
@@ -221,7 +221,6 @@ export default function dropdown(state = initialState, action) {
 		} else {
 			toggleOneOpen(state, action);
 		}
-
 	  return {
 			"dropdownName": dropdownName,
 			"filterCategoryIds": {
