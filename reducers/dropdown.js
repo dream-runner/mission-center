@@ -1,4 +1,4 @@
-import { SHOW_MENU, HIDE_MENU, CHANGE_DROPDOWN_CHECKED, CHANGE_DROPDOWN_INIT } from '../constants/ActionTypes'
+import { SHOW_MENU, HIDE_MENU, CHANGE_DROPDOWN_CHECKED, CHANGE_DROPDOWN_INIT,SET_SELECTEDFORMSID,SET_SELECTEDCATEGORYID } from '../constants/ActionTypes'
 import { GETCATEGORY_REQUEST, GETCATEGORY_SUCCESS, GETCATEGORY_FAILURE} from '../constants/ActionTypes'
 import guid from 'angular-uid'
 
@@ -32,7 +32,7 @@ const initialState = {
 			options: [{         // 列表内容
 	        text: '全部类型',
 	        key: 'all'
-	    }]
+	    }],
 		},
 	// 待审批页  已审批 的全部时间列表
 		"filterTaskDate": {
@@ -89,7 +89,7 @@ const initialState = {
 	        text: '已完成',
 	        key: 'true'
 	    }, {
-	        text: '进行中',
+	        text: '审批中',
 	        key: 'false'
 	    },/* {
 	        text: '已终止',
@@ -123,18 +123,18 @@ const initialState = {
 		}
 }
 
-function toggleOpen(state, action) {
-    switch (action.type) {
-        case SHOW_MENU:
-            if (action.name && state) {
-                return true
-            }
-            return state.isOpen
-        case HIDE_MENU:
-            return false
-        default:
-            return state.isOpen
-    }
+// 同时只能打开一个下拉框
+function toggleOneOpen(state, action) {
+		for(var k in state){
+			if(state[k].isOpen){
+				state[k].isOpen = false;
+			}
+		}
+		if(action.type === SHOW_MENU){
+			return true;
+		} else {
+			return false;
+		}
 }
 
 function setDropdownChecked(state, action) {
@@ -144,6 +144,28 @@ function setDropdownChecked(state, action) {
 							return state
 					}
 					return action.checked
+			default:
+					return state
+	}
+}
+function setSelectedFormsId(state, action) {
+	switch (action.type) {
+			case SET_SELECTEDFORMSID:
+					if (state == action.selectedFormsId) {
+							return state
+					}
+					return action.selectedFormsId
+			default:
+					return state
+	}
+}
+function setSelectedCategoryId(state, action) {
+	switch (action.type) {
+			case SET_SELECTEDCATEGORYID:
+					if (state == action.selectedCategoryId) {
+							return state
+					}
+					return action.selectedCategoryId
 			default:
 					return state
 	}
@@ -199,11 +221,11 @@ export default function dropdown(state = initialState, action) {
 	} else {
 		if(name && state[name]){
 			dropdownName = name;
-			// 更改排序列表的下拉状态
-			state[name].isOpen = toggleOpen(state[name], action);
+			state[name].isOpen = toggleOneOpen(state, action);
 			state[name].cur = setDropdownChecked(state[name].cur, action);
+		} else {
+			toggleOneOpen(state, action);
 		}
-
 	  return {
 			"dropdownName": dropdownName,
 			"filterCategoryIds": {

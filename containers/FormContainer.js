@@ -3,24 +3,34 @@ import { connect } from 'react-redux'
 import Dialog from '../components/Dialog'
 import Loading from '../components/Loading'
 import { hide } from '../actions/form'
+import { getList } from '../actions/list'
 
 class FormContainer extends Component {
   render() {
-    const { src, isOpen, hide, isFetching, errorMsg } = this.props
+    const { src, isOpen, hide, isFetching, errorMsg, getList } = this.props
     let _errorMsg = errorMsg ? errorMsg : ''
     let _status
     if (!_errorMsg && !src) {
         _errorMsg = '未查询到表单数据'
         _status = 'no-data'
     }
+
+		// 提供给详情页面使用
+		window.onHide = this.hideDialog.bind(this);
+
     return (
-        <Dialog show={isOpen} onHide={()=>{hide()}} dialogClassName="form-dialog" title="" noFooter={true}>
+        <Dialog show={isOpen} onHide={this.hideDialog.bind(this)} dialogClassName="form-dialog" title="审批详情" noFooter={true} customClose={true}>
             <Loading className="form-iframe-wrap" errorMsg={_errorMsg} status={_status} isFetching={isFetching}>
                 <iframe className="form-iframe" src={src}/>
             </Loading>
         </Dialog>
     )
   }
+	hideDialog(){
+		this.props.hide();
+		let activePageBtn = document.querySelector('.pagination .active a');
+		activePageBtn===null?this.props.getList():activePageBtn.click();
+	}
 }
 
 
@@ -44,5 +54,5 @@ function mapStateToProps(state) {
 
 export default connect(
   mapStateToProps,
-  { hide }
+  { hide, getList }
 )(FormContainer)

@@ -20,7 +20,8 @@ class SearchContainer extends Component {
     onSearchClicked(e) {
 				e.preventDefault();
 				let searchText = this.refs.sText.value;
-				let { getList } = this.props;
+				let { getList, changeText } = this.props;
+				changeText(searchText);
         getList('search', searchText);
      }
 }

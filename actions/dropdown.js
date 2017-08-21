@@ -1,12 +1,6 @@
-import {
-	CHANGE_DROPDOWN_CHECKED,
-	CHANGE_DROPDOWN_INIT,
-	CHANGE_SORT,
-	SHOW_MENU,
-	HIDE_MENU
-} from '../constants/ActionTypes'
-import {GETCATEGORY_REQUEST, GETCATEGORY_SUCCESS, GETCATEGORY_FAILURE} from '../constants/ActionTypes';
-import {getCurNavKey} from './nav';
+import { CHANGE_DROPDOWN_CHECKED, CHANGE_DROPDOWN_INIT, CHANGE_SORT, SHOW_MENU, HIDE_MENU,SET_SELECTEDFORMSID,SET_SELECTEDCATEGORYID } from '../constants/ActionTypes'
+import { GETCATEGORY_REQUEST, GETCATEGORY_SUCCESS, GETCATEGORY_FAILURE } from '../constants/ActionTypes';
+import { getCurNavKey } from './nav';
 import map from 'lodash/map';
 
 function getCategoryFailure(message) {
@@ -91,6 +85,13 @@ export function toggleDropdown(name) {
 		let state = getState();
 		state.dropdown[name].isOpen ? dispatch(hideMenu(name)) : dispatch(showMenu(name));
 	}
+}
+export function isFormFilerOn() {
+	return (dispatch, getState) => {
+    let state = getState();
+    // debugger
+		return (!!state.formFilters.formsName || !!state.formFilters.categoryId)
+  }
 }
 
 export function hideMenu(name) {

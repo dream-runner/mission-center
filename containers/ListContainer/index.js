@@ -19,9 +19,9 @@ const data = [
     },
 		{
         tabName: '抄送的',
-        hasFilter: false,         // 控制是否显示筛选下拉列表
+        hasFilter: true,         // 控制是否显示筛选下拉列表
         className: 'list-wrap',
-				components: [''],       // 如果显示筛选下拉列表，筛选的项目，如上
+				components: ['filterListDoneStatus','filterTaskDate','filterCategoryIds'],       // 如果显示筛选下拉列表，筛选的项目，如上
         nodeClass: CopyContainer
     },
     {
@@ -33,9 +33,9 @@ const data = [
     },
     {
         tabName: '我发起的',
-        hasFilter: false,
+        hasFilter: true,
         className: 'list-wrap',
-				components: [''],
+				components: ['filterListDoneStatus','filterTaskDate','filterCategoryIds'],
         nodeClass: MineContainer
     }
 ]

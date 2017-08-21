@@ -5,7 +5,7 @@ import ListContainer from './ListContainer'
 import FormListContainer from './FormListContainer'
 import FormContainer from './FormContainer'
 import ConfirmContainer from './ConfirmContainer'
-import {hideMenu} from '../actions/sort'
+import { hideMenu } from '../actions/dropdown'
 
 class App extends Component {
 	render() {

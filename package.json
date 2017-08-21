@@ -7,7 +7,7 @@
     "start": "cross-env CTX_ENV=/iform_web NODE_ENV=develop node server.js",
     "prod": "cross-env CTX_ENV=/iform_web NODE_ENV=production webpack -p --config webpack.config.prod.js",
     "build": "cross-env CTX_ENV=/iform_web NODE_ENV=build webpack -p --config webpack.config.build.js",
-		"test": "cross-env CTX_ENV=/iform_web NODE_ENV=develop nodemon server.js"
+    "test": "cross-env CTX_ENV=/iform_web NODE_ENV=develop nodemon server.js"
   },
   "author": "zhengxc <81735595@qq.com>",
   "license": "MIT",
@@ -18,9 +18,11 @@
   "dependencies": {
     "angular-uid": "^0.1.1",
     "babel-polyfill": "^6.3.14",
+    "babel-preset-stage-0": "^6.24.1",
     "bootstrap": "^3.3.0",
     "isomorphic-fetch": "^2.1.1",
     "lodash": "^4.0.0",
+    "rc-tree": "^1.7.1",
     "react": "^15.3.1",
     "react-addons": "^0.9.1-deprecated",
     "react-addons-css-transition-group": "^15.3.1",

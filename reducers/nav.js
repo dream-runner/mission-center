@@ -48,7 +48,8 @@ function setTotal(state, action) {
 		case GETLIST_SUCCESS:
 			return map([...state], (v) => {
 				if (v.key == action.navKey) {
-					v.total = action.total
+					v.total = action.total;
+					v.unReadCount = action.unReadCount;
 				}
 				return Object.assign({}, v);
 			})

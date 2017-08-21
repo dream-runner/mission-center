@@ -20,7 +20,6 @@ import {
 } from './sort'
 
 
-
 export function getItems() {
 	return (dispatch, getState) => {
 		dispatch({
@@ -290,17 +289,24 @@ export function getListNew(moduleName, activePage) {
 		if(moduleName && moduleName == 'pagination'){
 			let pageSize = pagination.pageSize;
 			let pageStart = (activePage - 1) * pageSize;
+			let searchText = state.search.searchText + '';
 			queryStr += `size=${pageSize}&start=${pageStart}&`;
+			queryStr += searchText ? `searchedItem=${searchText}&` : '';
 		}
 
 		dispatch({
 			type: GETLIST_REQUEST
 		})
+
 		/*sort=${curSortKey}&*/
-		return fetch(`${window.$ctx}/tc/${curNavKey}?${queryStr}_=${Date.now()}`, {
+		let fetchParam = {
 			credentials: 'include',
-			cache: 'no-cache'
-		}).then(response => {
+			cache: 'no-cache',
+			method : 'get'
+		};
+		queryStr += (state.formFilters.categoryId?`categoryIds=${state.formFilters.categoryId}&`:'');
+		state.formFilters.formNames && (fetchParam.body=JSON.stringify({processInstanceNames:state.formFilters.formNames}));
+		return fetch(`${window.$ctx}/tc/${curNavKey}?${queryStr}_=${Date.now()}`, fetchParam).then(response => {
 			if (response.ok) {
 				response.text().then(text => {
 					if (text) {

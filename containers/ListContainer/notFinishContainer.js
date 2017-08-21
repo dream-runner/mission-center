@@ -13,45 +13,44 @@ class notFinishContainer extends Component {
 		const {items, pagination} = this.props;
 		const showPagination = pagination.pageTotal > 1 ? <PageContainer items={pagination.pageTotal}/> : '';
 
-		let node = map(items, (item, i) => {
-			let {processInstance, dueDate, createTime} = item;
-			// let uname = (historicProcessInstance && historicProcessInstance.startParticipant && historicProcessInstance.startParticipant.name)||'';
-			let processCurName = processInstance.startParticipant && processInstance.startParticipant.name ?
-				<span className="uname">{processInstance.startParticipant.name.substr(-2, 2)}</span> : '';
-			let processCurAvatar = processInstance.startParticipant && processInstance.startParticipant.pic ?
-				<span className="avatar"><img src={processInstance.startParticipant.pic}
-																			alt={processInstance.startParticipant.name}/></span> : '';
-			let processTitle = processInstance.name || '';
-			let processkeyFeature = this.getProcessKeyFeature(processInstance);
-			let processStatus = this.getProcessStatus(processInstance);
-			let processCreateTime = new Date(createTime).format('yyyy-MM-dd HH:mm');
-			let processDueDate = dueDate && dueDate < new Date() ? <span className="duedate">逾期</span> : '';
-			return (
-				<div key={i} className="item">
-					<div className="box" onClick={this.showDetail(item)}>
-						<div className="item-info">
-							<div className="l">
-								{processCurName}
-								{processCurAvatar}
-							</div>
-							<div className="m">
-								<div>
-									<h3>{processTitle}{processDueDate}</h3>
-									{processkeyFeature}
-								</div>
-							</div>
-							<div className="r">
-								<span className="item-info-cell">{`提交时间：${processCreateTime}`}</span>
-							</div>
-						</div>
-						<div className="item-status">
-							{processStatus}
-							{/*<button type="button" className="btn btn-default" onClick={this.clickHandler(item).bind(this)}>立即处理</button>*/}
-						</div>
-					</div>
-				</div>
-			)
-		})
+        let node = map(items, (item, i) => {
+            let {processInstance, dueDate, createTime} = item;
+						if(!processInstance) return;
+						// let uname = (historicProcessInstance && historicProcessInstance.startParticipant && historicProcessInstance.startParticipant.name)||'';
+						let processCurName = processInstance.startParticipant && processInstance.startParticipant.name ? <span className="uname">{processInstance.startParticipant.name.substr(-2,2)}</span> : '';
+						let processCurAvatar = processInstance.startParticipant && processInstance.startParticipant.pic ? <span className="avatar"><img src={processInstance.startParticipant.pic} alt={processInstance.startParticipant.name} /></span> : '';
+						let processTitle = processInstance.name || '';
+						let processkeyFeature = this.getProcessKeyFeature(processInstance);
+						let processStatus = this.getProcessStatus(processInstance);
+						let processCreateTime = new Date(createTime).format('yyyy-MM-dd HH:mm');
+						let dueDateTime = dueDate && new Date(dueDate).getTime();
+						let processDueDate =  dueDateTime < new Date().getTime() ? <span className="duedate">逾期</span> : '';
+						return (
+                <div key={i} className="item">
+                    <div className="box" onClick={this.showDetail(item)}>
+											<div className="item-info">
+												<div className="l">
+													{processCurName}
+													{processCurAvatar}
+												</div>
+												<div className="m">
+													<div>
+														<h3>{processTitle}{processDueDate}</h3>
+														{processkeyFeature}
+													</div>
+												</div>
+	                      <div className="r">
+													<span className="item-info-cell">{`提交时间：${processCreateTime}`}</span>
+	                      </div>
+	                    </div>
+	                    <div className="item-status">
+													{processStatus}
+	                        {/*<button type="button" className="btn btn-default" onClick={this.clickHandler(item).bind(this)}>立即处理</button>*/}
+	                    </div>
+                    </div>
+                </div>
+            )
+        })
 		return (
 			<div className="main-list-wrap">
 				<List>{node}</List>

@@ -51,7 +51,6 @@ class NavContainer extends Component {
 			//      getItems()
 			// else
 			for (var k in dropdown) {
-				console.log(k);
 				if (k != 'dropdownName') {
 					hideDropdown(k);
 				}

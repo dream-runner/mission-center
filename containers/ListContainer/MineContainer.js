@@ -66,19 +66,27 @@ class MineContainer extends Component {
 			}
 			return <ul className="remark-list">{str}</ul>;
 		}
+		// 我发起的几种状态 state: run 审批中 end 已完成 delete 已中止
 		getProcessStatus(processInstance){
 			let str = '';
-			if(processInstance.endTime){
-				if(processInstance.deleteReason === 'stop'){
-					str = <span className="btn-tip btn-tip-stop">已中止</span>;
-				} else if(processInstance.deleteReason) {
-					str = <span className="btn-tip btn-tip-done">已完成</span>;
-				} else {
-					str = <span className="btn-tip btn-tip-doing">进行中</span>;
-				}
+			if(processInstance.processDefinitionId.indexOf('processKey') > -1){
+				str = <span className="btn-tip btn-tip-done">已提交</span>;
 			} else {
-				str = <span className="btn-tip btn-tip-doing">进行中</span>;
+				if(/^tempSave/.test(processInstance.processDefinitionId)){
+						str = <span className="btn-tip btn-tip-done">草稿</span>;
+				} else if(processInstance.state === 'end' && processInstance.deleteReason === 'ACTIVITI_DELETED'){
+					str = <span className="btn-tip btn-tip-stop">已中止</span>;
+				} else if(processInstance.state === 'end' && processInstance.deleteReason === 'WITHDRAW_SUBMIT'){
+					str = <span className="btn-tip btn-tip-done">草稿</span>;
+				} else if(processInstance.state === 'end' && processInstance.deleteReason == null){
+						str = <span className="btn-tip btn-tip-done">已完成</span>;
+				} else if(processInstance.state == 'delete') {
+					str = <span className="btn-tip btn-tip-stop">已中止</span>;
+				} else {
+					str = <span className="btn-tip btn-tip-doing">审批中</span>;
+				}
 			}
+			// str = processInstance.processDefinitionId;
 			return str;
 		}
     showDetail(item) {
@@ -101,7 +109,6 @@ class MineContainer extends Component {
         return (e) => {
             e.preventDefault()
             this.props.confirmDialogShow(`确认要提交"${item.title}"吗？`, () => {
-                console.log(item)
                 this.props.confirmDialogHide()
             })
         }

@@ -13,6 +13,10 @@ class copyContainer extends Component {
 			let node = map(items, (item, i) => {
 				let {title, historicProcessInstance, taskStatus, dueDate, createTime} = item;
 				let processInstance = historicProcessInstance;
+				if(processInstance === null){
+					console.info('historicProcessInstance数据异常为null',item);
+					return;
+				}
 				let processCurRead = taskStatus == '0' ? <span className="unread" ref="unread" data-status="0"><i>未读</i></span> : <span className="read" ref="read" data-status="1"><i>已读</i></span>
 				let processCurName = processInstance.startParticipant && processInstance.startParticipant.name ? <span className="uname">{processInstance.startParticipant.name.substr(-2,2)}</span> : '';
 				let processCurAvatar = processInstance.startParticipant && processInstance.startParticipant.pic ? <span className="avatar"><img src={processInstance.startParticipant.pic} alt={processInstance.startParticipant.name} /></span> : '';
@@ -65,9 +69,9 @@ class copyContainer extends Component {
 	}
 	getProcessStatus(processInstance){
 		let str = '';
-		if(processInstance.completed){ // 已完成
+		if(processInstance.state === 'end'){ // 已完成
 			str = <span className="btn-tip btn-tip-done">已完成</span>;
-		} else if(processInstance.ended){ // 已终止
+		} else if(processInstance.state === 'delete'){ // 已中止
 			str = <span className="btn-tip btn-tip-stop">已中止</span>;
 		} else { // 审批中
 			str = <span className="btn-tip btn-tip-doing">审批中</span>;
@@ -77,8 +81,10 @@ class copyContainer extends Component {
 	showDetail(item) {
 		return (e) => {
 				e.preventDefault();
-				if(this.refs.unread.getAttribute('data-status') == '0'){
-					e.currentTarget.className = 'box hadread';
+				if(item.taskStatus == '0'){
+					if(this.refs.unread.getAttribute('data-status') == '0'){
+						e.currentTarget.className = 'box hadread';
+					}
 				}
 				this.props.getBo(item);
 		}

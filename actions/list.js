@@ -1,7 +1,8 @@
 import {
 	GETLIST_REQUEST,
 	GETLIST_SUCCESS,
-	GETLIST_FAILURE
+	GETLIST_FAILURE,
+	CHANGE_ACTIVEPAGE
 } from '../constants/ActionTypes'
 import {
 	getCurNavKey
@@ -12,7 +13,6 @@ import {
 import {
 	getCurSortKey
 } from './sort'
-
 function getListFailure(message) {
 	return {
 		type: GETLIST_FAILURE,
@@ -21,17 +21,19 @@ function getListFailure(message) {
 }
 
 function getListSuccess(json, navKey) {
-	let {data = [], total, size, start} = json;
-	return (dispatch) => {
-		dispatch({
-			type: GETLIST_SUCCESS,
-			data,
-			total,
-			size,
-			start,
-			navKey,
-		})
-	}
+    let { data = [], total, size, start, unReadCount } = json;
+    return (dispatch) => {
+        dispatch({
+            type: GETLIST_SUCCESS,
+            data,
+            total,
+						size,
+						start,
+            navKey,
+						unReadCount
+        })
+    }
+// >>>>>>> 1b5017fac4d6307635c56f157d7b4b542ad35978
 }
 
 // 初始化调用，获取展示列表的数据
@@ -52,19 +54,26 @@ export function getList(moduleName, param) {
 				{key: 'taskDate', name: 'filterTaskDate'},
 				{key: 'categoryIds', name: 'filterCategoryIds'}
 			],
-			listcopy: [],
-			getMine: []
+			listcopy: [
+				{key: 'isFinished', name: 'filterListDoneStatus'},
+				{key: 'taskDate', name: 'filterTaskDate'},
+				{key: 'categoryIds', name: 'filterCategoryIds'}
+			],
+			getMine: [
+				{key: 'isFinished', name: 'filterListDoneStatus'},
+				{key: 'taskDate', name: 'filterTaskDate'},
+				{key: 'categoryIds', name: 'filterCategoryIds'}
+			]
 
 		};
 
 		switch (state.dropdown.dropdownName) {
 			case 'filterDueDateOverdue':
-				dropdownKey = dispatch(getFilterDropdownKey(state.dropdown.dropdownName));// 有点多此一举
+				dropdownKey = dispatch(getFilterDropdownKey(state.dropdown.dropdownName));
 				queryStr = dropdownKey === 'all' ? '' : `taskDue=${dropdownKey}&`;
 				break;
 			case 'filterCategoryIds':
 				dropdownKey = dispatch(getFilterDropdownKey(state.dropdown.dropdownName));
-				queryStr = dropdownKey === 'all' ? '' : `categoryIds=${dropdownKey}&`;
 				break;
 			case 'filterTaskDate':
 				dropdownKey = dispatch(getFilterDropdownKey(state.dropdown.dropdownName));
@@ -86,50 +95,87 @@ export function getList(moduleName, param) {
 				queryStr = '';
 				break;
 		}
-		// 如果要点击更改，需要在这里更改queryStr，就是内部的cur
+
 		for (let i = 0, len = tabNavData[curNavKey].length; i < len; i++) {
-			// 初始化，state.dropdown.dropdownName=""  >> 查询的分类，各列表的内容
 			if (tabNavData[curNavKey][i].name != state.dropdown.dropdownName) {
-				// 获取state.dropdown["filterListDoneStatus"]等数据
 				let tmp = state.dropdown[tabNavData[curNavKey][i].name];
-				// 每个都不等于，第一次执行queryStr = "" + "" + "" ,有多个选择的时候，
 				queryStr += tmp.options[tmp.cur].key === 'all' ? '' : `${tabNavData[curNavKey][i].key}=${tmp.options[tmp.cur].key}&`;
 			}
 		}
+// >>>>>>> 1b5017fac4d6307635c56f157d7b4b542ad35978
 		if (moduleName && moduleName == 'search') {
 			queryStr += param == '' ? '' : `searchedItem=${param}&`;
 		}
-
 		dispatch({
 			type: GETLIST_REQUEST
-		})
+		});
 		/*sort=${curSortKey}&*/
 		// iform_web/tc/curtasks  >> 决定了去哪拿数据
 		return fetch(`${window.$ctx}/tc/${curNavKey}?${queryStr}_=${Date.now()}`, {
 			credentials: 'include',
 			cache: 'no-cache'
 		}).then(response => {
-				if (response.ok) {
-					response.text().then(text => {
-						if (text) {
-							try {
-								let json = JSON.parse(text)
-								if (json.status == 0) {
-									dispatch(getListFailure(json.message))
-								} else {
-									dispatch(getListSuccess(json, curNavKey))
-								}
-							} catch (e) {
-								dispatch(getListFailure(`${e.message}`))
+			if (response.ok) {
+				response.text().then(text => {
+					if (text) {
+						try {
+							let json = JSON.parse(text)
+							if (json.status == 0) {
+								dispatch(getListFailure(json.message))
+							} else {
+								dispatch(getListSuccess(json, curNavKey))
 							}
-						} else {
-							dispatch(getListFailure('Api return nothing……'))
+						} catch (e) {
+							dispatch(getListFailure(`${e.message}`))
 						}
-					})
-				} else {
-					dispatch(getListFailure(`${response.status} ${response.statusText}`))
-				}
+					} else {
+						dispatch(getListFailure('Api return nothing……'))
+					}
+				})
+			} else {
+				dispatch(getListFailure(`${response.status} ${response.statusText}`))
 			}
-		)
+
+			// dispatch({
+			// 	type: GETLIST_REQUEST
+			// })
+			dispatch({
+				type: CHANGE_ACTIVEPAGE,
+				activePage: 1
+			})
+			/*sort=${curSortKey}&*/
+			// let fetchParam = {
+			// 	credentials: 'include',
+			// 	cache: 'no-cache',
+			// 	method: 'post'
+			// };
+			// queryStr += (state.formFilters.categoryId ? `categoryIds=${state.formFilters.categoryId}&` : '');
+			// state.formFilters.formsName && (fetchParam.body = JSON.stringify({processInstanceNames: state.formFilters.formsName}));
+			// return fetch(`${window.$ctx}/tc/${curNavKey}?${queryStr}_=${Date.now()}`, fetchParam).then(response => {
+			// 		if (response.ok) {
+			// 			response.text().then(text => {
+			// 				if (text) {
+			// 					try {
+			// 						let json = JSON.parse(text)
+			// 						if (json.status == 0) {
+			// 							dispatch(getListFailure(json.message))
+			// 						} else {
+			// 							dispatch(getListSuccess(json, curNavKey))
+			// 						}
+			// 					} catch (e) {
+			// 						dispatch(getListFailure(`${e.message}`))
+			// 					}
+			// 				} else {
+			// 					dispatch(getListFailure('Api return nothing……'))
+			// 				}
+			// 			})
+			// 		} else {
+			// 			dispatch(getListFailure(`${response.status} ${response.statusText}`))
+			// 		}
+			// 	}
+			// )
+		})
+// >>>>>>> 1b5017fac4d6307635c56f157d7b4b542ad35978
 	}
 }
+
