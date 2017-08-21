@@ -19,9 +19,9 @@ const data = [
     },
 		{
         tabName: '抄送的',
-        hasFilter: false,
+        hasFilter: false,         // 控制是否显示筛选下拉列表
         className: 'list-wrap',
-				components: [''],
+				components: [''],       // 如果显示筛选下拉列表，筛选的项目，如上
         nodeClass: CopyContainer
     },
     {
@@ -75,10 +75,10 @@ class ListContainer extends Component {
 
 ListContainer.propTypes = {
     items: PropTypes.array.isRequired,
-		pagination: PropTypes.object.isRequired,
-    isFetching: PropTypes.bool.isRequired,
-    errorMsg: PropTypes.string.isRequired,
-    cur: PropTypes.number.isRequired
+		pagination: PropTypes.object.isRequired,   //  list数据中下面pagination的数据对象
+    isFetching: PropTypes.bool.isRequired,     // list列表是否正在获取数据
+    errorMsg: PropTypes.string.isRequired,      // list的错误信息
+    cur: PropTypes.number.isRequired             // 当前nav被选中对应的序号
 }
 
 function mapStateToProps(state) {

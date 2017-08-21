@@ -4,6 +4,7 @@ import guid from 'angular-uid'
 
 const initialState = {
 		"dropdownName": '',
+	// 待审批页的全部状态 列表
 		"filterDueDateOverdue": {
 			key: guid(),
 			remark: '待审批筛选',
@@ -20,18 +21,20 @@ const initialState = {
 	        key: 'dueDateoverdue'
 	    }]
 		},
+	// 已审批
 		"filterCategoryIds": {
 			key: guid(),
 			remark: '根据类型筛选',
-			cur: 0,
-	    isOpen: false,
+			cur: 0,            //  当前列表呗选中的项目
+	    isOpen: false, //  排序列表的下拉状态
 			errorMsg: '',
 	    isFetching: false,
-			options: [{
+			options: [{         // 列表内容
 	        text: '全部类型',
 	        key: 'all'
 	    }]
 		},
+	// 待审批页  已审批 的全部时间列表
 		"filterTaskDate": {
 			key: guid(),
 			remark: '待审批筛选',
@@ -73,6 +76,7 @@ const initialState = {
 	        key: 'all'
 	    }]
 		},
+	// 已审批的全部状态列表
 		"filterListDoneStatus": {
 			key: guid(),
 			remark: '根据状态筛选',
@@ -179,6 +183,7 @@ function changeIsFetching(state, action) {
 }
 
 function initDropdownIndex(state, action){
+	// 应该返回新对象
 	for (let k in state){
 		if(state[k] && state[k].cur != 0){
 			state[k].cur = 0;
@@ -194,6 +199,7 @@ export default function dropdown(state = initialState, action) {
 	} else {
 		if(name && state[name]){
 			dropdownName = name;
+			// 更改排序列表的下拉状态
 			state[name].isOpen = toggleOpen(state[name], action);
 			state[name].cur = setDropdownChecked(state[name].cur, action);
 		}

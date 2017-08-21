@@ -7,7 +7,7 @@ class ConfirmContainer extends Component {
   render() {
     const { isOpen, hide, content, callBack } = this.props
     return (
-        <Dialog show={isOpen} onHide={hide} onPrimary={callBack} title="" dialogClassName="mission-center-confirm" title="">
+        <Dialog show={isOpen} onHide={hide} onPrimary={callBack} title="" dialogClassName="mission-center-confirm">
             { content }
         </Dialog>
     )

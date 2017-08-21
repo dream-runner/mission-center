@@ -16,7 +16,7 @@ class ConditionContainer extends Component {
 							if(item == 'filter-sort-condition'){
 								return <SortRuleContainer key={index} name={item} />
 							} else {
-								return <DropdownContainer key={index} name={item} />
+								return <DropdownContainer key={index} name={item} components={components} />
 							}
 						})}
 					</ul>

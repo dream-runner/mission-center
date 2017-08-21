@@ -47,8 +47,8 @@ const store = createStore(
     applyMiddleware(...middleware)
 )
 
-store.dispatch(getList());
-store.dispatch(getCategory());
+store.dispatch(getList());    // 获取 展示列表及下面分页的数据
+store.dispatch(getCategory()); // 分类下拉的 全部类型列表的数据
 
 render(
 	<Provider store={store}>
