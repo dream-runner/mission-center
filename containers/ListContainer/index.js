@@ -74,7 +74,7 @@ class ListContainer extends Component {
 }
 
 ListContainer.propTypes = {
-    items: PropTypes.array.isRequired,
+    items: PropTypes.array.isRequired,          // list的列表数据
 		pagination: PropTypes.object.isRequired,   //  list数据中下面pagination的数据对象
     isFetching: PropTypes.bool.isRequired,     // list列表是否正在获取数据
     errorMsg: PropTypes.string.isRequired,      // list的错误信息

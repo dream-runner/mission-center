@@ -13,11 +13,6 @@ class DropdownContainer extends Component {
 		// TODO  点击一个的时候需要把别的关闭，需要记录状态
 		return (
 			<li className={ wrapClassName }>
-				{/*<a className="dropdown-toggle" href="#" onClick={(e) => {*/}
-				{/*e.preventDefault()*/}
-				{/*e.stopPropagation()*/}
-				{/*toggleDropdown(name)*/}
-				{/*}}>{ options[cur].text } <span className="caret"></span></a>*/}
 				<a className="dropdown-toggle" href="#"
 					 onClick={(e) => this.onLinkClicked.call(this, e, name)}>{ options[cur].text } <span className="caret"></span></a>
 				<Tab items={ options }
