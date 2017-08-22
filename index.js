@@ -56,7 +56,7 @@ curNav = curNav || 0;
 store.dispatch(changeNav(curNav));
 store.dispatch(getList());
 // 好像这个category没啥用啊
-store.dispatch(getCategory());
+// store.dispatch(getCategory());
 
 render(
 	<Provider store={store}>

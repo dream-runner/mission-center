@@ -75,7 +75,6 @@ class FormListContainer extends Component {
           <Loading errorMsg={_errorMsg} status={_status} isFetching={isFetching}>
               {formLists}
           </Loading>
-{/*>>>>>>> 1b5017fac4d6307635c56f157d7b4b542ad35978*/}
         </Dialog>
     )
   }

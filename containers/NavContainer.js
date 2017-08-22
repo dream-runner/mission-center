@@ -39,7 +39,7 @@ class NavContainer extends Component {
 
 	onTabClicked(e, checked) {
 		// 添加hideDropdown 解决nav切换，列表没收起来的bug，让所有列表收起来
-		const {cur, isFetching, changeNav, changeSortRule, changeFilter, getList, getItems, initDropdownIndex, initActivePage, formFilters,setFormFilters} = this.props
+		const {cur, isFetching, changeNav, changeSortRule, changeFilter, getList, getItems, initDropdownIndex, initActivePage, formFilters, setFormFilters} = this.props
 		e.preventDefault()
 		if (!isFetching && checked != cur) {
 			changeNav(checked)

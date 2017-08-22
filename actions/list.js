@@ -21,19 +21,18 @@ function getListFailure(message) {
 }
 
 function getListSuccess(json, navKey) {
-    let { data = [], total, size, start, unReadCount } = json;
-    return (dispatch) => {
-        dispatch({
-            type: GETLIST_SUCCESS,
-            data,
-            total,
-						size,
-						start,
-            navKey,
-						unReadCount
-        })
-    }
-// >>>>>>> 1b5017fac4d6307635c56f157d7b4b542ad35978
+	let {data = [], total, size, start, unReadCount} = json;
+	return (dispatch) => {
+		dispatch({
+			type: GETLIST_SUCCESS,
+			data,
+			total,
+			size,
+			start,
+			navKey,
+			unReadCount
+		})
+	}
 }
 
 // 初始化调用，获取展示列表的数据
@@ -102,118 +101,80 @@ export function getList(moduleName, param) {
 				queryStr += tmp.options[tmp.cur].key === 'all' ? '' : `${tabNavData[curNavKey][i].key}=${tmp.options[tmp.cur].key}&`;
 			}
 		}
-// >>>>>>> 1b5017fac4d6307635c56f157d7b4b542ad35978
+
 		if (moduleName && moduleName == 'search') {
 			queryStr += param == '' ? '' : `searchedItem=${param}&`;
 		}
-		// TODO 接口不知道
-
 		dispatch({
 			type: GETLIST_REQUEST
 		});
 		/*sort=${curSortKey}&*/
 		// iform_web/tc/curtasks  >> 决定了去哪拿数据
-
+		// 如果是全部类型获取数据
 		dispatch({
 			type: CHANGE_ACTIVEPAGE,
 			activePage: 1
 		})
-		// 如果是全部类型筛选 获取数据
-		if (moduleName && moduleName == 'formFilters') {
-			let fetchParam = {
-				credentials: 'include',
-				cache: 'no-cache',
-				method: 'post'
-			};
-			queryStr += (state.formFilters.categoryId ? `categoryIds=${state.formFilters.categoryId}&` : '');
-			state.formFilters.formsName && (fetchParam.body = JSON.stringify({processInstanceNames: state.formFilters.formsName}));
-			return fetch(`${window.$ctx}/tc/${curNavKey}?${queryStr}_=${Date.now()}`, fetchParam).then(response => {
-					if (response.ok) {
-						response.text().then(text => {
-							if (text) {
-								try {
-									let json = JSON.parse(text)
-									if (json.status == 0) {
-										dispatch(getListFailure(json.message))
-									} else {
-										dispatch(getListSuccess(json, curNavKey))
-									}
-								} catch (e) {
-									dispatch(getListFailure(`${e.message}`))
-								}
-							} else {
-								dispatch(getListFailure('Api return nothing……'))
-							}
-						})
-					} else {
-						dispatch(getListFailure(`${response.status} ${response.statusText}`))
-					}
-				}
-			)
-		}
-		// 默认get方式获取数据
-		return fetch(`${window.$ctx}/tc/${curNavKey}?${queryStr}_=${Date.now()}`, {
+		let fetchParam = {
 			credentials: 'include',
-			cache: 'no-cache'
-		}).then(response => {
-			if (response.ok) {
-				response.text().then(text => {
-					if (text) {
-						try {
-							let json = JSON.parse(text)
-							if (json.status == 0) {
-								dispatch(getListFailure(json.message))
-							} else {
-								dispatch(getListSuccess(json, curNavKey))
+			cache: 'no-cache',
+			method: 'post'
+		};
+		// 去掉之前我们为了使筛选项高亮的tempt字符串（dropdownContainer）
+		queryStr += (state.formFilters.categoryId ? `categoryIds=${state.formFilters.categoryId.replace('tempt',"")}&` : '');
+		state.formFilters.formNames && (fetchParam.body = JSON.stringify({processInstanceNames: state.formFilters.formNames}));
+		return fetch(`${window.$ctx}/tc/${curNavKey}?${queryStr}_=${Date.now()}`, fetchParam).then(response => {
+				if (response.ok) {
+					response.text().then(text => {
+						if (text) {
+							try {
+								let json = JSON.parse(text)
+								if (json.status == 0) {
+									dispatch(getListFailure(json.message))
+								} else {
+									dispatch(getListSuccess(json, curNavKey))
+								}
+							} catch (e) {
+								dispatch(getListFailure(`${e.message}`))
 							}
-						} catch (e) {
-							dispatch(getListFailure(`${e.message}`))
+						} else {
+							dispatch(getListFailure('Api return nothing……'))
 						}
-					} else {
-						dispatch(getListFailure('Api return nothing……'))
-					}
-				})
-			} else {
-				dispatch(getListFailure(`${response.status} ${response.statusText}`))
+					})
+				} else {
+					dispatch(getListFailure(`${response.status} ${response.statusText}`))
+				}
 			}
+		)
 
-
-
-			// dispatch({
-			// 	type: GETLIST_REQUEST
-			// })
-			/*sort=${curSortKey}&*/
-			// let fetchParam = {
-			// 	credentials: 'include',
-			// 	cache: 'no-cache',
-			// 	method: 'post'
-			// };
-			// queryStr += (state.formFilters.categoryId ? `categoryIds=${state.formFilters.categoryId}&` : '');
-			// state.formFilters.formsName && (fetchParam.body = JSON.stringify({processInstanceNames: state.formFilters.formsName}));
-			// return fetch(`${window.$ctx}/tc/${curNavKey}?${queryStr}_=${Date.now()}`, fetchParam).then(response => {
-			// 		if (response.ok) {
-			// 			response.text().then(text => {
-			// 				if (text) {
-			// 					try {
-			// 						let json = JSON.parse(text)
-			// 						if (json.status == 0) {
-			// 							dispatch(getListFailure(json.message))
-			// 						} else {
-			// 							dispatch(getListSuccess(json, curNavKey))
-			// 						}
-			// 					} catch (e) {
-			// 						dispatch(getListFailure(`${e.message}`))
-			// 					}
-			// 				} else {
-			// 					dispatch(getListFailure('Api return nothing……'))
-			// 				}
-			// 			})
-			// 		} else {
-			// 			dispatch(getListFailure(`${response.status} ${response.statusText}`))
-			// 		}
-			// 	}
-			// )
-		})
+		// 默认get方式获取数据
+		// return fetch(`${window.$ctx}/tc/${curNavKey}?${queryStr}_=${Date.now()}`, {
+		// 	credentials: 'include',
+		// 	cache: 'no-cache'
+		// }).then(response => {
+		// 	if (response.ok) {
+		// 		response.text().then(text => {
+		// 			if (text) {
+		// 				try {
+		// 					let json = JSON.parse(text)
+		// 					if (json.status == 0) {
+		// 						dispatch(getListFailure(json.message))
+		// 					} else {
+		// 						dispatch(getListSuccess(json, curNavKey))
+		// 					}
+		// 				} catch (e) {
+		// 					dispatch(getListFailure(`${e.message}`))
+		// 				}
+		// 			} else {
+		// 				dispatch(getListFailure('Api return nothing……'))
+		// 			}
+		// 		})
+		// 	} else {
+		// 		dispatch(getListFailure(`${response.status} ${response.statusText}`))
+		// 	}
+		// })
 	}
 }
+
+
 

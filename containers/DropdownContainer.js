@@ -12,21 +12,15 @@ import Tree, {TreeNode} from 'rc-tree';
 import Loading from '../components/Loading';
 class DropdownContainer extends Component {
 	componentWillUpdate() {
-		console.log(this.state);
 		const {setFormFilters} = this.props;
-		if (window.prev !== window.flag && window.flag && (window.prev || window.prev == 0)) {
+		if (window.prev !== window.flag && window.prev !== null) {
 			window.prev = null;
 			setFormFilters({
 				formNames: "",
 				categoryId: ""
 			});
-			this.setState({
-				checkedKeys: [],
-				checkedCategoryId: '',
-				checkedFormsId: [],
-			});
+			window.initTreeState = true;
 		}
-
 	}
 
 	constructor(props) {
@@ -40,10 +34,11 @@ class DropdownContainer extends Component {
 			checkedKeys: [],
 			checkedCategoryId: '',
 			checkedFormsId: [],
-			namesMap: {}
+			namesMap: {}    // 所有数据名字的集合对象
 		};
 	}
 
+// 判断是否加载过，有就展示，没有打开之后加载数据
 	showFormPicker = () => {
 		if (this.state.formsLoaded) {
 			this.setState({showFormPicker: true});
@@ -87,23 +82,39 @@ class DropdownContainer extends Component {
 		let formsName = [];
 		this.state.checkedFormsId.forEach((val) => {
 			formsName.push(this.state.namesMap[val])
-		})
-		setFormFilters({formNames: formsName.join(','), categoryId: this.state.checkedCategoryId.replace('_par__', '')});
-		setDropdownChecked(name);   // 选中
+		});
+		// 如果我们没有选中任何选项，直接关闭即可
+		if (!formsName.length && !this.state.checkedCategoryId) {
+			return this.closeFormPicker();
+		}
+		// 如果formFilter里面的categoryId为空字符串，就不会亮，所以在有formsname的情况下，给category一个默认值，在获取数据时，把tempt去掉即可
+		const str = !formsName.length ? "" : "tempt";
+		setFormFilters({
+			formNames: formsName.join(','),
+			categoryId: this.state.checkedCategoryId.replace('_par__', '') || str
+		});
+		// setDropdownChecked(name); 多此一举
 		// 获取数据
-		getList('formFilters');
+		getList();
 		this.closeFormPicker();
-		console.log(this.state);
 	}
 
 	onShow = () => {
 		this.setState({
-			selectedCategoryId: ''
+			selectedCategoryId: '',
+			checkedKeys: window.initTreeState ? [] : this.state.checkedKeys,
+			checkedFormsId: window.initTreeState ? [] : this.state.checkedFormsId,
+			checkedCategoryId: window.initTreeState ? "" : this.state.checkedCategoryId
 		})
+		window.initTreeState = false;
 	}
 
 	closeFormPicker() {
 		this.setState({showFormPicker: false});
+	}
+
+	change() {
+		alert(123);
 	}
 
 	generateTreeNodes = (treeNode) => {
@@ -275,22 +286,13 @@ class DropdownContainer extends Component {
 						</button>
 					</div>
 				</Modal>
-				{/*<Tab items={ options }*/}
-				{/*cur={ cur }*/}
-				{/*className="dropdown-menu sort-rule-wrap"*/}
-				{/*name={name}*/}
-				{/*onTabClicked={ this.onTabClicked.bind(this) }></Tab>*/}
 			</li>
 		) : (<li className={ wrapClassName }>
 			<a className="dropdown-toggle" href="#" onClick={(e) => {
 				e.preventDefault()
 				e.stopPropagation()
-				// if ('filterCategoryIds' === name) {
-				// 	showFormPicker();
-				// }
-				// ;
 				toggleDropdown(name)
-			}}>{ options[cur].text } < span className={'filterCategoryIds' === name ? '' : 'caret'}></span></a>
+			}}>{ options[cur].text } <span className='caret'></span></a>
 			<Tab items={ options }
 					 cur={ cur }
 					 className={"dropdown-menu sort-rule-wrap"}

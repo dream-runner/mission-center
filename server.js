@@ -24,59 +24,72 @@ app.get(ctx + "/tc/category", function(req, res){
 app.get(ctx + "/tc/curtasks", function(req, res) {
 	setTimeout(function () {
 		res.sendFile(__dirname + '/mock/ongoing.json')
-	}, 2000)
+	}, 1000)
 })
 /* /新云审批接口 */
 app.post(ctx + "/tc/curtasks", function(req, res) {
 	setTimeout(function () {
 		res.sendFile(__dirname + '/mock/ongoing.json')
-	}, 2000)
+	}, 1000)
 })
 
 app.get(ctx + "/tc/listcopy", function(req, res){
+	res.sendFile(__dirname + '/mock/listCopy.json');
+});
+app.post(ctx + "/tc/listcopy", function(req, res){
 	res.sendFile(__dirname + '/mock/listCopy.json');
 });
 
 app.get(ctx + "/tc/histasks", function(req, res) {
 	setTimeout(function () {
 		res.sendFile(__dirname + '/mock/listDone.json');
-	}, 2000)
+	}, 1000)
+})
+app.post(ctx + "/tc/histasks", function(req, res) {
+	setTimeout(function () {
+		res.sendFile(__dirname + '/mock/listDone.json');
+	}, 1000)
 })
 
 app.get(ctx + "/tc/getMine", function(req, res) {
   setTimeout(function () {
     res.sendFile(__dirname + '/mock/mine3.json')
-  }, 2000)
+  }, 1000)
+})
+app.post(ctx + "/tc/getMine", function(req, res) {
+	setTimeout(function () {
+		res.sendFile(__dirname + '/mock/mine3.json')
+	}, 1000)
 })
 
 app.get(ctx + "/tc/getSearchPagedItem", function(req, res) {
   setTimeout(function () {
     res.sendFile(__dirname + '/mock/mine3.json')
-  }, 2000)
+  }, 1000)
 })
 
 app.get(ctx + "/tc/getItems", function(req, res) {
   setTimeout(function () {
     res.sendFile(__dirname + '/mock/items.json')
-  }, 2000)
+  }, 1000)
 })
 
 app.get(ctx + "/tc/getSearchItems", function(req, res) {
   setTimeout(function () {
     res.sendFile(__dirname + '/mock/items.json')
-  }, 2000)
+  }, 1000)
 })
 
 app.post(ctx + "/iform_ctr/iform_design_ctr/queryFormList", function(req, res) {
   setTimeout(function () {
     res.sendFile(__dirname + '/mock/formList.json')
-  }, 2000)
+  }, 1000)
 })
 
 app.get(ctx + "/tc/getbo", function(req, res) {
   setTimeout(function () {
     res.sendFile(__dirname + '/mock/getbo.json')
-  }, 2000)
+  }, 1000)
 })
 
 app.listen(port, function(error) {
