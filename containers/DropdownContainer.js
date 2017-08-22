@@ -2,6 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import Tab from '../components/Tab';
 import {toggleDropdown, hideMenu, setDropdownChecked, isFormFilerOn} from '../actions/dropdown';
+// 切换下拉列表显示隐藏
 import {setFormFilters} from '../actions/formFilters';
 import {getList} from '../actions/list';
 //弹框
@@ -10,6 +11,24 @@ import {Modal} from 'react-bootstrap'
 import Tree, {TreeNode} from 'rc-tree';
 import Loading from '../components/Loading';
 class DropdownContainer extends Component {
+	componentWillUpdate() {
+		console.log(this.state);
+		const {setFormFilters} = this.props;
+		if (window.prev !== window.flag && window.flag && (window.prev || window.prev == 0)) {
+			window.prev = null;
+			setFormFilters({
+				formNames: "",
+				categoryId: ""
+			});
+			this.setState({
+				checkedKeys: [],
+				checkedCategoryId: '',
+				checkedFormsId: [],
+			});
+		}
+
+	}
+
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -64,16 +83,17 @@ class DropdownContainer extends Component {
 	}
 
 	confirmPick(name) {
-		const {getList, setFormFilters} = this.props;
+		const {getList, setFormFilters, formFilters} = this.props;
 		let formsName = [];
 		this.state.checkedFormsId.forEach((val) => {
 			formsName.push(this.state.namesMap[val])
 		})
-		setFormFilters({formsName: formsName.join(','), categoryId: this.state.checkedCategoryId.replace('_par__', '')});
-		setDropdownChecked(name);
-		getList()
+		setFormFilters({formNames: formsName.join(','), categoryId: this.state.checkedCategoryId.replace('_par__', '')});
+		setDropdownChecked(name);   // 选中
+		// 获取数据
+		getList('formFilters');
 		this.closeFormPicker();
-
+		console.log(this.state);
 	}
 
 	onShow = () => {
@@ -130,7 +150,7 @@ class DropdownContainer extends Component {
 		this.setLeaf(treeData, curKey, level);
 	}
 
-	onSelect = (info) => {
+	onSelect = (info, e) => {
 		console.log('selected', info);
 	}
 	onCheck = (checkedKeys, e) => {
@@ -157,7 +177,7 @@ class DropdownContainer extends Component {
 				checkedFormsId.push(val.replace('_chl__', ''))
 			}
 		})
-		if (0 === checkedKeys.length && !this.state.checkedCategoryId) setFormFilters({formsName: '', categoryId: ''})
+		if (0 === checkedKeys.length && !this.state.checkedCategoryId) setFormFilters({formNames: '', categoryId: ''})
 		this.setState({
 			checkedKeys,
 			checkedFormsId
@@ -250,25 +270,25 @@ class DropdownContainer extends Component {
 						}}>确定
 						</button>
 						<button className="btn btn-default" onClick={() => {
-							this.closeFormPicker.apply(this)
+							this.closeFormPicker.apply(this);
 						}}>取消
 						</button>
 					</div>
 				</Modal>
-				<Tab items={ options }
-						 cur={ cur }
-						 className="dropdown-menu sort-rule-wrap"
-						 name={name}
-						 onTabClicked={ this.onTabClicked.bind(this) }></Tab>
+				{/*<Tab items={ options }*/}
+				{/*cur={ cur }*/}
+				{/*className="dropdown-menu sort-rule-wrap"*/}
+				{/*name={name}*/}
+				{/*onTabClicked={ this.onTabClicked.bind(this) }></Tab>*/}
 			</li>
 		) : (<li className={ wrapClassName }>
 			<a className="dropdown-toggle" href="#" onClick={(e) => {
 				e.preventDefault()
 				e.stopPropagation()
-				if ('filterCategoryIds' === name) {
-					showFormPicker();
-				}
-				;
+				// if ('filterCategoryIds' === name) {
+				// 	showFormPicker();
+				// }
+				// ;
 				toggleDropdown(name)
 			}}>{ options[cur].text } < span className={'filterCategoryIds' === name ? '' : 'caret'}></span></a>
 			<Tab items={ options }
@@ -289,7 +309,6 @@ class DropdownContainer extends Component {
 			hideMenu();
 			getList();
 		}
-// >>>>>>> 1b5017fac4d6307635c56f157d7b4b542ad35978
 	}
 }
 
@@ -298,7 +317,8 @@ function mapStateToProps(state) {
 	const {isFetching} = state.list;
 	return {
 		isFetching,
-		dropdown: state.dropdown
+		dropdown: state.dropdown,
+		formFilters: state.formFilters
 	};
 }
 

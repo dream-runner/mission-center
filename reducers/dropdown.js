@@ -211,7 +211,8 @@ function initDropdownIndex(state, action){
 			state[k].cur = 0;
 		}
 	}
-	return state;
+	// return state;
+	return Object.assign({},state);
 }
 
 export default function dropdown(state = initialState, action) {

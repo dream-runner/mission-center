@@ -10,7 +10,6 @@ import SearchContainer from './SearchContainer'
 class ConditionContainer extends Component {
 	render() {
 		const {components, getList} = this.props;
-
 		return (
 			<div className="nav nav-tabs filter-wrap">
 

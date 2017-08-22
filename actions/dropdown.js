@@ -108,11 +108,6 @@ export function showMenu(name) {
 	}
 }
 
-// 用于收起特定的筛选列表，用于nav切换和自身切换
-export function hideDropdown(name) {
-	return (dispatch, getState) => {
-		dispatch(hideMenu(name));
-	}
-}
+
 
 

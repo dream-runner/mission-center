@@ -89,7 +89,6 @@ export function getItems() {
 }
 
 
-
 export function search(searchText) {
 	return (dispatch, getState) => {
 		let encodedSearchText = encodeURI(encodeURI(searchText))
@@ -160,10 +159,6 @@ export function search(searchText) {
 }
 
 
-
-
-
-
 function getItemsSuccess(json) {
 	let {
 		items = 10
@@ -194,15 +189,12 @@ function issearch(json) {
 }
 
 
-
-
 export function change(activePage, issearch) {
 	if (issearch == 'y')
 		return getSearchList(activePage)
 	else
 		return getListNew('pagination', activePage);
 }
-
 
 
 export function getListNew(moduleName, activePage) {
@@ -215,9 +207,9 @@ export function getListNew(moduleName, activePage) {
 			queryStr = '';
 		let tabNavData = {
 			curtasks: [{
-					key: 'taskDue',
-					name: 'filterDueDateOverdue'
-				},
+				key: 'taskDue',
+				name: 'filterDueDateOverdue'
+			},
 				{
 					key: 'taskDate',
 					name: 'filterTaskDate'
@@ -228,9 +220,9 @@ export function getListNew(moduleName, activePage) {
 				}
 			],
 			histasks: [{
-					key: 'isFinished',
-					name: 'filterListDoneStatus'
-				},
+				key: 'isFinished',
+				name: 'filterListDoneStatus'
+			},
 				{
 					key: 'taskDate',
 					name: 'filterTaskDate'
@@ -240,8 +232,16 @@ export function getListNew(moduleName, activePage) {
 					name: 'filterCategoryIds'
 				}
 			],
-			listcopy: [],
-			getMine: []
+			listcopy: [
+				{key: 'isFinished', name: 'filterListDoneStatus'},
+				{key: 'taskDate', name: 'filterTaskDate'},
+				{key: 'categoryIds', name: 'filterCategoryIds'}
+			],
+			getMine: [
+				{key: 'isFinished', name: 'filterListDoneStatus'},
+				{key: 'taskDate', name: 'filterTaskDate'},
+				{key: 'categoryIds', name: 'filterCategoryIds'}
+				]
 
 		};
 
@@ -286,7 +286,7 @@ export function getListNew(moduleName, activePage) {
 			queryStr += param == '' ? '' : `searchedItem=${param}&`;
 		}
 
-		if(moduleName && moduleName == 'pagination'){
+		if (moduleName && moduleName == 'pagination') {
 			let pageSize = pagination.pageSize;
 			let pageStart = (activePage - 1) * pageSize;
 			let searchText = state.search.searchText + '';
@@ -302,10 +302,10 @@ export function getListNew(moduleName, activePage) {
 		let fetchParam = {
 			credentials: 'include',
 			cache: 'no-cache',
-			method : 'get'
+			method: 'get'
 		};
-		queryStr += (state.formFilters.categoryId?`categoryIds=${state.formFilters.categoryId}&`:'');
-		state.formFilters.formNames && (fetchParam.body=JSON.stringify({processInstanceNames:state.formFilters.formNames}));
+		queryStr += (state.formFilters.categoryId ? `categoryIds=${state.formFilters.categoryId}&` : '');
+		state.formFilters.formNames && (fetchParam.body = JSON.stringify({processInstanceNames: state.formFilters.formNames}));
 		return fetch(`${window.$ctx}/tc/${curNavKey}?${queryStr}_=${Date.now()}`, fetchParam).then(response => {
 			if (response.ok) {
 				response.text().then(text => {
@@ -412,7 +412,7 @@ function getActivePage(activePage) {
 	}
 }
 
-export function initActivePage(activePage){
+export function initActivePage(activePage) {
 	return {
 		type: CHANGE_ACTIVEPAGE,
 		activePage
