@@ -34,7 +34,8 @@ class DropdownContainer extends Component {
 			checkedKeys: [],
 			checkedCategoryId: '',
 			checkedFormsId: [],
-			namesMap: {}    // 所有数据名字的集合对象
+			namesMap: {},    // 所有数据名字的集合对象,
+			indexs: new Set()       // 用于记录被点的二级树所在的父节点所在的索引
 		};
 	}
 
@@ -104,13 +105,20 @@ class DropdownContainer extends Component {
 			checkedCategoryId: window.initTreeState ? "" : this.state.checkedCategoryId
 		})
 		window.initTreeState = false;
+		if (!this.state.indexs.size)return;
+		for (let k of this.state.indexs) {
+			if(isNaN(k)) return;
+			setTimeout(() => {
+				this.refs[`selfDefine${k}`].refs.selectHandle.previousElementSibling.previousElementSibling.click();
+			}, 0)
+		}
 	}
 
 	closeFormPicker() {
 		this.setState({showFormPicker: false});
 	}
 
-	change() {
+	onChange = () => {
 		alert(123);
 	}
 
@@ -159,9 +167,13 @@ class DropdownContainer extends Component {
 	}
 
 	onSelect = (info, e) => {
-		console.log('selected', info);
+		// 在点击结构上去的时候调用,展开结构
+		let node = e.node.refs.selectHandle;
+		node.parentNode.firstElementChild.click();
+		// console.log('selected', info);
 	}
 	onCheck = (checkedKeys, e) => {
+		//　选框被选中的时候调用
 		const {setFormFilters} = this.props
 		let curKey = e.node.props.eventKey;
 		let isParent = curKey.indexOf('_par__') > -1;
@@ -190,13 +202,42 @@ class DropdownContainer extends Component {
 			checkedKeys,
 			checkedFormsId
 		});
+		if (checkedKeys.length != 0 && checkedFormsId.length != 0) {
+			// alert('should add')
+			if (e.checked) {
+				// 添加一个进去
+				let tempt = this.state.indexs;
+				let node = e.node.refs.selectHandle;
+				let index = parseInt(node.parentNode.parentNode.parentNode.className.slice(4));
+				if (isNaN(index)) return;
+				tempt.add(index);
+				this.setState({
+					indexs: tempt
+				});
+			} else {
+				//　删除之前添加的
+				let tempt = this.state.indexs;
+				let node = e.node.refs.selectHandle;
+				let index = parseInt(node.parentNode.parentNode.parentNode.className.slice(4));
+				if (isNaN(index)) return;
+				tempt.delete(index);
+				this.setState({
+					indexs: tempt
+				});
+			}
+		} else {
+			this.setState({
+				indexs: new Set()
+			});
+		}
 	}
 
 	render() {
 		const loop = (data) => {
-			return data.map((item) => {
+			return data.map((item, index) => {
 				if (item.children) {
-					return <TreeNode title={item.name} key={item.key}>{loop(item.children)}</TreeNode>;
+					return <TreeNode title={item.name} className={`open${index}`} ref={`selfDefine${index}`}
+													 key={item.key}>{loop(item.children)}</TreeNode>;
 				}
 				return (
 					<TreeNode title={item.name} key={item.key} isLeaf={item.isLeaf}
