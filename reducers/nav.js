@@ -20,7 +20,7 @@ const initialState = {
 	}, {
 		text: '已审批',
 		key: 'histasks',
-		needTotal: false,
+		needTotal: false,  // 是否显示总共多少条
 		total: 0
 	}, {
 		text: '我发起的',

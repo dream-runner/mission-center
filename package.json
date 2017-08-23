@@ -8,7 +8,7 @@
 		"prod": "cross-env CTX_ENV=/iform_web NODE_ENV=production webpack -p --config webpack.config.prod.js",
 		"build": "cross-env CTX_ENV=/iform_web NODE_ENV=build webpack -p --config webpack.config.build.js",
 		"test": "cross-env CTX_ENV=/iform_web NODE_ENV=develop nodemon server.js",
-		"local": "cross-env CTX_ENV=/iform_web NODE_ENV=production webpack -p --config webpack.config.prod.js"
+		"local": "cross-env CTX_ENV=/iform_web NODE_ENV=production webpack -p --config webpack.config.local.js"
 	},
 	"author": "zhengxc <81735595@qq.com>",
 	"license": "MIT",

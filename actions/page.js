@@ -241,7 +241,7 @@ export function getListNew(moduleName, activePage) {
 				{key: 'isFinished', name: 'filterListDoneStatus'},
 				{key: 'taskDate', name: 'filterTaskDate'},
 				{key: 'categoryIds', name: 'filterCategoryIds'}
-				]
+			]
 
 		};
 
@@ -302,9 +302,10 @@ export function getListNew(moduleName, activePage) {
 		let fetchParam = {
 			credentials: 'include',
 			cache: 'no-cache',
-			method: 'get'
+			method: 'post'
 		};
-		queryStr += (state.formFilters.categoryId ? `categoryIds=${state.formFilters.categoryId}&` : '');
+
+		queryStr += (state.formFilters.categoryId.replace('tempt', "") ? `categoryIds=${state.formFilters.categoryId.replace('tempt', "")}&` : '');
 		state.formFilters.formNames && (fetchParam.body = JSON.stringify({processInstanceNames: state.formFilters.formNames}));
 		return fetch(`${window.$ctx}/tc/${curNavKey}?${queryStr}_=${Date.now()}`, fetchParam).then(response => {
 			if (response.ok) {

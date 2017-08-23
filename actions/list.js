@@ -121,8 +121,9 @@ export function getList(moduleName, param) {
 			method: 'post'
 		};
 		// 去掉之前我们为了使筛选项高亮的tempt字符串（dropdownContainer）
-		queryStr += (state.formFilters.categoryId ? `categoryIds=${state.formFilters.categoryId.replace('tempt',"")}&` : '');
+		queryStr += (state.formFilters.categoryId.replace('tempt',"") ? `categoryIds=${state.formFilters.categoryId.replace('tempt',"")}&` : '');
 		state.formFilters.formNames && (fetchParam.body = JSON.stringify({processInstanceNames: state.formFilters.formNames}));
+		console.log(fetchParam);
 		return fetch(`${window.$ctx}/tc/${curNavKey}?${queryStr}_=${Date.now()}`, fetchParam).then(response => {
 				if (response.ok) {
 					response.text().then(text => {

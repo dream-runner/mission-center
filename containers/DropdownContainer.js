@@ -83,15 +83,12 @@ class DropdownContainer extends Component {
 		this.state.checkedFormsId.forEach((val) => {
 			formsName.push(this.state.namesMap[val])
 		});
-		// 如果我们没有选中任何选项，直接关闭即可
-		if (!formsName.length && !this.state.checkedCategoryId) {
-			return this.closeFormPicker();
-		}
+		// 如果我们没有选中任何选项，取消高亮，关闭
 		// 如果formFilter里面的categoryId为空字符串，就不会亮，所以在有formsname的情况下，给category一个默认值，在获取数据时，把tempt去掉即可
 		const str = !formsName.length ? "" : "tempt";
 		setFormFilters({
 			formNames: formsName.join(','),
-			categoryId: this.state.checkedCategoryId.replace('_par__', '') || str
+			categoryId: !formsName.length && !this.state.checkedCategoryId ? "" : this.state.checkedCategoryId.replace('_par__', '') || str
 		});
 		// setDropdownChecked(name); 多此一举
 		// 获取数据
