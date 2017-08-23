@@ -102,16 +102,21 @@ class DropdownContainer extends Component {
 			selectedCategoryId: '',
 			checkedKeys: window.initTreeState ? [] : this.state.checkedKeys,
 			checkedFormsId: window.initTreeState ? [] : this.state.checkedFormsId,
-			checkedCategoryId: window.initTreeState ? "" : this.state.checkedCategoryId
+			checkedCategoryId: window.initTreeState ? "" : this.state.checkedCategoryId,
+			indexs: window.initTreeState ? new Set() : this.state.indexs,
 		})
-		window.initTreeState = false;
-		if (!this.state.indexs.size)return;
-		for (let k of this.state.indexs) {
-			if(isNaN(k)) return;
-			setTimeout(() => {
-				this.refs[`selfDefine${k}`].refs.selectHandle.previousElementSibling.previousElementSibling.click();
-			}, 0)
+		// 用于打开一级菜单，如果切换nav ，不用打开了
+		if (!window.initTreeState) {
+			if (!this.state.indexs.size)return;
+			for (let k of this.state.indexs) {
+				if (isNaN(k)) return;
+				setTimeout(() => {
+					this.refs[`selfDefine${k}`].refs.selectHandle.previousElementSibling.previousElementSibling.click();
+				}, 0)
+			}
 		}
+		window.initTreeState = false;
+
 	}
 
 	closeFormPicker() {
