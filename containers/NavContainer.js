@@ -9,6 +9,7 @@ import {getItems, initActivePage} from '../actions/page'  //用于 获取数据�
 import {show} from '../actions/formList'    // 用于 模态框 加获取 修改list数据  发起审批
 import {initDropdownIndex} from '../actions/dropdown'   // 用于 初始化dropdown数据
 import {setFormFilters} from "../actions/formFilters"
+import {changeText} from "../actions/search"
 
 class NavContainer extends Component {
 	render() {
@@ -39,7 +40,7 @@ class NavContainer extends Component {
 
 	onTabClicked(e, checked) {
 		// 添加hideDropdown 解决nav切换，列表没收起来的bug，让所有列表收起来
-		const {cur, isFetching, changeNav, changeSortRule, changeFilter, getList, getItems, initDropdownIndex, initActivePage, formFilters, setFormFilters} = this.props
+		const {cur, isFetching, changeNav, changeSortRule, changeFilter, getList, getItems, initDropdownIndex, initActivePage, formFilters, setFormFilters,changeText} = this.props
 		e.preventDefault()
 		if (!isFetching && checked != cur) {
 			changeNav(checked)
@@ -55,7 +56,6 @@ class NavContainer extends Component {
 			});
 			window.prev = window.flag || 0;
 			window.flag = checked;
-
 			// if("我发起的"==e.target.innerText)
 			//      getItems()
 			// else
@@ -101,5 +101,5 @@ const mapStateToProps = (state) => {
 
 export default connect(
 	mapStateToProps,
-	{changeNav, changeSortRule, changeFilter, getList, show, getItems, initDropdownIndex, initActivePage, setFormFilters}
+	{changeNav, changeSortRule, changeFilter, getList, show, getItems, initDropdownIndex, initActivePage, setFormFilters,changeText}
 )(NavContainer)

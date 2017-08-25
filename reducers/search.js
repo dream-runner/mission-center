@@ -10,7 +10,7 @@ const initialState = {
 function changeText(state, action) {
     switch (action.type) {
         case CHANGE_SEARCH_TEXT:
-            return action.text 
+            return action.text
         default:
             return state.searchText
     }

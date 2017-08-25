@@ -5,8 +5,14 @@ import {search} from '../actions/page'
 import {getList} from '../actions/list'
 
 class SearchContainer extends Component {
+	componentWillReceiveProps () {
+		if (window.searchChanged) {
+			window.searchChanged = false;
+			this.refs.sText.value = "";
+		}
+	}
 	render() {
-		const {changeText, search, searchText} = this.props
+		const {changeText, search, searchText} = this.props;
 		return (
 			<div className="search-bar">
 				<form action="#" method="get" onSubmit={this.onSearchClicked.bind(this)}>

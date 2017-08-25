@@ -5,6 +5,7 @@ import {toggleDropdown, hideMenu, setDropdownChecked, isFormFilerOn} from '../ac
 // 切换下拉列表显示隐藏
 import {setFormFilters} from '../actions/formFilters';
 import {getList} from '../actions/list';
+import {changeText} from '../actions/search'
 //弹框
 import {Modal} from 'react-bootstrap'
 //树
@@ -12,13 +13,15 @@ import Tree, {TreeNode} from 'rc-tree';
 import Loading from '../components/Loading';
 class DropdownContainer extends Component {
 	componentWillUpdate() {
-		const {setFormFilters} = this.props;
+		const {setFormFilters,changeText} = this.props;
 		if (window.prev !== window.flag && window.prev !== null) {
 			window.prev = null;
 			setFormFilters({
 				formNames: "",
 				categoryId: ""
 			});
+			changeText("");
+			window.searchChanged = true;
 			window.initTreeState = true;
 		}
 	}
@@ -374,5 +377,6 @@ export default connect(mapStateToProps, {
 	setDropdownChecked,
 	getList,
 	isFormFilerOn,
-	setFormFilters
+	setFormFilters,
+	changeText
 })(DropdownContainer);

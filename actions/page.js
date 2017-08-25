@@ -199,6 +199,7 @@ export function change(activePage, issearch) {
 
 export function getListNew(moduleName, activePage) {
 	return (dispatch, getState) => {
+		// alert('listnew');
 		let state = getState();
 		let curNavKey = dispatch(getCurNavKey());
 		let curSortKey = dispatch(getCurSortKey());
@@ -290,7 +291,7 @@ export function getListNew(moduleName, activePage) {
 			let pageSize = pagination.pageSize;
 			let pageStart = (activePage - 1) * pageSize;
 			let searchText = state.search.searchText + '';
-			queryStr += `size=${pageSize}&start=${pageStart}&`;
+			queryStr += pageStart == 0 ? "" : `size=${pageSize}&start=${pageStart}&`;
 			queryStr += searchText ? `searchedItem=${searchText}&` : '';
 		}
 
@@ -307,6 +308,7 @@ export function getListNew(moduleName, activePage) {
 
 		queryStr += (state.formFilters.categoryId.replace('tempt', "") ? `categoryIds=${state.formFilters.categoryId.replace('tempt', "")}&` : '');
 		state.formFilters.formNames && (fetchParam.body = JSON.stringify({processInstanceNames: state.formFilters.formNames}));
+
 		return fetch(`${window.$ctx}/tc/${curNavKey}?${queryStr}_=${Date.now()}`, fetchParam).then(response => {
 			if (response.ok) {
 				response.text().then(text => {
