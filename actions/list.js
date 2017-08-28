@@ -101,10 +101,13 @@ export function getList(moduleName, param) {
 				queryStr += tmp.options[tmp.cur].key === 'all' ? '' : `${tabNavData[curNavKey][i].key}=${tmp.options[tmp.cur].key}&`;
 			}
 		}
-
 		if (moduleName && moduleName == 'search') {
 			queryStr += param == '' ? '' : `searchedItem=${param}&`;
+		} else if (!(window.prev !== window.flag && window.prev !== null)) {
+			// 因为在页数只有一页的时候，由详情页返回调用的还是getList，所有如果有searchText需要加上
+			queryStr += state.search.searchText == "" ? "" : `searchedItem=${state.search.searchText}&`;
 		}
+
 		dispatch({
 			type: GETLIST_REQUEST
 		});
@@ -121,7 +124,7 @@ export function getList(moduleName, param) {
 			method: 'post'
 		};
 		// 去掉之前我们为了使筛选项高亮的tempt字符串（dropdownContainer）
-		queryStr += (state.formFilters.categoryId.replace('tempt',"") ? `categoryIds=${state.formFilters.categoryId.replace('tempt',"")}&` : '');
+		queryStr += (state.formFilters.categoryId.replace('tempt', "") ? `categoryIds=${state.formFilters.categoryId.replace('tempt', "")}&` : '');
 		state.formFilters.formNames && (fetchParam.body = JSON.stringify({processInstanceNames: state.formFilters.formNames}));
 		return fetch(`${window.$ctx}/tc/${curNavKey}?${queryStr}_=${Date.now()}`, fetchParam).then(response => {
 				if (response.ok) {
