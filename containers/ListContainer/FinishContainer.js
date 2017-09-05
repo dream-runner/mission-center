@@ -86,7 +86,7 @@ class FinishContainer extends Component {
 		}
     showDetail(item) {
         return (e) => {
-            e.preventDefault()
+					e.preventDefault()
             this.props.getBo(item)
         }
     }

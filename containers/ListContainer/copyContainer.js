@@ -80,7 +80,7 @@ class copyContainer extends Component {
 	}
 	showDetail(item) {
 		return (e) => {
-				e.preventDefault();
+			e.preventDefault();
 				if(item.taskStatus == '0'){
 					if(this.refs.unread.getAttribute('data-status') == '0'){
 						e.currentTarget.className = 'box hadread';

@@ -23,7 +23,9 @@ function getSuccess(copyToId, taskId, pk_bo, pk_boins, processDefinitionId, proc
 		src = `${window.$ctx}/static/dist/rt/html/browse.html?copyToId=${copyToId}&taskId=${taskId}&pk_bo=${pk_bo}&pk_boins=${pk_boins}&processDefinitionId=${processDefinitionId}&processInstanceId=${processInstanceId}&from=mission`
 	} else {
 		if (/tempSave/.test(processDefinitionId)) {
-			src = `${window.$ctx}/static/dist/rt/html/fill-in.html?taskId=${taskId}&pk_bo=${pk_bo}&pk_boins=${pk_boins}&processDefinitionId=${processDefinitionId}&processInstanceId=${processInstanceId}&from=mission&fromcat=${dispatch(getCurNavKey())}`
+			var arr = ['curtasks','listcopy','histasks','getMine'];
+            var curNav =  arr.indexOf(dispatch(getCurNavKey()));
+			src = `${window.$ctx}/static/dist/rt/html/fill-in.html?taskId=${taskId}&pk_bo=${pk_bo}&pk_boins=${pk_boins}&processDefinitionId=${processDefinitionId}&processInstanceId=${processInstanceId}&from=mission&fromcat=${dispatch(getCurNavKey())}&curNav=${curNav}`
 		} else {
 			src = `${window.$ctx}/static/dist/rt/html/browse.html?taskId=${taskId}&pk_bo=${pk_bo}&pk_boins=${pk_boins}&processDefinitionId=${processDefinitionId}&processInstanceId=${processInstanceId}&from=mission&fromcat=${dispatch(getCurNavKey())}`
 		}
@@ -34,7 +36,6 @@ function getSuccess(copyToId, taskId, pk_bo, pk_boins, processDefinitionId, proc
 		})
 		dispatch(show(src))
 	}
-// >>>>>>> 1b5017fac4d6307635c56f157d7b4b542ad35978
 }
 
 export function hide() {

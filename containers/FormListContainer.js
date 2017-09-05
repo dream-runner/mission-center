@@ -39,24 +39,6 @@ class FormListContainer extends Component {
 					</li>
 				)
 			})
-// <<<<<<< HEAD
-//         formLists.push((
-//             <div className="categories-list">
-//                 <h2 className="category">{category.name}<span className="category-count">({forms.length})</span></h2>
-//                 <ul className="forms-list clearfix">{forms}</ul>
-//             </div>
-//         ))
-//     })
-//
-//     return (
-//         <Dialog show={isOpen} onHide={hide} onPrimary={primary} dialogClassName="form-list-dialog" title="表单列表">
-// 			<CSSTransitionGroup className="form-list-tip-wrap" component="div" transitionName="form-list-tip" transitionEnterTimeout={500} transitionLeaveTimeout={300}>
-// 			{tip ? <div className="alert alert-warning form-list-tip">{tip}</div> : undefined}
-// 			</CSSTransitionGroup>
-//             <Loading errorMsg={_errorMsg} status={_status} isFetching={isFetching}>
-//                 {formLists}
-//             </Loading>
-// =======
 			if (forms.length > 0) {
 				formLists.push((
 					<div className="categories-list" key={i}>

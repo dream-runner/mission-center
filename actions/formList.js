@@ -53,48 +53,6 @@ export function hide() {
 }
 //更改list数据加显示模态框  用于发起审批
 export function show() {
-{/*<<<<<<< HEAD*/}
-	{/*return (dispatch, getState) => {*/}
-		{/*let state = getState()*/}
-		{/*dispatch({*/}
-			{/*type: SHOW_DIALOG,         //  修改isopen 显示隐藏*/}
-			{/*id: state.formList.id*/}
-		{/*})*/}
-		{/*if (!state.formList.categories.length) {*/}
-			{/*dispatch({*/}
-				{/*type: GETFORMLIST_REQUEST   // 修改formlist的isfetching，状态*/}
-			{/*})*/}
-			{/*let data = new URLSearchParams()*/}
-			{/*data.set('outage', 'false')*/}
-			{/*return fetch(`${window.$ctx}/iform_ctr/iform_design_ctr/queryFormList`, {*/}
-				{/*method: 'POST',*/}
-				{/*headers: {*/}
-					{/*'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'*/}
-				{/*},*/}
-				{/*credentials: 'include',*/}
-				{/*cache: 'no-cache',*/}
-				{/*body: data*/}
-			{/*}).then(response => {*/}
-				{/*if (response.ok) {*/}
-					{/*response.text().then(text => {*/}
-						{/*if (text) {*/}
-							{/*// try {*/}
-							{/*let json = JSON.parse(text)*/}
-							{/*dispatch(getListSuccess(json))    // 修改formList 的category数据*/}
-							{/*// } catch (e) {*/}
-							{/*// dispatch(getListFailure(`something error……\n${e.message}`))*/}
-							{/*// }*/}
-						{/*} else {*/}
-							{/*dispatch(getListFailure('Api return nothing……'))*/}
-						{/*}*/}
-					{/*})*/}
-				{/*} else {*/}
-					{/*dispatch(getListFailure(`something error……\n${response.status} ${response.statusText}`))*/}
-				{/*}*/}
-			{/*})*/}
-		{/*}*/}
-	{/*}*/}
-{/*=======*/}
     return (dispatch, getState) => {
         let state = getState()
         dispatch({
@@ -129,7 +87,6 @@ export function show() {
                 })
         }
     }
-// >>>>>>> 1b5017fac4d6307635c56f157d7b4b542ad35978
 }
 export function checkForm(id) {
 	return checkFlag((dispatch, getState) => {
@@ -139,16 +96,6 @@ export function checkForm(id) {
 		})
 	})
 }
-{/*<<<<<<< HEAD*/}
-{/*export function primary() {*/}
-	{/*return checkFlag((dispatch, getState) => {*/}
-		{/*let state = getState()*/}
-		{/*let curForm = state.formList.curForm*/}
-		{/*if (curForm) {*/}
-			{/*flag = false*/}
-			{/*window.location.href = `${window.$ctx}/static/html/rt/fill-in.html?pk_bo=${curForm}`*/}
-		{/*} else {*/}
-{/*=======*/}
 export function primary () {
     return checkFlag((dispatch, getState) => {
         let state = getState()
@@ -156,9 +103,8 @@ export function primary () {
         if (curForm) {
             flag = false
             // window.location.href = `${window.$ctx}/static/html/rt/fill-in.html?pk_bo=${curForm}`
-						window.location.href = `${window.$ctx}/static/dist/rt/html/fill-in.html?pk_bo=${curForm}`
+			window.location.href = `${window.$ctx}/static/dist/rt/html/fill-in.html?pk_bo=${curForm}&curNav=${state.nav.cur}`
         } else {
-// >>>>>>> 1b5017fac4d6307635c56f157d7b4b542ad35978
 			dispatch({
 				type: SET_FORMLIST_TIP,
 				message: '请选择表单'
