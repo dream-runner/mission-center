@@ -239,7 +239,7 @@ export function getListNew(moduleName, activePage) {
 				{key: 'categoryIds', name: 'filterCategoryIds'}
 			],
 			getMine: [
-				{key: 'isFinished', name: 'filterListDoneStatus'},
+				{key: 'processStatus', name: 'filterListDoneStatus'},
 				{key: 'taskDate', name: 'filterTaskDate'},
 				{key: 'categoryIds', name: 'filterCategoryIds'}
 			]
@@ -269,7 +269,7 @@ export function getListNew(moduleName, activePage) {
 				break;
 			case 'filterListMineStatus':
 				dropdownKey = dispatch(getFilterDropdownKey(state.dropdown.dropdownName));
-				queryStr = dropdownKey === 'all' ? '' : `isFinished=${dropdownKey}&`;
+				queryStr = dropdownKey === 'all' ? '' : `processStatus=${dropdownKey}&`;
 				break;
 			default:
 				queryStr = '';

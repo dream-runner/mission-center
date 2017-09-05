@@ -35,7 +35,7 @@ const data = [
 		tabName: '我发起的',
 		hasFilter: true,
 		className: 'list-wrap',
-		components: ['filterListDoneStatus', 'filterTaskDate', 'filterCategoryIds'],
+		components: ['filterListMineStatus', 'filterTaskDate', 'filterCategoryIds'],
 		nodeClass: MineContainer
 	}
 ]
