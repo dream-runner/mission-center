@@ -111,7 +111,7 @@ const initialState = {
 	        text: '审批中',
 	        key: 'running'
 	    },{
-	        text: '草稿',
+	        text: '草稿态',
 	        key: 'tempSave'
 	    },/* {
 	        text: '已终止',
