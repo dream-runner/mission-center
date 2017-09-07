@@ -106,16 +106,16 @@ const initialState = {
 	        key: 'all'
 	    }, {
 	        text: '已完成',
-	        key: 'true'
+	        key: 'completed'
 	    }, {
-	        text: '进行中',
-	        key: 'false'
+	        text: '审批中',
+	        key: 'running'
+	    },{
+	        text: '草稿态',
+	        key: 'tempSave'
 	    },/* {
 	        text: '已终止',
 	        key: 'stop'
-	    }, {
-	        text: '草稿',
-	        key: 'draft'
 	    },  {
 	        text: '已提交',
 	        key: 'submit'
