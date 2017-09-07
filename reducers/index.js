@@ -10,11 +10,13 @@ import form from './form'
 import confirm from './confirm'
 import page from './page'
 import search from './search'
+import formFilters from './formFilters'
 import dropdown from './dropdown'
 
 export default combineReducers({
     nav,
     filter,
+		formFilters,
     sort,
     list,
     formList,

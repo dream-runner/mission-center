@@ -20,7 +20,6 @@ import {
 } from './sort'
 
 
-
 export function getItems() {
 	return (dispatch, getState) => {
 		dispatch({
@@ -88,7 +87,6 @@ export function getItems() {
 		})
 	}
 }
-
 
 
 export function search(searchText) {
@@ -161,10 +159,6 @@ export function search(searchText) {
 }
 
 
-
-
-
-
 function getItemsSuccess(json) {
 	let {
 		items = 10
@@ -195,8 +189,6 @@ function issearch(json) {
 }
 
 
-
-
 export function change(activePage, issearch) {
 	if (issearch == 'y')
 		return getSearchList(activePage)
@@ -205,9 +197,9 @@ export function change(activePage, issearch) {
 }
 
 
-
 export function getListNew(moduleName, activePage) {
 	return (dispatch, getState) => {
+		// alert('listnew');
 		let state = getState();
 		let curNavKey = dispatch(getCurNavKey());
 		let curSortKey = dispatch(getCurSortKey());
@@ -216,9 +208,9 @@ export function getListNew(moduleName, activePage) {
 			queryStr = '';
 		let tabNavData = {
 			curtasks: [{
-					key: 'taskDue',
-					name: 'filterDueDateOverdue'
-				},
+				key: 'taskDue',
+				name: 'filterDueDateOverdue'
+			},
 				{
 					key: 'taskDate',
 					name: 'filterTaskDate'
@@ -229,9 +221,9 @@ export function getListNew(moduleName, activePage) {
 				}
 			],
 			histasks: [{
-					key: 'isFinished',
-					name: 'filterListDoneStatus'
-				},
+				key: 'isFinished',
+				name: 'filterListDoneStatus'
+			},
 				{
 					key: 'taskDate',
 					name: 'filterTaskDate'
@@ -241,8 +233,16 @@ export function getListNew(moduleName, activePage) {
 					name: 'filterCategoryIds'
 				}
 			],
-			listcopy: [],
-			getMine: []
+			listcopy: [
+				{key: 'isFinished', name: 'filterListDoneStatus'},
+				{key: 'taskDate', name: 'filterTaskDate'},
+				{key: 'categoryIds', name: 'filterCategoryIds'}
+			],
+			getMine: [
+				{key: 'processStatus', name: 'filterListMineStatus'},
+				{key: 'taskDate', name: 'filterTaskDate'},
+				{key: 'categoryIds', name: 'filterCategoryIds'}
+			]
 
 		};
 
@@ -269,7 +269,7 @@ export function getListNew(moduleName, activePage) {
 				break;
 			case 'filterListMineStatus':
 				dropdownKey = dispatch(getFilterDropdownKey(state.dropdown.dropdownName));
-				queryStr = dropdownKey === 'all' ? '' : `isFinished=${dropdownKey}&`;
+				queryStr = dropdownKey === 'all' ? '' : `processStatus=${dropdownKey}&`;
 				break;
 			default:
 				queryStr = '';
@@ -287,20 +287,29 @@ export function getListNew(moduleName, activePage) {
 			queryStr += param == '' ? '' : `searchedItem=${param}&`;
 		}
 
-		if(moduleName && moduleName == 'pagination'){
+		if (moduleName && moduleName == 'pagination') {
 			let pageSize = pagination.pageSize;
 			let pageStart = (activePage - 1) * pageSize;
-			queryStr += `size=${pageSize}&start=${pageStart}&`;
+			let searchText = state.search.searchText + '';
+			queryStr += pageStart == 0 ? "" : `size=${pageSize}&start=${pageStart}&`;
+			queryStr += searchText ? `searchedItem=${searchText}&` : '';
 		}
 
 		dispatch({
 			type: GETLIST_REQUEST
 		})
+
 		/*sort=${curSortKey}&*/
-		return fetch(`${window.$ctx}/tc/${curNavKey}?${queryStr}_=${Date.now()}`, {
+		let fetchParam = {
 			credentials: 'include',
-			cache: 'no-cache'
-		}).then(response => {
+			cache: 'no-cache',
+			method: 'post'
+		};
+
+		queryStr += (state.formFilters.categoryId.replace('tempt', "") ? `categoryIds=${state.formFilters.categoryId.replace('tempt', "")}&` : '');
+		state.formFilters.formNames && (fetchParam.body = JSON.stringify({processInstanceNames: state.formFilters.formNames}));
+
+		return fetch(`${window.$ctx}/tc/${curNavKey}?${queryStr}_=${Date.now()}`, fetchParam).then(response => {
 			if (response.ok) {
 				response.text().then(text => {
 					if (text) {
@@ -406,7 +415,7 @@ function getActivePage(activePage) {
 	}
 }
 
-export function initActivePage(activePage){
+export function initActivePage(activePage) {
 	return {
 		type: CHANGE_ACTIVEPAGE,
 		activePage

@@ -68,27 +68,25 @@ class FinishContainer extends Component {
 			return <ul className="remark-list">{str}</ul>;
 		}
 		getProcessStatus(processMainInfo){
-			// 已审批中的状态逻辑(主流程)：
-			// 已完成 finished=true且deleteReason=null
-			// 已中止 finished=true且deleteReason!=null
-			// 进行中 finished=false
+			// 已审批中的状态逻辑：
+			// 已完成 processFinished=true且历史流程中的deleteReason!=delete
+			// 已中止 processFinished=true且deleteReason==delete
+			// 审批中 processFinished=false
 			let str = '';
 			if(processMainInfo.processFinished){
-				if(processMainInfo.historicProcessInstance.deleteReason == 'completed'){
-					str = <span className="btn-tip btn-tip-done">已完成</span>;
-				} else if(processMainInfo.historicProcessInstance.deleteReason == 'delete'){
+				if(processMainInfo.historicProcessInstance.deleteReason && (processMainInfo.historicProcessInstance.deleteReason.toLocaleLowerCase().indexOf('delete') > -1||processMainInfo.historicProcessInstance.deleteReason.toLocaleLowerCase().indexOf('stop') > -1)){
 					str = <span className="btn-tip btn-tip-stop">已中止</span>;
-				} else {
-					str = <span className="btn-tip btn-tip-doing">进行中</span>;
+				} else{
+					str = <span className="btn-tip btn-tip-done">已完成</span>;
 				}
 			} else {
-				str = <span className="btn-tip btn-tip-doing">进行中</span>;
+				str = <span className="btn-tip btn-tip-doing">审批中</span>;
 			}
 			return str;
 		}
     showDetail(item) {
         return (e) => {
-            e.preventDefault()
+					e.preventDefault()
             this.props.getBo(item)
         }
     }

@@ -1,9 +1,10 @@
-import { SHOW_MENU, HIDE_MENU, CHANGE_DROPDOWN_CHECKED, CHANGE_DROPDOWN_INIT } from '../constants/ActionTypes'
+import { SHOW_MENU, HIDE_MENU, CHANGE_DROPDOWN_CHECKED, CHANGE_DROPDOWN_INIT,SET_SELECTEDFORMSID,SET_SELECTEDCATEGORYID } from '../constants/ActionTypes'
 import { GETCATEGORY_REQUEST, GETCATEGORY_SUCCESS, GETCATEGORY_FAILURE} from '../constants/ActionTypes'
 import guid from 'angular-uid'
 
 const initialState = {
 		"dropdownName": '',
+	// 待审批页的全部状态 列表
 		"filterDueDateOverdue": {
 			key: guid(),
 			remark: '待审批筛选',
@@ -20,18 +21,20 @@ const initialState = {
 	        key: 'dueDateoverdue'
 	    }]
 		},
+	// 已审批
 		"filterCategoryIds": {
 			key: guid(),
 			remark: '根据类型筛选',
-			cur: 0,
-	    isOpen: false,
+			cur: 0,            //  当前列表呗选中的项目
+	    isOpen: false, //  排序列表的下拉状态
 			errorMsg: '',
 	    isFetching: false,
-			options: [{
+			options: [{         // 列表内容
 	        text: '全部类型',
 	        key: 'all'
-	    }]
+	    }],
 		},
+	// 待审批页  已审批 的全部时间列表
 		"filterTaskDate": {
 			key: guid(),
 			remark: '待审批筛选',
@@ -73,6 +76,7 @@ const initialState = {
 	        key: 'all'
 	    }]
 		},
+	// 已审批的全部状态列表
 		"filterListDoneStatus": {
 			key: guid(),
 			remark: '根据状态筛选',
@@ -85,7 +89,7 @@ const initialState = {
 	        text: '已完成',
 	        key: 'true'
 	    }, {
-	        text: '进行中',
+	        text: '审批中',
 	        key: 'false'
 	    },/* {
 	        text: '已终止',
@@ -102,16 +106,16 @@ const initialState = {
 	        key: 'all'
 	    }, {
 	        text: '已完成',
-	        key: 'true'
+	        key: 'completed'
 	    }, {
-	        text: '进行中',
-	        key: 'false'
+	        text: '审批中',
+	        key: 'running'
+	    },{
+	        text: '草稿态',
+	        key: 'tempSave'
 	    },/* {
 	        text: '已终止',
 	        key: 'stop'
-	    }, {
-	        text: '草稿',
-	        key: 'draft'
 	    },  {
 	        text: '已提交',
 	        key: 'submit'
@@ -119,18 +123,18 @@ const initialState = {
 		}
 }
 
-function toggleOpen(state, action) {
-    switch (action.type) {
-        case SHOW_MENU:
-            if (action.name && state) {
-                return true
-            }
-            return state.isOpen
-        case HIDE_MENU:
-            return false
-        default:
-            return state.isOpen
-    }
+// 同时只能打开一个下拉框
+function toggleOneOpen(state, action) {
+		for(var k in state){
+			if(state[k].isOpen){
+				state[k].isOpen = false;
+			}
+		}
+		if(action.type === SHOW_MENU){
+			return true;
+		} else {
+			return false;
+		}
 }
 
 function setDropdownChecked(state, action) {
@@ -140,6 +144,28 @@ function setDropdownChecked(state, action) {
 							return state
 					}
 					return action.checked
+			default:
+					return state
+	}
+}
+function setSelectedFormsId(state, action) {
+	switch (action.type) {
+			case SET_SELECTEDFORMSID:
+					if (state == action.selectedFormsId) {
+							return state
+					}
+					return action.selectedFormsId
+			default:
+					return state
+	}
+}
+function setSelectedCategoryId(state, action) {
+	switch (action.type) {
+			case SET_SELECTEDCATEGORYID:
+					if (state == action.selectedCategoryId) {
+							return state
+					}
+					return action.selectedCategoryId
 			default:
 					return state
 	}
@@ -179,12 +205,14 @@ function changeIsFetching(state, action) {
 }
 
 function initDropdownIndex(state, action){
+	// 应该返回新对象
 	for (let k in state){
 		if(state[k] && state[k].cur != 0){
 			state[k].cur = 0;
 		}
 	}
-	return state;
+	// return state;
+	return Object.assign({},state);
 }
 
 export default function dropdown(state = initialState, action) {
@@ -194,10 +222,11 @@ export default function dropdown(state = initialState, action) {
 	} else {
 		if(name && state[name]){
 			dropdownName = name;
-			state[name].isOpen = toggleOpen(state[name], action);
+			state[name].isOpen = toggleOneOpen(state, action);
 			state[name].cur = setDropdownChecked(state[name].cur, action);
+		} else {
+			toggleOneOpen(state, action);
 		}
-
 	  return {
 			"dropdownName": dropdownName,
 			"filterCategoryIds": {

@@ -23,7 +23,7 @@ class SortRuleContainer extends Component {
                     e.preventDefault()
                     e.stopPropagation()
                     toggleDropdown()
-                }}>{ getCurSortText() } < span className = "caret" >< /span></a >
+                }}>{ getCurSortText() } < span className = "caret" ></span></a>
                 <Tab items={ items }
                     cur={ cur }
                     className="dropdown-menu sort-rule-wrap"

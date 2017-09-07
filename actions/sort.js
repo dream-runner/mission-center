@@ -17,9 +17,8 @@ export function toggleDropdown() {
     }
   }
 }
-
 export function hideMenu() {
-  return {
+	return {
     type: HIDE_MENU
   }
 }
