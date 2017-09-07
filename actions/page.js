@@ -239,7 +239,7 @@ export function getListNew(moduleName, activePage) {
 				{key: 'categoryIds', name: 'filterCategoryIds'}
 			],
 			getMine: [
-				{key: 'processStatus', name: 'filterListDoneStatus'},
+				{key: 'processStatus', name: 'filterListMineStatus'},
 				{key: 'taskDate', name: 'filterTaskDate'},
 				{key: 'categoryIds', name: 'filterCategoryIds'}
 			]
