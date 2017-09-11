@@ -75,7 +75,7 @@ class FinishContainer extends Component {
 			let str = '';
 			if(processMainInfo.processFinished){
 				if(processMainInfo.historicProcessInstance.deleteReason && (processMainInfo.historicProcessInstance.deleteReason.toLocaleLowerCase().indexOf('delete') > -1||processMainInfo.historicProcessInstance.deleteReason.toLocaleLowerCase().indexOf('stop') > -1)){
-					str = <span className="btn-tip btn-tip-stop">已中止</span>;
+					str = <span className="btn-tip btn-tip-stop">已终止</span>;
 				} else{
 					str = <span className="btn-tip btn-tip-done">已完成</span>;
 				}
