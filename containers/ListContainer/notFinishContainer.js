@@ -16,6 +16,7 @@ class notFinishContainer extends Component {
 		let node = map(items, (item, i) => {
 			let {processInstance, dueDate, createTime} = item;
 			if (!processInstance) return;
+			processInstance['parentVariables'] = item.variables;
 			// let uname = (historicProcessInstance && historicProcessInstance.startParticipant && historicProcessInstance.startParticipant.name)||'';
 			let processCurName = processInstance.startParticipant && processInstance.startParticipant.name ?
 				<span className="uname">{processInstance.startParticipant.name.substr(-2, 2)}</span> : '';
@@ -27,9 +28,14 @@ class notFinishContainer extends Component {
 			let processStatus = this.getProcessStatus(processInstance);
 			let processCreateTime = new Date(createTime).format('yyyy-MM-dd HH:mm');
 			let dueDateTime = dueDate && new Date(dueDate).getTime();
-			let processDueDate = dueDateTime < new Date().getTime() ? <span className="duedate">逾期</span> : '';
+			let processDueDate ='';
+			if(item.outtime){
+				processDueDate = <span className="sts-warning duedate">超期</span>;
+			}else if(item.warning){
+				processDueDate = <span className="sts-warning warning">预警</span>;
+			}
 			return (
-				<div key={i} className="item">
+				<div key={i} className="item tab-doing">
 					<div className="box" onClick={this.showDetail(item)}>
 						<div className="item-info">
 							<div className="l">
@@ -43,11 +49,11 @@ class notFinishContainer extends Component {
 								</div>
 							</div>
 							<div className="r">
+								{processStatus}
 								<span className="item-info-cell">{`提交时间：${processCreateTime}`}</span>
 							</div>
 						</div>
 						<div className="item-status">
-							{processStatus}
 							{/*<button type="button" className="btn btn-default" onClick={this.clickHandler(item).bind(this)}>立即处理</button>*/}
 						</div>
 					</div>
@@ -61,7 +67,6 @@ class notFinishContainer extends Component {
 			</div>
 		)
 	}
-
 	// 获取列表每项的数据描述
 	getProcessKeyFeature(processInstance) {
 		let str = null, list = null, keyFeatureStr = processInstance.keyFeature;
@@ -85,7 +90,17 @@ class notFinishContainer extends Component {
 		} else if (processInstance.ended) { // 已终止
 			str = <span className="btn-tip btn-tip-stop">已终止</span>;
 		} else { // 审批中
-			str = <span className="btn-tip btn-tip-doing">审批中</span>;
+			// str = <span className="btn-tip btn-tip-doing"></span>;
+			let taskAddApproved = false;
+			if (processInstance.parentVariables) {
+				processInstance.parentVariables.forEach((val) => {
+					if ('counterSigning' === val.name && true === val.value) {
+						taskAddApproved = true;
+						return false;
+					}
+				})
+			}
+			taskAddApproved && (str = <span className="btn-tip btn-tip-addtother">加签中</span>);
 		}
 		return str;
 	}

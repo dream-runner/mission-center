@@ -551,13 +551,18 @@ html, body {
 	background-size: cover;
 }
 
-#mission-center-root .list-wrap .table-list .item-info .duedate{
-	background: #FA4F52;
+#mission-center-root .list-wrap .table-list .item-info .sts-warning{
+	background: #BA0808;
 	padding: 2px 3px;
 	margin: 0 0 0 5px;
 	font-size: 11px;
 	color: #fff;
+	border-radius: 2px;
 }
+#mission-center-root .list-wrap .table-list .item-info .sts-warning.warning{
+	background: #FFBA05;
+}
+
 
 #mission-center-root .list-wrap .table-list .item-info .l,
 #mission-center-root .list-wrap .table-list .item-info .m,
@@ -566,6 +571,15 @@ html, body {
 	display: -ms-flexbox;
 	-webkit-box-align: center;
 	position: relative;
+}
+#mission-center-root .list-wrap .table-list .tab-doing .item-info .r{
+	display: flex;
+	flex-direction: column;
+}
+#mission-center-root .list-wrap .table-list .tab-doing .item-info .r span:last-child{
+	flex:1;
+	display: flex;
+	align-items: center;
 }
 #mission-center-root .list-wrap .table-list .item-info .l{width: 38px; margin-right: 12px; -webkit-box-pack: center;}
 #mission-center-root .list-wrap .table-list .item-info .m{
@@ -1241,4 +1255,7 @@ html, body {
 .rc-tree li ul {
 	margin: 0;
 	padding: 0 0 0 25px;
+}
+.btn-tip-addtother{
+	color: #ff4000;
 }
