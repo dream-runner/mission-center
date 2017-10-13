@@ -91,10 +91,10 @@ const initialState = {
 	    }, {
 	        text: '审批中',
 	        key: 'false'
-	    },/* {
+	    },{
 	        text: '已终止',
 	        key: 'stop'
-	    }*/]
+	    }]
 		},
 		"filterListMineStatus": {
 			key: guid(),
@@ -113,10 +113,10 @@ const initialState = {
 	    },{
 	        text: '草稿态',
 	        key: 'tempSave'
-	    },/* {
+	    },{
 	        text: '已终止',
 	        key: 'stop'
-	    },  {
+	    }/* ,  {
 	        text: '已提交',
 	        key: 'submit'
 	    }*/]
