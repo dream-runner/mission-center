@@ -15,7 +15,10 @@ class notFinishContainer extends Component {
 
 		let node = map(items, (item, i) => {
 			let {processInstance, dueDate, createTime} = item;
-			if (!processInstance) return;
+			if (!processInstance){
+				console.error('processInstance is empty!');
+				return;
+			}
 			processInstance['parentVariables'] = item.variables;
 			// let uname = (historicProcessInstance && historicProcessInstance.startParticipant && historicProcessInstance.startParticipant.name)||'';
 			let processCurName = processInstance.startParticipant && processInstance.startParticipant.name ?
