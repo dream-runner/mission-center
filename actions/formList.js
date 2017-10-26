@@ -103,7 +103,7 @@ export function primary () {
         if (curForm) {
             flag = false
             // window.location.href = `${window.$ctx}/static/html/rt/fill-in.html?pk_bo=${curForm}`
-			window.location.href = `${window.$ctx}/static/dist/rt/html/fill-in.html?pk_bo=${curForm}&curNav=${state.nav.cur}`
+			window.location.href = `${window.$ctx}/static/dist/rt/html/fill-in.html?pk_bo=${curForm}&curNav=${state.nav.cur}&_=${+new Date()}`
         } else {
 			dispatch({
 				type: SET_FORMLIST_TIP,

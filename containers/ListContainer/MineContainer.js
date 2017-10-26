@@ -119,14 +119,14 @@ class MineContainer extends Component {
     edit (item) {
         return (e) => {
             e.preventDefault()
-            let url = `${window.$ctx}/static/html/rt/browse.html?pk_bo=${item.formdata.form.pk_bo}&pk_boins=${item.formdata.form.pk_boins}`
+            let url = `${window.$ctx}/static/html/rt/browse.html?pk_bo=${item.formdata.form.pk_bo}&pk_boins=${item.formdata.form.pk_boins}&_=${+new Date()}`
             this.props.formDialogShow(url)
         }
     }
     check (item) {
         return (e) => {
             e.preventDefault()
-            let url = `${window.$ctx}/static/html/rt/browse.html?pk_bo=${item.formdata.form.pk_bo}&pk_boins=${item.formdata.form.pk_boins}`
+            let url = `${window.$ctx}/static/html/rt/browse.html?pk_bo=${item.formdata.form.pk_bo}&pk_boins=${item.formdata.form.pk_boins}&_=${+new Date()}`
             this.props.formDialogShow(url)
         }
     }

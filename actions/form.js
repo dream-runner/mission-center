@@ -20,14 +20,14 @@ function getFailure(message) {
 function getSuccess(copyToId, taskId, pk_bo, pk_boins, processDefinitionId, processInstanceId, dispatch) {
 	let src = '';
 	if (copyToId) {
-		src = `${window.$ctx}/static/dist/rt/html/browse.html?copyToId=${copyToId}&taskId=${taskId}&pk_bo=${pk_bo}&pk_boins=${pk_boins}&processDefinitionId=${processDefinitionId}&processInstanceId=${processInstanceId}&from=mission`
+		src = `${window.$ctx}/static/dist/rt/html/browse.html?copyToId=${copyToId}&taskId=${taskId}&pk_bo=${pk_bo}&pk_boins=${pk_boins}&processDefinitionId=${processDefinitionId}&processInstanceId=${processInstanceId}&from=mission&_=${+new Date()}`
 	} else {
 		if (/tempSave/.test(processDefinitionId)) {
 			var arr = ['curtasks','listcopy','histasks','getMine'];
             var curNav =  arr.indexOf(dispatch(getCurNavKey()));
-			src = `${window.$ctx}/static/dist/rt/html/fill-in.html?taskId=${taskId}&pk_bo=${pk_bo}&pk_boins=${pk_boins}&processDefinitionId=${processDefinitionId}&processInstanceId=${processInstanceId}&from=mission&fromcat=${dispatch(getCurNavKey())}&curNav=${curNav}`
+			src = `${window.$ctx}/static/dist/rt/html/fill-in.html?taskId=${taskId}&pk_bo=${pk_bo}&pk_boins=${pk_boins}&processDefinitionId=${processDefinitionId}&processInstanceId=${processInstanceId}&from=mission&fromcat=${dispatch(getCurNavKey())}&curNav=${curNav}&_=${+new Date()}`
 		} else {
-			src = `${window.$ctx}/static/dist/rt/html/browse.html?taskId=${taskId}&pk_bo=${pk_bo}&pk_boins=${pk_boins}&processDefinitionId=${processDefinitionId}&processInstanceId=${processInstanceId}&from=mission&fromcat=${dispatch(getCurNavKey())}`
+			src = `${window.$ctx}/static/dist/rt/html/browse.html?taskId=${taskId}&pk_bo=${pk_bo}&pk_boins=${pk_boins}&processDefinitionId=${processDefinitionId}&processInstanceId=${processInstanceId}&from=mission&fromcat=${dispatch(getCurNavKey())}&_=${+new Date()}`
 		}
 	}
 	return (dispatch) => {
