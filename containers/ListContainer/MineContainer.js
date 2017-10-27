@@ -85,7 +85,9 @@ class MineContainer extends Component {
 						str = <span className="btn-tip btn-tip-done">驳回草稿</span>;
 				} else if(processInstance.state == 'delete') {
 					str = <span className="btn-tip btn-tip-stop">已终止</span>;
-				} else {
+				} else if(processInstance.deleteReason == 'REJECTTOSTART'){
+						str = <span className="btn-tip btn-tip-done">驳回草稿</span>;
+				} else  {
 					str = <span className="btn-tip btn-tip-doing">审批中</span>;
 				}
 			}
