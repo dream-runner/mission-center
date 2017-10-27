@@ -31,9 +31,27 @@ class FormListContainer extends Component {
 							className={form.id == curForm ? "item active" : "item"} key={i + ',' + j}>
 						<a href="#" title={form.name}>
 							<div className="content">
-								<div className="title"><span>{form.name}</span></div>
 								<div className="pic"><span className={`fillin-avatar avatar-${icon}`}></span></div>
-								<div className="txt"><span>{descripsion}</span></div>
+								<div className="title">
+									<span>{((name)=>{
+										var $lenCalDom = document.createElement('span');
+										$lenCalDom.style.fontSize = '16px';
+										$lenCalDom.style.position = 'absolute';
+										$lenCalDom.style.zIndex = '-1';
+										$lenCalDom.style.opacity = '0';
+										document.body.appendChild($lenCalDom);
+										for(var i=0,l=name.length;i<l;i++){
+											$lenCalDom.innerHTML = name.substring(0,i+1);
+											if($lenCalDom.clientWidth>340){
+												$lenCalDom.remove();
+												return name.substring(0,i+1)+'...';
+											}
+										}
+										$lenCalDom.remove();
+										return name;
+									})(form.name)}</span>
+									<div className="txt"><span>{descripsion}</span></div>
+								</div>
 							</div>
 						</a>
 					</li>

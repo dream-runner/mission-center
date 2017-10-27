@@ -61,7 +61,7 @@ class MineContainer extends Component {
 			try{list = JSON.parse(processInstance.keyFeature);}catch(e){}
 			if(list && Object.prototype.toString.call(list) == '[object Array]' ){
 				str = list.map((item,index) =>{
-					return <li key={index}>{item.key}:{item.value}</li>
+					return item?<li key={index}>{item.key}:{item.value}</li>:'';
 				});
 			}
 			return <ul className="remark-list">{str}</ul>;
@@ -74,12 +74,15 @@ class MineContainer extends Component {
 			} else {
 				if(/^tempSave/.test(processInstance.processDefinitionId)){
 						str = <span className="btn-tip btn-tip-done">草稿</span>;
-				} else if(processInstance.state === 'end' && (processInstance.deleteReason === 'ACTIVITI_DELETED'||processInstance.deleteReason === 'delete'||processInstance.deleteReason === 'stop')){
-					str = <span className="btn-tip btn-tip-stop">已终止</span>;
+				} else if(processInstance.state === 'end' &&
+					(['ACTIVITI_DELETED','delete','stop','OUTTIMEDELETED'].indexOf(processInstance.deleteReason)>-1)){
+					str = <span className="btn-tip btn-tip-stop">{processInstance.deleteReason==='OUTTIMEDELETED'?'超期终止':'已终止'}</span>;
 				} else if(processInstance.state === 'end' && processInstance.deleteReason === 'WITHDRAW_SUBMIT'){
 					str = <span className="btn-tip btn-tip-done">草稿</span>;
 				} else if(processInstance.state === 'end' && processInstance.deleteReason == null){
 						str = <span className="btn-tip btn-tip-done">已完成</span>;
+				} else if(processInstance.state === 'end' && processInstance.deleteReason == 'REJECTTOSTART_DELETED'){
+						str = <span className="btn-tip btn-tip-done">驳回草稿</span>;
 				} else if(processInstance.state == 'delete') {
 					str = <span className="btn-tip btn-tip-stop">已终止</span>;
 				} else {
@@ -116,14 +119,14 @@ class MineContainer extends Component {
     edit (item) {
         return (e) => {
             e.preventDefault()
-            let url = `${window.$ctx}/static/html/rt/browse.html?pk_bo=${item.formdata.form.pk_bo}&pk_boins=${item.formdata.form.pk_boins}`
+            let url = `${window.$ctx}/static/html/rt/browse.html?pk_bo=${item.formdata.form.pk_bo}&pk_boins=${item.formdata.form.pk_boins}&_=${+new Date()}`
             this.props.formDialogShow(url)
         }
     }
     check (item) {
         return (e) => {
             e.preventDefault()
-            let url = `${window.$ctx}/static/html/rt/browse.html?pk_bo=${item.formdata.form.pk_bo}&pk_boins=${item.formdata.form.pk_boins}`
+            let url = `${window.$ctx}/static/html/rt/browse.html?pk_bo=${item.formdata.form.pk_bo}&pk_boins=${item.formdata.form.pk_boins}&_=${+new Date()}`
             this.props.formDialogShow(url)
         }
     }
