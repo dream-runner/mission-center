@@ -1236,3 +1236,8 @@ html, body {
 .btn-tip-addtother{
 	color: #ff4000;
 }
+/*日期选择器*/
+.date-picker,
+.date-picker div{
+	display: inline-block;
+}

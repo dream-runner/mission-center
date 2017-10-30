@@ -40,19 +40,30 @@ const initialState = {
 			remark: '待审批筛选',
 			cur: 0,
 	    isOpen: false,
-			options: [{
-	        text: '全部时间',
-	        key: 'all'
-	    }, {
-	        text: '今天',
-	        key: 'taskTime_today'
-	    }, {
-	        text: '昨天',
-	        key: 'taskTime_yesterday'
-	    }, {
-	        text: '两天前',
-	        key: 'taskTime_2more'
-	    }]
+			options: [
+				{
+						text: '全部时间',
+						key: 'all'
+				}, {
+						text: '今天',
+						key: 'taskTime_today'
+				}, {
+						text: '昨天',
+						key: 'taskTime_yesterday'
+				}, {
+						text: '本周',
+						key: 'taskTime_thisWeek'
+				}, {
+						text: '上周',
+						key: 'taskTime_lastWeek'
+				}, {
+						text: '本月',
+						key: 'taskTime_thisMonth'
+				}, {
+						text: '更多',
+						key: 'taskTime_more'
+				}
+	    ]
 		},
 		"filterDatetimePeriod": {
 			key: guid(),

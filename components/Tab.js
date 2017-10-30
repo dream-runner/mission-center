@@ -1,8 +1,10 @@
 import React, { Component, PropTypes } from 'react'
+import {modal} from 'react-bootstrap'
+import Datepicker from './modals/Datepicker'
 
 export default class Tab extends Component {
   render() {
-    const { items, onTabClicked ,cur, children, className } = this.props
+    const { name,items, onTabClicked ,cur, children, className } = this.props
     return (
       <ul className={className}>
         {items.map(({ needTotal, text, total, key, unReadCount }, i) => {
@@ -12,7 +14,19 @@ export default class Tab extends Component {
 						text = needTotal && total ? `${text}(${total})` : text
 					}
           let className = cur == i ? 'active' : ''
-          return (<li key={i} className={className}><a href="#" onClick={(e)=>{ onTabClicked(e, i) }}>{text}</a></li>)
+          return (
+          	<li key={i} className={className}>
+							<a href="#" onClick={(e)=>{
+								//按自定义时间区间筛选时，弹出日期选择框
+								if('filterTaskDate'===name && i===items.length-1){
+										alert();
+								}
+								onTabClicked(e, i)
+							}
+							}>{text}</a>
+							<Datepicker/>
+						</li>
+					)
         })}
         { children }
       </ul>

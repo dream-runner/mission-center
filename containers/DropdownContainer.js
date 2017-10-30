@@ -127,10 +127,6 @@ class DropdownContainer extends Component {
 		this.setState({showFormPicker: false});
 	}
 
-	onChange = () => {
-		alert(123);
-	}
-
 	generateTreeNodes = (treeNode) => {
 		const arr = [];
 		const key = treeNode.props.eventKey;
@@ -316,7 +312,6 @@ class DropdownContainer extends Component {
 							</Loading>
 							<Tree
 								onSelect={this.onSelect}
-								onChange={this.onChange}
 								checkable onCheck={this.onCheck} checkedKeys={this.state.checkedKeys}
 								checkStrictly={true}
 							>
@@ -336,9 +331,9 @@ class DropdownContainer extends Component {
 			</li>
 		) : (<li className={ wrapClassName }>
 			<a className="dropdown-toggle" href="#" onClick={(e) => {
-				e.preventDefault()
-				e.stopPropagation()
-				toggleDropdown(name)
+				e.preventDefault();
+				e.stopPropagation();
+				toggleDropdown(name);
 			}}>{ options[cur].text } <span className='caret'></span></a>
 			<Tab items={ options }
 					 cur={ cur }
