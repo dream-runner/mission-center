@@ -1,10 +1,11 @@
 import React, { Component, PropTypes } from 'react'
-import {modal} from 'react-bootstrap'
 import Datepicker from './modals/Datepicker'
+import {connect} from 'react-redux';
+import {toggleDateperiodPicker} from '../actions/dateperiod';
 
-export default class Tab extends Component {
+export  class Tab extends Component {
   render() {
-    const { name,items, onTabClicked ,cur, children, className } = this.props
+    const { name,items, onTabClicked ,cur, children, className, showDateperiodPicker,toggleDateperiodPicker} = this.props;
     return (
       <ul className={className}>
         {items.map(({ needTotal, text, total, key, unReadCount }, i) => {
@@ -19,12 +20,13 @@ export default class Tab extends Component {
 							<a href="#" onClick={(e)=>{
 								//按自定义时间区间筛选时，弹出日期选择框
 								if('filterTaskDate'===name && i===items.length-1){
-										alert();
+									toggleDateperiodPicker(1)
+									return false;
 								}
 								onTabClicked(e, i)
 							}
 							}>{text}</a>
-							<Datepicker/>
+							<Datepicker  show={showDateperiodPicker} onStartTimeChange={()=>{}} onEndTimeChange={()=>{}}/>
 						</li>
 					)
         })}
@@ -41,3 +43,12 @@ Tab.propTypes = {
   onTabClicked: PropTypes.func,  // 点击触发的事件
   children: PropTypes.node  // 子元素
 }
+function mapStateToProps(state) {
+	return {
+		showDateperiodPicker:state.dateperiodPicker.showDateperiodPicker
+	};
+}
+
+export default connect(mapStateToProps, {
+	toggleDateperiodPicker
+})(Tab);

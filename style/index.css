@@ -1237,7 +1237,12 @@ html, body {
 	color: #ff4000;
 }
 /*日期选择器*/
-.date-picker,
-.date-picker div{
+.date-picker-modal{
+	height: 200px;
+	padding: 20px;
+}
+.date-picker-modal>div,
+.date-picker-modal .react-datepicker-wrapper,
+.date-picker-modal .react-datepicker__input-container{
 	display: inline-block;
 }

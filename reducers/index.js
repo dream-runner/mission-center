@@ -12,6 +12,7 @@ import page from './page'
 import search from './search'
 import formFilters from './formFilters'
 import dropdown from './dropdown'
+import dateperiodPicker from './dateperiodPicker'
 
 export default combineReducers({
     nav,
@@ -24,5 +25,6 @@ export default combineReducers({
     confirm,
     page,
     search,
-		dropdown
+		dropdown,
+		dateperiodPicker
 })
