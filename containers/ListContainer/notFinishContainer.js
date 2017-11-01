@@ -16,7 +16,7 @@ class notFinishContainer extends Component {
 		let node = map(items, (item, i) => {
 			let {processInstance, dueDate, createTime} = item;
 			if (!processInstance){
-				console.error('processInstance is empty!');
+				console.error(`processInstance with id:${item.id} is null!`);
 				return;
 			}
 			processInstance['parentVariables'] = item.variables;

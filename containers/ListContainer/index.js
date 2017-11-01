@@ -14,7 +14,7 @@ const data = [
 		tabName: '待审批',
 		hasFilter: true,
 		className: 'list-wrap',
-		components: ['filterDueDateOverdue', 'filterReceivingDate', 'filterTaskDate', 'filterCategoryIds'/*,'filter-sort-condition'*/],
+		components: ['filterDueDateOverdue', 'filterReceivingDate', 'filterTaskDate', 'filterCategoryIds', 'sortListCompletion'/*,'filter-sort-condition'*/],
 		nodeClass: NotFinishContainer
 	},
 	{
@@ -59,9 +59,8 @@ class ListContainer extends Component {
 
 		return (
 			<div className="row mission-center-content">
-				{ /*hasFilter ? <FilterContainer /> : <SearchContainer/>*/ }
 				{hasFilter ? <ConditionContainer components={components}/> :
-					<div className="nav nav-tabs filter-wrap"><SearchContainer /></div>}
+					<div className="nav nav-tabs filter-wrap"><SearchContainer/></div>}
 				<Loading className={ `row  ${className}` } errorMsg={ _errorMsg } status={ _status } isFetching={ isFetching }>
 					{React.createElement(nodeClass, {items: items, pagination: pagination})}
 				</Loading>

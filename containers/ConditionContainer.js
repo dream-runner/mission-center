@@ -13,6 +13,7 @@ class ConditionContainer extends Component {
 		return (
 			<div className="nav nav-tabs filter-wrap">
 
+				<SearchContainer />
 				<ul className="dropdown-wrap">
 					{components.map((item, index) => {
 						if (item == 'filter-sort-condition') {
@@ -22,7 +23,6 @@ class ConditionContainer extends Component {
 						}
 					})}
 				</ul>
-				<SearchContainer />
 			</div>
 		)
 	}

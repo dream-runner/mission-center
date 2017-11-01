@@ -22,7 +22,7 @@ const baseTimeFilter = [
 		key: 'taskTime_thisMonth'
 	}, {
 		text: '更多',
-		key: 'taskTime_yesterday'
+		key: 'taskTime_more'
 	}
 ]
 const initialState = {
@@ -59,7 +59,8 @@ const initialState = {
 	},
 	// 按提交时间过滤
 	"filterTaskDate": {
-		dateperiod:'',
+		startTime:'',
+		endTime:'',
 		key: guid(),
 		remark: '按提交时间过滤',
 		cur: 0,
@@ -68,7 +69,8 @@ const initialState = {
 	},
 	// 待审批页按接收时间
 	"filterReceivingDate": {
-		dateperiod:'',
+		startTime:'',
+		endTime:'',
 		key: guid(),
 		remark: '待审批按接收时间',
 		cur: 0,
@@ -77,7 +79,8 @@ const initialState = {
 	},
 	// 已审批按完成时间
 	"filterCompletionDate": {
-		dateperiod:'',
+		startTime:'',
+		endTime:'',
 		key: guid(),
 		remark: '已审批按完成时间',
 		cur: 0,
@@ -128,6 +131,20 @@ const initialState = {
 	        text: '已提交',
 	        key: 'submit'
 	    }*/]
+	},
+	"sortListCompletion": {
+		key: guid(),
+		remark: '排序',
+		cur: 0,
+		isOpen: false,
+		options: [{
+				text: '按接收时间由远及近',
+				key: 'asc'
+			}, {
+				text: '按接收时间由近及远',
+				key: 'desc'
+			}
+		]
 	}
 }
 
@@ -232,26 +249,27 @@ export default function dropdown(state = initialState, action) {
 			dropdownName = name;
 			state[name].isOpen = toggleOneOpen(state, action);
 			state[name].cur = setDropdownChecked(state[name].cur, action);
-			action.dateperiod && (state[name].dateperiod = action.dateperiod);
+			action.dateperiod && (state[name].startTime = action.dateperiod.startTime,state[name].endTime = action.dateperiod.endTime);
 		} else {
 			toggleOneOpen(state, action);
 		}
 		return {
-			"dropdownName": dropdownName,
-			"filterCategoryIds": {
+			dropdownName: dropdownName,
+			filterCategoryIds: {
 				cur: state["filterCategoryIds"].cur,
 				isOpen: state["filterCategoryIds"].isOpen,
 				options: setOptions(state["filterCategoryIds"].options, action),
 				errorMsg: changeErrorMsg(state["filterCategoryIds"].errorMsg, action),
 				isFetching: changeIsFetching(state["filterCategoryIds"].isFetching, action)
 			},
-			"filterCompletionDate": state["filterCompletionDate"],
-			"filterReceivingDate": state["filterReceivingDate"],
-			"filterTaskDate": state["filterTaskDate"],
-			"filterDueDateOverdue": state["filterDueDateOverdue"],
-			"filterDatetimePeriod": state["filterDatetimePeriod"],
-			"filterListDoneStatus": state["filterListDoneStatus"],
-			"filterListMineStatus": state["filterListMineStatus"]
+			sortListCompletion: state["sortListCompletion"],
+			filterCompletionDate: state["filterCompletionDate"],
+			filterReceivingDate: state["filterReceivingDate"],
+			filterTaskDate: state["filterTaskDate"],
+			filterDueDateOverdue: state["filterDueDateOverdue"],
+			filterDatetimePeriod: state["filterDatetimePeriod"],
+			filterListDoneStatus: state["filterListDoneStatus"],
+			filterListMineStatus: state["filterListMineStatus"]
 		};
 	}
 

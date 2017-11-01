@@ -288,6 +288,7 @@ class DropdownContainer extends Component {
 		const {isOpen, cur, options} = dropdown[name];
 		let wrapClassName = isOpen ? "dropdown open" : "dropdown";
 		wrapClassName += ('filterCategoryIds' === name && isFormFilerOn() ? ' active' : '');
+		wrapClassName += ` ${name}`;
 		return 'filterCategoryIds' === name ? (
 			<li className={ wrapClassName }>
 				<a className="dropdown-toggle" href="#" onClick={(e) => {
@@ -344,7 +345,7 @@ class DropdownContainer extends Component {
 
 	}
 
-	onTabClicked(e, checked) {
+	onTabClicked(e, checked,dateperiod) {
 		const {cur, isFetching, setDropdownChecked, toggleDropdown, getList, name} = this.props
 		e.preventDefault();
 		e.stopPropagation();

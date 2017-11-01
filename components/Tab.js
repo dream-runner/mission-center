@@ -3,9 +3,10 @@ import Datepicker from './modals/Datepicker'
 import {connect} from 'react-redux';
 import {toggleDateperiodPicker} from '../actions/dateperiod';
 
+
 export  class Tab extends Component {
   render() {
-    const { name,items, onTabClicked ,cur, children, className, showDateperiodPicker, toggleDateperiodPicker, curSelectedDateperiod} = this.props;
+    const { name,items, onTabClicked ,cur, children, className, startTime, endTime, showDateperiodPicker, toggleDateperiodPicker, curSelectedDateperiod} = this.props;
     return (
       <ul className={className}>
         {items.map(({ needTotal, text, total, key, unReadCount }, i) => {
@@ -27,7 +28,7 @@ export  class Tab extends Component {
 							}
 							}>{text}</a>
 							<Datepicker  show={showDateperiodPicker} onCancel={()=>{toggleDateperiodPicker(0)}} onConfirm={(e)=>{
-								onTabClicked(e,i);
+								onTabClicked(e,i,{startTime,endTime});
 								toggleDateperiodPicker(0)
 							}}/>
 						</li>
@@ -52,7 +53,8 @@ Tab.propTypes = {
 function mapStateToProps(state) {
 	return {
 		showDateperiodPicker:state.dateperiodPicker.showDateperiodPicker,
-		curSelectedDateperiod:`${state.dateperiodPicker.startTime}-${state.dateperiodPicker.endTime}`
+		startTime:state.dateperiodPicker.startTime,
+		endTime:state.dateperiodPicker.endTime
 	};
 }
 

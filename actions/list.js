@@ -13,6 +13,8 @@ import {
 import {
 	getCurSortKey
 } from './sort'
+import moment from 'moment'
+
 function getListFailure(message) {
 	return {
 		type: GETLIST_FAILURE,
@@ -35,6 +37,14 @@ function getListSuccess(json, navKey) {
 	}
 }
 
+function dateFormat(date) {
+	let res=''
+	try{
+		res = moment(date).format('YYYY-MM-DD');
+	}catch (e){}
+	return res;
+}
+
 // 初始化调用，获取展示列表的数据
 export function getList(moduleName, param) {
 	return (dispatch, getState) => {
@@ -42,12 +52,14 @@ export function getList(moduleName, param) {
 		let curNavKey = dispatch(getCurNavKey());//待审批、待抄送、已审批，我发起，如curtasks
 		let curSortKey = dispatch(getCurSortKey());// 排序方式 审批时间等，默认的
 		let dropdownKey = '', queryStr = '';
+		const dropdownName = state.dropdown.dropdownName;
 		let tabNavData = {
 			curtasks: [
 				{key: 'taskDue', name: 'filterDueDateOverdue'},
 				{key: 'taskDate', name: 'filterTaskDate'},
 				{key: 'receivingDate', name: 'filterReceivingDate'},
-				{key: 'categoryIds', name: 'filterCategoryIds'}
+				{key: 'categoryIds', name: 'filterCategoryIds'},
+				{key: 'sortListCompletion', name: 'sortListCompletion'},
 			],
 			histasks: [
 				{key: 'isFinished', name: 'filterListDoneStatus'},
@@ -68,7 +80,7 @@ export function getList(moduleName, param) {
 
 		};
 
-		switch (state.dropdown.dropdownName) {
+		switch (dropdownName) {
 			case 'filterDueDateOverdue':
 				dropdownKey = dispatch(getFilterDropdownKey(state.dropdown.dropdownName));
 				queryStr = dropdownKey === 'all' ? '' : `taskDue=${dropdownKey}&`;
@@ -79,14 +91,17 @@ export function getList(moduleName, param) {
 			case 'filterTaskDate':
 				dropdownKey = dispatch(getFilterDropdownKey(state.dropdown.dropdownName));
 				queryStr = dropdownKey === 'all' ? '' : `taskDate=${dropdownKey}&`;
+				queryStr += dropdownKey === 'more' ? '' : `taskBeginDate=${dateFormat(state.dropdown[dropdownName].startTime)}&taskEndDate=${dateFormat(state.dropdown[dropdownName].endTime)}&`;
 				break;
 			case 'filterReceivingDate':
-				dropdownKey = dispatch(getFilterDropdownKey(state.dropdown.dropdownName));
-				queryStr = dropdownKey === 'all' ? '' : `receivingDate=${dropdownKey}&`;
-				break;
+				// dropdownKey = dispatch(getFilterDropdownKey(state.dropdown.dropdownName));
+				// queryStr = dropdownKey === 'all' ? '' : `receivingDate=${dropdownKey}&`;
+				// queryStr += dropdownKey === 'more' ? '' : `rcvOrCompBeginDate=${dateFormat(state.dropdown[dropdownName].startTime)}&rcvOrCompEndDate=${dateFormat(state.dropdown[dropdownName].endTime)}&`;
+				// break;
 			case 'filterCompletionDate':
 				dropdownKey = dispatch(getFilterDropdownKey(state.dropdown.dropdownName));
 				queryStr = dropdownKey === 'all' ? '' : `completionDate=${dropdownKey}&`;
+				queryStr += dropdownKey === 'more' ? '' : `rcvOrCompBeginDate=${dateFormat(state.dropdown[dropdownName].startTime)}&rcvOrCompEndDate=${dateFormat(state.dropdown[dropdownName].endTime)}&`;
 				break;
 			case 'filterDatetimePeriod':
 				dropdownKey = dispatch(getFilterDropdownKey(state.dropdown.dropdownName));

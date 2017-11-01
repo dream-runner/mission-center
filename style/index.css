@@ -246,12 +246,15 @@ html, body {
 	margin: 0 20px;
 	height: 50px;
     border-color: #EDEDED;
+	padding-right: 160px;
+	box-sizing: border-box;
 }
 #mission-center-root .filter-wrap .dropdown-wrap{
 	margin: 0;
 	padding: 0;
 	height: 50px;
-	float: left;
+	float: right;
+	width: 100%;
 	list-style: none;
 }
 
@@ -1112,6 +1115,7 @@ html, body {
 .search-bar {
 	position: relative;
     float:right;
+	margin-right: -165px;
 	width: 160px;
 	height: 26px;
 	margin-top: 12px;
@@ -1221,7 +1225,11 @@ html, body {
 .rc-tree li span.rc-tree-iconEle{
 	display: none;
 }
-.dropdown-wrap .dropdown:last-child .sort-rule-wrap{
+#mission-center-root .dropdown-wrap .dropdown.sortListCompletion{
+	float: right;
+	border-radius: 18px;
+}
+.dropdown-wrap .dropdown.filterCategoryIds .sort-rule-wrap{
 	display: none;
 }
 .rc-tree-node-selected {
