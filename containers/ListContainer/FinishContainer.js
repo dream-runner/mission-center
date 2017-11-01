@@ -79,6 +79,8 @@ class FinishContainer extends Component {
 				} else{
 					str = <span className="btn-tip btn-tip-done">已完成</span>;
 				}
+      } else if(processMainInfo.deleteReason == 'REJECTTOSTART'){
+          str = <span className="btn-tip btn-tip-done">驳回草稿</span>;
 			} else {
 				str = <span className="btn-tip btn-tip-doing">审批中</span>;
 			}

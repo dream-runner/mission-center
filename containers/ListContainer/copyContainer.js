@@ -73,6 +73,8 @@ class copyContainer extends Component {
 			str = <span className="btn-tip btn-tip-done">已完成</span>;
 		} else if(processInstance.state === 'delete'){ // 已中止
 			str = <span className="btn-tip btn-tip-stop">已终止</span>;
+		} else if(processInstance.deleteReason == 'REJECTTOSTART'){
+				str = <span className="btn-tip btn-tip-done">驳回草稿</span>;
 		} else { // 审批中
 			str = <span className="btn-tip btn-tip-doing">审批中</span>;
 		}
