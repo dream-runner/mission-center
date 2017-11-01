@@ -1246,3 +1246,11 @@ html, body {
 .date-picker-modal .react-datepicker__input-container{
 	display: inline-block;
 }
+/*bootstrap reset*/
+.btn-primary,
+.btn-primary:hover,
+.react-datepicker__day--keyboard-selected,
+.react-datepicker__day--keyboard-selected:hover{
+	background: #29B6F6;
+	border-color: #29B6F6;
+}

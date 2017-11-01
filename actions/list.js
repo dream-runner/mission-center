@@ -46,11 +46,13 @@ export function getList(moduleName, param) {
 			curtasks: [
 				{key: 'taskDue', name: 'filterDueDateOverdue'},
 				{key: 'taskDate', name: 'filterTaskDate'},
+				{key: 'receivingDate', name: 'filterReceivingDate'},
 				{key: 'categoryIds', name: 'filterCategoryIds'}
 			],
 			histasks: [
 				{key: 'isFinished', name: 'filterListDoneStatus'},
 				{key: 'taskDate', name: 'filterTaskDate'},
+				{key: 'completionDate', name: 'filterCompletionDate'},
 				{key: 'categoryIds', name: 'filterCategoryIds'}
 			],
 			listcopy: [
@@ -77,6 +79,14 @@ export function getList(moduleName, param) {
 			case 'filterTaskDate':
 				dropdownKey = dispatch(getFilterDropdownKey(state.dropdown.dropdownName));
 				queryStr = dropdownKey === 'all' ? '' : `taskDate=${dropdownKey}&`;
+				break;
+			case 'filterReceivingDate':
+				dropdownKey = dispatch(getFilterDropdownKey(state.dropdown.dropdownName));
+				queryStr = dropdownKey === 'all' ? '' : `receivingDate=${dropdownKey}&`;
+				break;
+			case 'filterCompletionDate':
+				dropdownKey = dispatch(getFilterDropdownKey(state.dropdown.dropdownName));
+				queryStr = dropdownKey === 'all' ? '' : `completionDate=${dropdownKey}&`;
 				break;
 			case 'filterDatetimePeriod':
 				dropdownKey = dispatch(getFilterDropdownKey(state.dropdown.dropdownName));
@@ -149,33 +159,6 @@ export function getList(moduleName, param) {
 				}
 			}
 		)
-
-		// 默认get方式获取数据
-		// return fetch(`${window.$ctx}/tc/${curNavKey}?${queryStr}_=${Date.now()}`, {
-		// 	credentials: 'include',
-		// 	cache: 'no-cache'
-		// }).then(response => {
-		// 	if (response.ok) {
-		// 		response.text().then(text => {
-		// 			if (text) {
-		// 				try {
-		// 					let json = JSON.parse(text)
-		// 					if (json.status == 0) {
-		// 						dispatch(getListFailure(json.message))
-		// 					} else {
-		// 						dispatch(getListSuccess(json, curNavKey))
-		// 					}
-		// 				} catch (e) {
-		// 					dispatch(getListFailure(`${e.message}`))
-		// 				}
-		// 			} else {
-		// 				dispatch(getListFailure('Api return nothing……'))
-		// 			}
-		// 		})
-		// 	} else {
-		// 		dispatch(getListFailure(`${response.status} ${response.statusText}`))
-		// 	}
-		// })
 	}
 }
 
