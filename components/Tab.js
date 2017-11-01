@@ -5,7 +5,7 @@ import {toggleDateperiodPicker} from '../actions/dateperiod';
 
 export  class Tab extends Component {
   render() {
-    const { name,items, onTabClicked ,cur, children, className, showDateperiodPicker,toggleDateperiodPicker} = this.props;
+    const { name,items, onTabClicked ,cur, children, className, showDateperiodPicker, toggleDateperiodPicker, curSelectedDateperiod} = this.props;
     return (
       <ul className={className}>
         {items.map(({ needTotal, text, total, key, unReadCount }, i) => {
@@ -26,7 +26,10 @@ export  class Tab extends Component {
 								onTabClicked(e, i)
 							}
 							}>{text}</a>
-							<Datepicker  show={showDateperiodPicker} onStartTimeChange={()=>{}} onEndTimeChange={()=>{}}/>
+							<Datepicker  show={showDateperiodPicker} onCancel={()=>{toggleDateperiodPicker(0)}} onConfirm={(e)=>{
+								onTabClicked(e,i);
+								toggleDateperiodPicker(0)
+							}}/>
 						</li>
 					)
         })}
@@ -43,9 +46,13 @@ Tab.propTypes = {
   onTabClicked: PropTypes.func,  // 点击触发的事件
   children: PropTypes.node  // 子元素
 }
+
+
+
 function mapStateToProps(state) {
 	return {
-		showDateperiodPicker:state.dateperiodPicker.showDateperiodPicker
+		showDateperiodPicker:state.dateperiodPicker.showDateperiodPicker,
+		curSelectedDateperiod:`${state.dateperiodPicker.startTime}-${state.dateperiodPicker.endTime}`
 	};
 }
 

@@ -59,6 +59,7 @@ const initialState = {
 	},
 	// 按提交时间过滤
 	"filterTaskDate": {
+		dateperiod:'',
 		key: guid(),
 		remark: '按提交时间过滤',
 		cur: 0,
@@ -67,6 +68,7 @@ const initialState = {
 	},
 	// 待审批页按接收时间
 	"filterReceivingDate": {
+		dateperiod:'',
 		key: guid(),
 		remark: '待审批按接收时间',
 		cur: 0,
@@ -75,6 +77,7 @@ const initialState = {
 	},
 	// 已审批按完成时间
 	"filterCompletionDate": {
+		dateperiod:'',
 		key: guid(),
 		remark: '已审批按完成时间',
 		cur: 0,
@@ -229,6 +232,7 @@ export default function dropdown(state = initialState, action) {
 			dropdownName = name;
 			state[name].isOpen = toggleOneOpen(state, action);
 			state[name].cur = setDropdownChecked(state[name].cur, action);
+			action.dateperiod && (state[name].dateperiod = action.dateperiod);
 		} else {
 			toggleOneOpen(state, action);
 		}

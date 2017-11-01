@@ -1240,11 +1240,16 @@ html, body {
 .date-picker-modal{
 	height: 200px;
 	padding: 20px;
+	text-align: center;
 }
 .date-picker-modal>div,
 .date-picker-modal .react-datepicker-wrapper,
 .date-picker-modal .react-datepicker__input-container{
 	display: inline-block;
+}
+.date-picker-modal .react-datepicker__input-container input{
+	margin: 0 5px;
+	padding: 5px;
 }
 /*bootstrap reset*/
 .btn-primary,

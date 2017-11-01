@@ -66,11 +66,12 @@ export function getFilterDropdownKey(name) {
 	}
 }
 
-export function setDropdownChecked(name, checked) {
+export function setDropdownChecked(name, checked,dateperiod) {
 	return {
 		type: CHANGE_DROPDOWN_CHECKED,
 		name,
-		checked
+		checked,
+		dateperiod
 	};
 }
 

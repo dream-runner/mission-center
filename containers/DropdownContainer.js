@@ -349,7 +349,7 @@ class DropdownContainer extends Component {
 		e.preventDefault();
 		e.stopPropagation();
 		if (!isFetching && checked != cur) {
-			setDropdownChecked(name, checked);
+			setDropdownChecked(name, checked,dateperiod);
 			hideMenu();
 			getList();
 		}
