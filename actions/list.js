@@ -100,7 +100,7 @@ export function getList(moduleName, param) {
 				// break;
 			case 'filterCompletionDate':
 				dropdownKey = dispatch(getFilterDropdownKey(state.dropdown.dropdownName));
-				queryStr = dropdownKey === 'all' ? '' : `completionDate=${dropdownKey}&`;
+				queryStr = dropdownKey === 'all' ? '' : `rcvOrCompEndDate=${dropdownKey}&`;
 				queryStr += dropdownKey === 'more' ? '' : `rcvOrCompBeginDate=${dateFormat(state.dropdown[dropdownName].startTime)}&rcvOrCompEndDate=${dateFormat(state.dropdown[dropdownName].endTime)}&`;
 				break;
 			case 'filterDatetimePeriod':

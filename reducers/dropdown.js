@@ -25,6 +25,15 @@ const baseTimeFilter = [
 		key: 'taskTime_more'
 	}
 ]
+const commonSortList = [
+	{
+		text: '按提交时间由远及近',
+		key: 'sort-by-commitTime-asc'
+	}, {
+		text: '按提交时间由近及远',
+		key: 'sort-by-commitTime-desc'
+	}
+]
 const initialState = {
 	"dropdownName": '',
 	// 待审批页的全部状态 列表
@@ -137,14 +146,27 @@ const initialState = {
 		remark: '排序',
 		cur: 0,
 		isOpen: false,
-		options: [{
-				text: '按接收时间由远及近',
-				key: 'asc'
-			}, {
-				text: '按接收时间由近及远',
-				key: 'desc'
-			}
-		]
+		options: commonSortList.concat([{
+			text: '按完成时间由远及近',
+			key: 'sort-by-completionTime-asc'
+		}, {
+			text: '按完成时间由近及远',
+			key: 'sort-by-completionTime-desc'
+		}])
+	},
+	"sortListToDo": {
+		key: guid(),
+		remark: '排序',
+		cur: 0,
+		isOpen: false,
+		options: commonSortList.concat([{
+			text: '按接收时间由远及近',
+			key: 'sort-by-receivingTime-asc'
+		}, {
+			text: '按接收时间由近及远',
+			key: 'sort-by-receivingTime-desc'
+		}
+		])
 	}
 }
 
