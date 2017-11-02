@@ -1225,6 +1225,7 @@ html, body {
 .rc-tree li span.rc-tree-iconEle{
 	display: none;
 }
+#mission-center-root .dropdown-wrap .dropdown.sortListToDo,
 #mission-center-root .dropdown-wrap .dropdown.sortListCompletion{
 	float: right;
 	border-radius: 18px;
@@ -1266,4 +1267,11 @@ html, body {
 .react-datepicker__day--keyboard-selected:hover{
 	background: #29B6F6;
 	border-color: #29B6F6;
+}
+.modal-backdrop.in{
+	opacity: 0.1!important;
+	background-color: rgba(0,0,0,0.5);
+}
+.modal-content{
+	box-shadow:none!important;
 }

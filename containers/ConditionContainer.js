@@ -19,7 +19,7 @@ class ConditionContainer extends Component {
 						if (item == 'filter-sort-condition') {
 							return <SortRuleContainer key={index} name={item}/>
 						} else {
-							return <DropdownContainer key={index} name={item} showFormPicker={() => this.showFormPicker.apply(this)}/>
+							return <DropdownContainer key={index} name={item}/>
 						}
 					})}
 				</ul>

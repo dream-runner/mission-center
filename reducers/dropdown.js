@@ -285,6 +285,7 @@ export default function dropdown(state = initialState, action) {
 				isFetching: changeIsFetching(state["filterCategoryIds"].isFetching, action)
 			},
 			sortListCompletion: state["sortListCompletion"],
+			sortListToDo: state["sortListToDo"],
 			filterCompletionDate: state["filterCompletionDate"],
 			filterReceivingDate: state["filterReceivingDate"],
 			filterTaskDate: state["filterTaskDate"],

@@ -9,7 +9,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 
 class Datepicker extends Component{
 	render(){
-		const {show, startTime, endTime, onStartTimeChange, onEndTimeChange, onCancel, onConfirm} = this.props;
+		const {show, itemIndex, startTime, endTime, onStartTimeChange, onEndTimeChange, onCancel, onConfirm} = this.props;
 		return (
 				<Modal show={show}>
 					<div className="date-picker-modal">

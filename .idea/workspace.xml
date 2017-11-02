@@ -6,8 +6,18 @@
   <component name="ChangeListManager">
     <list default="true" id="4cf78981-d718-42bf-9307-5c39fb9d4ab2" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/actions/dateperiod.js" afterPath="$PROJECT_DIR$/actions/dateperiod.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/actions/list.js" afterPath="$PROJECT_DIR$/actions/list.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/Tab.js" afterPath="$PROJECT_DIR$/components/Tab.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/modals/Datepicker.js" afterPath="$PROJECT_DIR$/components/modals/Datepicker.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/containers/ConditionContainer.js" afterPath="$PROJECT_DIR$/containers/ConditionContainer.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/containers/DropdownContainer.js" afterPath="$PROJECT_DIR$/containers/DropdownContainer.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/containers/ListContainer/copyContainer.js" afterPath="$PROJECT_DIR$/containers/ListContainer/copyContainer.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/containers/ListContainer/index.js" afterPath="$PROJECT_DIR$/containers/ListContainer/index.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/containers/NavContainer.js" afterPath="$PROJECT_DIR$/containers/NavContainer.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/reducers/dateperiodPicker.js" afterPath="$PROJECT_DIR$/reducers/dateperiodPicker.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/reducers/dropdown.js" afterPath="$PROJECT_DIR$/reducers/dropdown.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/style/index.css" afterPath="$PROJECT_DIR$/style/index.css" />
     </list>
     <ignored path="mission-center.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -26,21 +36,109 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="450">
-      <file leaf-file-name="list.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/actions/list.js">
+      <file leaf-file-name="dropdown.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/actions/dropdown.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1253">
-              <caret line="102" column="65" lean-forward="false" selection-start-line="102" selection-start-column="65" selection-end-line="102" selection-end-column="65" />
+            <state relative-caret-position="116">
+              <caret line="68" column="62" lean-forward="false" selection-start-line="68" selection-start-column="62" selection-end-line="68" selection-end-column="62" />
+              <folding>
+                <element signature="e#0#166#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Tab.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/components/Tab.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-22">
+              <caret line="8" column="34" lean-forward="false" selection-start-line="8" selection-start-column="34" selection-end-line="8" selection-end-column="34" />
+              <folding>
+                <element signature="e#0#51#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="page.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/reducers/page.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="92">
+              <caret line="33" column="30" lean-forward="false" selection-start-line="33" selection-start-column="13" selection-end-line="33" selection-end-column="30" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="dropdown.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="list.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/actions/list.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="190">
+              <caret line="89" column="6" lean-forward="false" selection-start-line="89" selection-start-column="6" selection-end-line="89" selection-end-column="6" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.css" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/style/index.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="407">
+              <caret line="1271" column="27" lean-forward="false" selection-start-line="1271" selection-start-column="27" selection-end-line="1271" selection-end-column="27" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DropdownContainer.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/containers/DropdownContainer.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="235">
+              <caret line="264" column="18" lean-forward="true" selection-start-line="263" selection-start-column="6" selection-end-line="264" selection-end-column="18" />
+              <folding>
+                <element signature="e#0#50#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="NavContainer.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/containers/NavContainer.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="10">
+              <caret line="32" column="18" lean-forward="true" selection-start-line="32" selection-start-column="18" selection-end-line="32" selection-end-column="18" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="copyContainer.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/containers/ListContainer/copyContainer.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="225">
+              <caret line="15" column="12" lean-forward="false" selection-start-line="15" selection-start-column="12" selection-end-line="15" selection-end-column="12" />
+              <folding>
+                <element signature="e#0#51#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="nav.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/reducers/nav.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="388">
+              <caret line="59" column="0" lean-forward="false" selection-start-line="59" selection-start-column="0" selection-end-line="59" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="dropdown.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/reducers/dropdown.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="410">
-              <caret line="36" column="22" lean-forward="true" selection-start-line="36" selection-start-column="22" selection-end-line="36" selection-end-column="22" />
+            <state relative-caret-position="327">
+              <caret line="24" column="23" lean-forward="false" selection-start-line="24" selection-start-column="10" selection-end-line="24" selection-end-column="23" />
               <folding>
                 <element signature="e#0#153#0" expanded="true" />
               </folding>
@@ -59,17 +157,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>thisWeek</find>
-      <find>modal</find>
-      <find>constr</find>
-      <find>toggleOneOpen</find>
-      <find>is em</find>
-      <find>setDropdownChecked</find>
-      <find>datep</find>
-      <find>onTabClicked</find>
-      <find>mom</find>
-      <find>dropdown-toggle</find>
-      <find>sort</find>
       <find>filter-sort-condition</find>
       <find>hide_menu</find>
       <find>SortRuleContainer</find>
@@ -89,6 +176,17 @@
       <find>deb</find>
       <find>ConditionContainer</find>
       <find>commonSortList</find>
+      <find>CHANGE_DROPDOWN_CHECKED</find>
+      <find>setDropdownChecked</find>
+      <find>showFormPicker</find>
+      <find>CHANGE_DROPDOWN_CHECKED</find>
+      <find>changeNav</find>
+      <find>hideMenu</find>
+      <find>debugger</find>
+      <find>box</find>
+      <find>boxs</find>
+      <find>box-s</find>
+      <find>backdropStyle</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -138,18 +236,20 @@
         <option value="$PROJECT_DIR$/webpack.config.js" />
         <option value="$PROJECT_DIR$/mock/listDone.json" />
         <option value="$PROJECT_DIR$/constants/ActionTypes.js" />
-        <option value="$PROJECT_DIR$/actions/dateperiod.js" />
-        <option value="$PROJECT_DIR$/components/modals/Datepicker.js" />
-        <option value="$PROJECT_DIR$/reducers/dateperiodPicker.js" />
         <option value="$PROJECT_DIR$/containers/ListContainer/notFinishContainer.js" />
-        <option value="$PROJECT_DIR$/components/Tab.js" />
-        <option value="$PROJECT_DIR$/containers/ConditionContainer.js" />
         <option value="$PROJECT_DIR$/containers/ListContainer/index.js" />
-        <option value="$PROJECT_DIR$/containers/DropdownContainer.js" />
-        <option value="$PROJECT_DIR$/actions/dropdown.js" />
-        <option value="$PROJECT_DIR$/style/index.css" />
-        <option value="$PROJECT_DIR$/actions/list.js" />
         <option value="$PROJECT_DIR$/reducers/dropdown.js" />
+        <option value="$PROJECT_DIR$/actions/dateperiod.js" />
+        <option value="$PROJECT_DIR$/reducers/dateperiodPicker.js" />
+        <option value="$PROJECT_DIR$/components/modals/Datepicker.js" />
+        <option value="$PROJECT_DIR$/containers/ConditionContainer.js" />
+        <option value="$PROJECT_DIR$/components/Tab.js" />
+        <option value="$PROJECT_DIR$/actions/dropdown.js" />
+        <option value="$PROJECT_DIR$/containers/ListContainer/copyContainer.js" />
+        <option value="$PROJECT_DIR$/containers/NavContainer.js" />
+        <option value="$PROJECT_DIR$/containers/DropdownContainer.js" />
+        <option value="$PROJECT_DIR$/actions/list.js" />
+        <option value="$PROJECT_DIR$/style/index.css" />
       </list>
     </option>
   </component>
@@ -192,8 +292,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -214,7 +312,24 @@
             <path>
               <item name="mission-center" type="b2602c69:ProjectViewProjectNode" />
               <item name="mission-center" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="modals" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="mission-center" type="b2602c69:ProjectViewProjectNode" />
+              <item name="mission-center" type="462c0819:PsiDirectoryNode" />
+              <item name="constants" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="mission-center" type="b2602c69:ProjectViewProjectNode" />
+              <item name="mission-center" type="462c0819:PsiDirectoryNode" />
               <item name="containers" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="mission-center" type="b2602c69:ProjectViewProjectNode" />
+              <item name="mission-center" type="462c0819:PsiDirectoryNode" />
+              <item name="containers" type="462c0819:PsiDirectoryNode" />
+              <item name="ListContainer" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="mission-center" type="b2602c69:ProjectViewProjectNode" />
@@ -235,6 +350,8 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="PackagesPane" />
     </panes>
   </component>
@@ -393,7 +510,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="178458000" />
+    <option name="totallyTimeSpent" value="189197000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -405,18 +522,20 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1920" height="1080" extended-state="0" />
+    <frame x="0" y="0" width="1440" height="900" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20085016" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3551797" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14023961" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32889965" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39760637" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26723096" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -469,18 +588,11 @@
           <url>file://$PROJECT_DIR$/containers/SearchContainer.js</url>
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="3" />
+      <option name="time" value="4" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/actions/category.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/reducers/confirm.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-354">
@@ -520,13 +632,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1425">
           <caret line="104" column="99" lean-forward="false" selection-start-line="104" selection-start-column="99" selection-end-line="104" selection-end-column="99" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/reducers/page.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="92">
-          <caret line="33" column="30" lean-forward="false" selection-start-line="33" selection-start-column="13" selection-end-line="33" selection-end-column="30" />
         </state>
       </provider>
     </entry>
@@ -661,13 +766,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/containers/ListContainer/FinishContainer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="366">
-          <caret line="81" column="14" lean-forward="false" selection-start-line="81" selection-start-column="14" selection-end-line="81" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/constants/ActionTypes.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="511">
@@ -675,35 +773,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/actions/dateperiod.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="21" column="0" lean-forward="true" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/reducers/dateperiodPicker.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="21" column="35" lean-forward="false" selection-start-line="21" selection-start-column="35" selection-end-line="21" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/components/modals/Datepicker.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="173">
-          <caret line="15" column="77" lean-forward="false" selection-start-line="15" selection-start-column="67" selection-end-line="15" selection-end-column="77" />
-          <folding>
-            <element signature="e#0#51#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/components/List.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -711,23 +784,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1082">
           <caret line="18" column="65" lean-forward="false" selection-start-line="18" selection-start-column="65" selection-end-line="18" selection-end-column="65" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/components/Tab.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="332">
-          <caret line="25" column="17" lean-forward="true" selection-start-line="22" selection-start-column="16" selection-end-line="25" selection-end-column="17" />
-          <folding>
-            <element signature="e#0#51#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/reducers/nav.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="548">
-          <caret line="59" column="0" lean-forward="false" selection-start-line="59" selection-start-column="0" selection-end-line="59" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -752,37 +808,7 @@
           <caret line="4" column="41" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="79" selection-end-column="0" />
           <folding>
             <element signature="e#0#51#0" expanded="true" />
-            <marker date="1509544013778" expanded="true" signature="307:1168" ph="{...}" />
-            <marker date="1509544013778" expanded="true" signature="1199:1488" ph="{...}" />
-            <marker date="1509544013778" expanded="true" signature="1384:1482" ph="{...}" />
-            <marker date="1509544013778" expanded="true" signature="1968:2173" ph="{...}" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/containers/ListContainer/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="265">
-          <caret line="68" column="3" lean-forward="true" selection-start-line="68" selection-start-column="3" selection-end-line="68" selection-end-column="3" />
-          <folding>
-            <element signature="e#0#49#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/containers/ConditionContainer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/containers/NavContainer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1944">
-          <caret line="72" column="17" lean-forward="false" selection-start-line="72" selection-start-column="17" selection-end-line="72" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -794,39 +820,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/containers/DropdownContainer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="18" column="12" lean-forward="false" selection-start-line="18" selection-start-column="12" selection-end-line="18" selection-end-column="12" />
-          <folding>
-            <marker date="1509544465184" expanded="true" signature="7:15" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/actions/dropdown.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="175">
-          <caret line="68" column="62" lean-forward="false" selection-start-line="68" selection-start-column="62" selection-end-line="68" selection-end-column="62" />
-          <folding>
-            <element signature="e#0#166#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/style/index.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="205">
-          <caret line="1229" column="23" lean-forward="false" selection-start-line="1229" selection-start-column="23" selection-end-line="1229" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/containers/FormContainer.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="513">
           <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -834,13 +831,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="162">
           <caret line="9" column="114" lean-forward="false" selection-start-line="9" selection-start-column="114" selection-end-line="9" selection-end-column="114" />
-          <folding>
-            <marker date="1509544013734" expanded="true" signature="216:472" ph="{...}" />
-            <marker date="1509544013734" expanded="true" signature="229:470" ph="{...}" />
-            <marker date="1509544013734" expanded="true" signature="504:657" ph="{&quot;isOpen&quot;: PropTypes.bool.isRequired...}" />
-            <marker date="1509544013734" expanded="true" signature="691:799" ph="{...}" />
-            <marker date="1509544013734" expanded="true" signature="754:797" ph="{&quot;isOpen&quot;: isOpen...}" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -852,21 +842,147 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/actions/list.js">
+    <entry file="file://$PROJECT_DIR$/containers/ListContainer/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1253">
-          <caret line="102" column="65" lean-forward="false" selection-start-line="102" selection-start-column="65" selection-end-line="102" selection-end-column="65" />
+        <state relative-caret-position="240">
+          <caret line="16" column="116" lean-forward="false" selection-start-line="16" selection-start-column="116" selection-end-line="16" selection-end-column="116" />
+          <folding>
+            <element signature="e#0#49#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/containers/ListContainer/FinishContainer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="382">
+          <caret line="81" column="14" lean-forward="false" selection-start-line="81" selection-start-column="14" selection-end-line="81" selection-end-column="14" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reducers/dateperiodPicker.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="414">
+          <caret line="41" column="8" lean-forward="false" selection-start-line="41" selection-start-column="8" selection-end-line="41" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/actions/dateperiod.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="17" column="73" lean-forward="false" selection-start-line="17" selection-start-column="59" selection-end-line="17" selection-end-column="73" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/containers/ConditionContainer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="21" column="62" lean-forward="false" selection-start-line="21" selection-start-column="62" selection-end-line="21" selection-end-column="62" />
+          <folding>
+            <element signature="e#0#49#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/components/modals/Datepicker.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="25" column="1" lean-forward="true" selection-start-line="25" selection-start-column="1" selection-end-line="25" selection-end-column="1" />
+          <folding>
+            <element signature="e#0#51#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/reducers/dropdown.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="410">
-          <caret line="36" column="22" lean-forward="true" selection-start-line="36" selection-start-column="22" selection-end-line="36" selection-end-column="22" />
+        <state relative-caret-position="327">
+          <caret line="24" column="23" lean-forward="false" selection-start-line="24" selection-start-column="10" selection-end-line="24" selection-end-column="23" />
           <folding>
             <element signature="e#0#153#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reducers/page.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="92">
+          <caret line="33" column="30" lean-forward="false" selection-start-line="33" selection-start-column="13" selection-end-line="33" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reducers/nav.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="388">
+          <caret line="59" column="0" lean-forward="false" selection-start-line="59" selection-start-column="0" selection-end-line="59" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/containers/ListContainer/copyContainer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="15" column="12" lean-forward="false" selection-start-line="15" selection-start-column="12" selection-end-line="15" selection-end-column="12" />
+          <folding>
+            <element signature="e#0#51#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/containers/NavContainer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="10">
+          <caret line="32" column="18" lean-forward="true" selection-start-line="32" selection-start-column="18" selection-end-line="32" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/components/Tab.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-22">
+          <caret line="8" column="34" lean-forward="false" selection-start-line="8" selection-start-column="34" selection-end-line="8" selection-end-column="34" />
+          <folding>
+            <element signature="e#0#51#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/actions/dropdown.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="116">
+          <caret line="68" column="62" lean-forward="false" selection-start-line="68" selection-start-column="62" selection-end-line="68" selection-end-column="62" />
+          <folding>
+            <element signature="e#0#166#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/actions/list.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="89" column="6" lean-forward="false" selection-start-line="89" selection-start-column="6" selection-end-line="89" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/containers/DropdownContainer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="235">
+          <caret line="264" column="18" lean-forward="true" selection-start-line="263" selection-start-column="6" selection-end-line="264" selection-end-column="18" />
+          <folding>
+            <element signature="e#0#50#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/style/index.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="407">
+          <caret line="1271" column="27" lean-forward="false" selection-start-line="1271" selection-start-column="27" selection-end-line="1271" selection-end-column="27" />
+          <folding />
         </state>
       </provider>
     </entry>

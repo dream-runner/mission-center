@@ -38,12 +38,12 @@ class NavContainer extends Component {
 		)
 	}
 
-	onTabClicked(e, checked) {
+	onTabClicked(e, clickFootPrint) {
 		// 添加hideDropdown 解决nav切换，列表没收起来的bug，让所有列表收起来
 		const {cur, isFetching, changeNav, changeSortRule, changeFilter, getList, getItems, initDropdownIndex, initActivePage, formFilters, setFormFilters,changeText} = this.props
 		e.preventDefault()
-		if (!isFetching && checked != cur) {
-			changeNav(checked)
+		if (!isFetching && clickFootPrint.btnIndex != cur) {
+			changeNav(clickFootPrint.btnIndex)
 			changeSortRule(0)        // 排序规则
 			changeFilter(0)          //  本周 上周 时间段的事件
 			initDropdownIndex()    // 切换的时候，所有的下拉列表复原
@@ -55,7 +55,7 @@ class NavContainer extends Component {
 				checkedFormsId: []
 			});
 			window.prev = window.flag || 0;
-			window.flag = checked;
+			window.flag = clickFootPrint.btnIndex;
 			// if("我发起的"==e.target.innerText)
 			//      getItems()
 			// else

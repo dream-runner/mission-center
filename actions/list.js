@@ -38,10 +38,7 @@ function getListSuccess(json, navKey) {
 }
 
 function dateFormat(date) {
-	let res=''
-	try{
-		res = moment(date).format('YYYY-MM-DD');
-	}catch (e){}
+	let res = moment(date).format('YYYY-MM-DD');
 	return res;
 }
 
@@ -59,13 +56,14 @@ export function getList(moduleName, param) {
 				{key: 'taskDate', name: 'filterTaskDate'},
 				{key: 'receivingDate', name: 'filterReceivingDate'},
 				{key: 'categoryIds', name: 'filterCategoryIds'},
-				{key: 'sortListCompletion', name: 'sortListCompletion'},
+				{key: 'sortListToDo', name: 'sortListToDo'}
 			],
 			histasks: [
 				{key: 'isFinished', name: 'filterListDoneStatus'},
 				{key: 'taskDate', name: 'filterTaskDate'},
 				{key: 'completionDate', name: 'filterCompletionDate'},
-				{key: 'categoryIds', name: 'filterCategoryIds'}
+				{key: 'categoryIds', name: 'filterCategoryIds'},
+				{key: 'sortListCompletion', name: 'sortListCompletion'},
 			],
 			listcopy: [
 				{key: 'isFinished', name: 'filterListDoneStatus'},
@@ -91,17 +89,13 @@ export function getList(moduleName, param) {
 			case 'filterTaskDate':
 				dropdownKey = dispatch(getFilterDropdownKey(state.dropdown.dropdownName));
 				queryStr = dropdownKey === 'all' ? '' : `taskDate=${dropdownKey}&`;
-				queryStr += dropdownKey === 'more' ? '' : `taskBeginDate=${dateFormat(state.dropdown[dropdownName].startTime)}&taskEndDate=${dateFormat(state.dropdown[dropdownName].endTime)}&`;
+				queryStr += dropdownKey !== 'taskTime_more' ? '' : `taskBeginDate=${dateFormat(state.dropdown[dropdownName].startTime)}&taskEndDate=${dateFormat(state.dropdown[dropdownName].endTime)}&`;
 				break;
 			case 'filterReceivingDate':
-				// dropdownKey = dispatch(getFilterDropdownKey(state.dropdown.dropdownName));
-				// queryStr = dropdownKey === 'all' ? '' : `receivingDate=${dropdownKey}&`;
-				// queryStr += dropdownKey === 'more' ? '' : `rcvOrCompBeginDate=${dateFormat(state.dropdown[dropdownName].startTime)}&rcvOrCompEndDate=${dateFormat(state.dropdown[dropdownName].endTime)}&`;
-				// break;
 			case 'filterCompletionDate':
 				dropdownKey = dispatch(getFilterDropdownKey(state.dropdown.dropdownName));
 				queryStr = dropdownKey === 'all' ? '' : `rcvOrCompEndDate=${dropdownKey}&`;
-				queryStr += dropdownKey === 'more' ? '' : `rcvOrCompBeginDate=${dateFormat(state.dropdown[dropdownName].startTime)}&rcvOrCompEndDate=${dateFormat(state.dropdown[dropdownName].endTime)}&`;
+				queryStr += dropdownKey !== 'taskTime_more' ? '' : `rcvOrCompBeginDate=${dateFormat(state.dropdown[dropdownName].startTime)}&rcvOrCompEndDate=${dateFormat(state.dropdown[dropdownName].endTime)}&`;
 				break;
 			case 'filterDatetimePeriod':
 				dropdownKey = dispatch(getFilterDropdownKey(state.dropdown.dropdownName));
@@ -124,6 +118,10 @@ export function getList(moduleName, param) {
 			if (tabNavData[curNavKey][i].name != state.dropdown.dropdownName) {
 				let tmp = state.dropdown[tabNavData[curNavKey][i].name];
 				queryStr += tmp.options[tmp.cur].key === 'all' ? '' : `${tabNavData[curNavKey][i].key}=${tmp.options[tmp.cur].key}&`;
+				if('taskTime_more' === tmp.options[tmp.cur].key){
+					let navName = tabNavData[curNavKey][i].name;
+					queryStr += 'filterTaskDate' ===  navName? `taskBeginDate=${dateFormat(state.dropdown[navName].startTime)}&taskEndDate=${dateFormat(state.dropdown[navName].endTime)}&` : `rcvOrCompBeginDate=${dateFormat(state.dropdown[navName].startTime)}&rcvOrCompEndDate=${dateFormat(state.dropdown[navName].endTime)}&`;
+				}
 			}
 		}
 		if (moduleName && moduleName == 'search') {

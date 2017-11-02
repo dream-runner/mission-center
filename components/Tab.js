@@ -6,10 +6,11 @@ import {toggleDateperiodPicker} from '../actions/dateperiod';
 
 export  class Tab extends Component {
   render() {
-    const { name,items, onTabClicked ,cur, children, className, startTime, endTime, showDateperiodPicker, toggleDateperiodPicker, curSelectedDateperiod} = this.props;
+    const { name,items, btnIndex, navName, onTabClicked ,cur, children, className, startTime, endTime, showDateperiodPicker, toggleDateperiodPicker, curSelectedDateperiod} = this.props;
     return (
       <ul className={className}>
         {items.map(({ needTotal, text, total, key, unReadCount }, i) => {
+        	let k = ((val)=>{return val})(i)
 					if(key == 'listcopy'){
 						text = needTotal && unReadCount ? `${text}(${unReadCount})` : text
 					} else {
@@ -20,15 +21,15 @@ export  class Tab extends Component {
           	<li key={i} className={className}>
 							<a href="#" onClick={(e)=>{
 								//按自定义时间区间筛选时，弹出日期选择框
-								if('filterTaskDate'===name && i===items.length-1){
-									toggleDateperiodPicker(1)
+								if(['filterTaskDate','filterReceivingDate','filterCompletionDate'].indexOf(name)>-1 && i===items.length-1){
+									toggleDateperiodPicker(1,{navName:name,btnIndex:i})
 									return false;
 								}
-								onTabClicked(e, i)
+								onTabClicked(e, {btnIndex:i})
 							}
 							}>{text}</a>
-							<Datepicker  show={showDateperiodPicker} onCancel={()=>{toggleDateperiodPicker(0)}} onConfirm={(e)=>{
-								onTabClicked(e,i,{startTime,endTime});
+							<Datepicker show={showDateperiodPicker} onCancel={()=>{toggleDateperiodPicker(0)}} onConfirm={(e)=>{
+								onTabClicked(e,{btnIndex,navName},{startTime,endTime});
 								toggleDateperiodPicker(0)
 							}}/>
 						</li>
@@ -54,7 +55,9 @@ function mapStateToProps(state) {
 	return {
 		showDateperiodPicker:state.dateperiodPicker.showDateperiodPicker,
 		startTime:state.dateperiodPicker.startTime,
-		endTime:state.dateperiodPicker.endTime
+		endTime:state.dateperiodPicker.endTime,
+		btnIndex:state.dateperiodPicker.btnIndex,
+		navName:state.dateperiodPicker.navName
 	};
 }
 

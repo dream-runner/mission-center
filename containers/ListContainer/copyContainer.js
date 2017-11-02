@@ -13,7 +13,7 @@ class copyContainer extends Component {
 			let node = map(items, (item, i) => {
 				let {title, historicProcessInstance, taskStatus, dueDate, createTime} = item;
 				let processInstance = historicProcessInstance;
-				if(processInstance === null){
+				if(!processInstance){
 					console.info('historicProcessInstance数据异常为null',item);
 					return;
 				}

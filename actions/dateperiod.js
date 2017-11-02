@@ -14,8 +14,8 @@ export function onEndTimeChange(endTime) {
 		endTime
 	}
 }
-export function toggleDateperiodPicker(actType) {
-	const act = actType?{type:OPEN_DATEPERIODPICKER, actType}:{type:CLOSE_DATEPERIODPICKER, actType}
+export function toggleDateperiodPicker(actType,clickFootPrint) {
+	const act = actType?{type:OPEN_DATEPERIODPICKER, actType,clickFootPrint}:{type:CLOSE_DATEPERIODPICKER, actType}
 	return act
 
 }

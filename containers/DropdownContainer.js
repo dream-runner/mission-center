@@ -345,12 +345,12 @@ class DropdownContainer extends Component {
 
 	}
 
-	onTabClicked(e, checked,dateperiod) {
+	onTabClicked(e, clickFootPrint,dateperiod) {
 		const {cur, isFetching, setDropdownChecked, toggleDropdown, getList, name} = this.props
 		e.preventDefault();
 		e.stopPropagation();
-		if (!isFetching && checked != cur) {
-			setDropdownChecked(name, checked,dateperiod);
+		if (!isFetching && clickFootPrint.btnIndex != cur) {
+			setDropdownChecked(clickFootPrint.navName||name, clickFootPrint.btnIndex,dateperiod);
 			hideMenu();
 			getList();
 		}
