@@ -56,14 +56,14 @@ export function getList(moduleName, param) {
 				{key: 'taskDate', name: 'filterTaskDate'},
 				{key: 'receivingDate', name: 'filterReceivingDate'},
 				{key: 'categoryIds', name: 'filterCategoryIds'},
-				{key: 'sortListToDo', name: 'sortListToDo'}
+				{key: 'sort', name: 'sortListToDo'}
 			],
 			histasks: [
 				{key: 'isFinished', name: 'filterListDoneStatus'},
 				{key: 'taskDate', name: 'filterTaskDate'},
 				{key: 'completionDate', name: 'filterCompletionDate'},
 				{key: 'categoryIds', name: 'filterCategoryIds'},
-				{key: 'sortListCompletion', name: 'sortListCompletion'},
+				{key: 'sort', name: 'sortListCompletion'},
 			],
 			listcopy: [
 				{key: 'isFinished', name: 'filterListDoneStatus'},
@@ -108,6 +108,11 @@ export function getList(moduleName, param) {
 			case 'filterListMineStatus':
 				dropdownKey = dispatch(getFilterDropdownKey(state.dropdown.dropdownName));
 				queryStr = dropdownKey === 'all' ? '' : `processStatus=${dropdownKey}&`;
+				break;
+			case 'sortListToDo':
+			case 'sortListCompletion':
+				dropdownKey = dispatch(getFilterDropdownKey(state.dropdown.dropdownName));
+				queryStr = `sort=${dropdownKey}&`;
 				break;
 			default:
 				queryStr = '';
