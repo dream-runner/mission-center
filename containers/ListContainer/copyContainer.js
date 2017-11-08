@@ -40,7 +40,7 @@ class copyContainer extends Component {
 											</div>
 										</div>
 										<div className="r">
-											<span className="item-info-cell">{`提交时间：${processCreateTime}`}</span>
+											<span className="item-info-cell">{`接收时间：${processCreateTime}`}</span>
 										</div>
 									</div>
 									<div className="item-status">

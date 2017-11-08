@@ -318,6 +318,9 @@ html, body {
 #mission-center-root .dropdown-menu > .active > a {
     /* background: #F5F5F5; */
 }
+#mission-center-root .open .dropdown-menu {
+	display: block;
+}
 #mission-center-root .dropdown-menu a {
     color: #666;
     background: #fff;

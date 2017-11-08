@@ -1,6 +1,7 @@
 import { SHOW_MENU, HIDE_MENU, CHANGE_DROPDOWN_CHECKED, CHANGE_DROPDOWN_INIT,SET_SELECTEDFORMSID,SET_SELECTEDCATEGORYID } from '../constants/ActionTypes'
 import { GETCATEGORY_REQUEST, GETCATEGORY_SUCCESS, GETCATEGORY_FAILURE} from '../constants/ActionTypes'
 import guid from 'angular-uid'
+import moment from 'moment'
 const baseTimeFilter = [
 	{
 		text: '提交时间',
@@ -68,8 +69,8 @@ const initialState = {
 	},
 	// 按提交时间过滤
 	"filterTaskDate": {
-		startTime:'',
-		endTime:'',
+		startTime:moment(new Date()-0-(3600*24*1000)),
+		endTime:moment(new Date()),
 		key: guid(),
 		remark: '按提交时间过滤',
 		cur: 0,
@@ -78,8 +79,8 @@ const initialState = {
 	},
 	// 待审批页按接收时间
 	"filterReceivingDate": {
-		startTime:'',
-		endTime:'',
+		startTime:moment(new Date()-0-(3600*24*1000)),
+		endTime:moment(new Date()),
 		key: guid(),
 		remark: '待审批按接收时间',
 		cur: 0,
@@ -88,8 +89,8 @@ const initialState = {
 	},
 	// 已审批按完成时间
 	"filterCompletionDate": {
-		startTime:'',
-		endTime:'',
+		startTime:moment(new Date()-0-(3600*24*1000)),
+		endTime:moment(new Date()),
 		key: guid(),
 		remark: '已审批按完成时间',
 		cur: 0,
@@ -146,27 +147,29 @@ const initialState = {
 		remark: '排序',
 		cur: 0,
 		isOpen: false,
-		options: commonSortList.concat([{
-			text: '按完成时间由远及近',
-			key: 'sort-by-completionTime-asc'
-		}, {
+		options: [{
 			text: '按完成时间由近及远',
 			key: 'sort-by-completionTime-desc'
-		}])
+		},
+			{
+			text: '按完成时间由远及近',
+			key: 'sort-by-completionTime-asc'
+		}].concat(commonSortList)
 	},
 	"sortListToDo": {
 		key: guid(),
 		remark: '排序',
 		cur: 0,
 		isOpen: false,
-		options: commonSortList.concat([{
-			text: '按接收时间由远及近',
-			key: 'sort-by-receivingTime-asc'
-		}, {
+		options: [{
 			text: '按接收时间由近及远',
 			key: 'sort-by-receivingTime-desc'
+		},
+			{
+			text: '按接收时间由远及近',
+			key: 'sort-by-receivingTime-asc'
 		}
-		])
+		].concat(commonSortList)
 	}
 }
 

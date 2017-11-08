@@ -14,7 +14,7 @@ class notFinishContainer extends Component {
 		const showPagination = pagination.pageTotal > 1 ? <PageContainer items={pagination.pageTotal}/> : '';
 
 		let node = map(items, (item, i) => {
-			let {processInstance, dueDate, createTime} = item;
+			let {processInstance, dueDate, createTime, procInsStartTime} = item;
 			if (!processInstance){
 				console.error(`processInstance with id:${item.id} is null!`);
 				return;
@@ -30,6 +30,7 @@ class notFinishContainer extends Component {
 			let processkeyFeature = this.getProcessKeyFeature(processInstance);
 			let processStatus = this.getProcessStatus(processInstance);
 			let processCreateTime = new Date(createTime).format('yyyy-MM-dd HH:mm');
+			procInsStartTime = new Date(procInsStartTime).format('yyyy-MM-dd HH:mm');
 			let dueDateTime = dueDate && new Date(dueDate).getTime();
 			let processDueDate ='';
 			if(item.outtime){
@@ -53,7 +54,11 @@ class notFinishContainer extends Component {
 							</div>
 							<div className="r">
 								{processStatus}
-								<span className="item-info-cell">{`提交时间：${processCreateTime}`}</span>
+								<span className="item-info-cell">{`接收时间：${processCreateTime}`}</span>
+							</div>
+							<div className="r">
+								{processStatus}
+								<span className="item-info-cell">{`提交时间：${procInsStartTime}`}</span>
 							</div>
 						</div>
 						<div className="item-status">

@@ -54,14 +54,14 @@ export function getList(moduleName, param) {
 			curtasks: [
 				{key: 'taskDue', name: 'filterDueDateOverdue'},
 				{key: 'taskDate', name: 'filterTaskDate'},
-				{key: 'receivingDate', name: 'filterReceivingDate'},
+				{key: 'rcvOrCompDate', name: 'filterReceivingDate'},
 				{key: 'categoryIds', name: 'filterCategoryIds'},
 				{key: 'sort', name: 'sortListToDo'}
 			],
 			histasks: [
 				{key: 'isFinished', name: 'filterListDoneStatus'},
 				{key: 'taskDate', name: 'filterTaskDate'},
-				{key: 'completionDate', name: 'filterCompletionDate'},
+				{key: 'rcvOrCompDate', name: 'filterCompletionDate'},
 				{key: 'categoryIds', name: 'filterCategoryIds'},
 				{key: 'sort', name: 'sortListCompletion'},
 			],
@@ -94,7 +94,7 @@ export function getList(moduleName, param) {
 			case 'filterReceivingDate':
 			case 'filterCompletionDate':
 				dropdownKey = dispatch(getFilterDropdownKey(state.dropdown.dropdownName));
-				queryStr = dropdownKey === 'all' ? '' : `rcvOrCompEndDate=${dropdownKey}&`;
+				queryStr = dropdownKey === 'all' ? '' : `rcvOrCompDate=${dropdownKey}&`;
 				queryStr += dropdownKey !== 'taskTime_more' ? '' : `rcvOrCompBeginDate=${dateFormat(state.dropdown[dropdownName].startTime)}&rcvOrCompEndDate=${dateFormat(state.dropdown[dropdownName].endTime)}&`;
 				break;
 			case 'filterDatetimePeriod':

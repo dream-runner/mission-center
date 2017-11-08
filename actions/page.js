@@ -19,6 +19,7 @@ import {
 	getCurSortKey
 } from './sort'
 
+import moment from 'moment'
 
 export function getItems() {
 	return (dispatch, getState) => {
@@ -188,6 +189,10 @@ function issearch(json) {
 	}
 }
 
+function dateFormat(date) {
+	let res = moment(date).format('YYYY-MM-DD');
+	return res;
+}
 
 export function change(activePage, issearch) {
 	if (issearch == 'y')
@@ -206,32 +211,21 @@ export function getListNew(moduleName, activePage) {
 		let pagination = state.list.pagination;
 		let dropdownKey = '',
 			queryStr = '';
+		const dropdownName = state.dropdown.dropdownName;
 		let tabNavData = {
-			curtasks: [{
-				key: 'taskDue',
-				name: 'filterDueDateOverdue'
-			},
-				{
-					key: 'taskDate',
-					name: 'filterTaskDate'
-				},
-				{
-					key: 'categoryIds',
-					name: 'filterCategoryIds'
-				}
+			curtasks: [
+				{key: 'taskDue', name: 'filterDueDateOverdue'},
+				{key: 'taskDate', name: 'filterTaskDate'},
+				{key: 'rcvOrCompDate', name: 'filterReceivingDate'},
+				{key: 'categoryIds', name: 'filterCategoryIds'},
+				{key: 'sort', name: 'sortListToDo'}
 			],
-			histasks: [{
-				key: 'isFinished',
-				name: 'filterListDoneStatus'
-			},
-				{
-					key: 'taskDate',
-					name: 'filterTaskDate'
-				},
-				{
-					key: 'categoryIds',
-					name: 'filterCategoryIds'
-				}
+			histasks: [
+				{key: 'isFinished', name: 'filterListDoneStatus'},
+				{key: 'taskDate', name: 'filterTaskDate'},
+				{key: 'rcvOrCompDate', name: 'filterCompletionDate'},
+				{key: 'categoryIds', name: 'filterCategoryIds'},
+				{key: 'sort', name: 'sortListCompletion'},
 			],
 			listcopy: [
 				{key: 'isFinished', name: 'filterListDoneStatus'},
@@ -246,18 +240,24 @@ export function getListNew(moduleName, activePage) {
 
 		};
 
-		switch (state.dropdown.dropdownName) {
+		switch (dropdownName) {
 			case 'filterDueDateOverdue':
 				dropdownKey = dispatch(getFilterDropdownKey(state.dropdown.dropdownName));
 				queryStr = dropdownKey === 'all' ? '' : `taskDue=${dropdownKey}&`;
 				break;
 			case 'filterCategoryIds':
 				dropdownKey = dispatch(getFilterDropdownKey(state.dropdown.dropdownName));
-				queryStr = dropdownKey === 'all' ? '' : `categoryIds=${dropdownKey}&`;
 				break;
 			case 'filterTaskDate':
 				dropdownKey = dispatch(getFilterDropdownKey(state.dropdown.dropdownName));
 				queryStr = dropdownKey === 'all' ? '' : `taskDate=${dropdownKey}&`;
+				queryStr += dropdownKey !== 'taskTime_more' ? '' : `taskBeginDate=${dateFormat(state.dropdown[dropdownName].startTime)}&taskEndDate=${dateFormat(state.dropdown[dropdownName].endTime)}&`;
+				break;
+			case 'filterReceivingDate':
+			case 'filterCompletionDate':
+				dropdownKey = dispatch(getFilterDropdownKey(state.dropdown.dropdownName));
+				queryStr = dropdownKey === 'all' ? '' : `rcvOrCompDate=${dropdownKey}&`;
+				queryStr += dropdownKey !== 'taskTime_more' ? '' : `rcvOrCompBeginDate=${dateFormat(state.dropdown[dropdownName].startTime)}&rcvOrCompEndDate=${dateFormat(state.dropdown[dropdownName].endTime)}&`;
 				break;
 			case 'filterDatetimePeriod':
 				dropdownKey = dispatch(getFilterDropdownKey(state.dropdown.dropdownName));
@@ -271,6 +271,11 @@ export function getListNew(moduleName, activePage) {
 				dropdownKey = dispatch(getFilterDropdownKey(state.dropdown.dropdownName));
 				queryStr = dropdownKey === 'all' ? '' : `processStatus=${dropdownKey}&`;
 				break;
+			case 'sortListToDo':
+			case 'sortListCompletion':
+				dropdownKey = dispatch(getFilterDropdownKey(state.dropdown.dropdownName));
+				queryStr = `sort=${dropdownKey}&`;
+				break;
 			default:
 				queryStr = '';
 				break;
@@ -280,6 +285,10 @@ export function getListNew(moduleName, activePage) {
 			if (tabNavData[curNavKey][i].name != state.dropdown.dropdownName) {
 				let tmp = state.dropdown[tabNavData[curNavKey][i].name];
 				queryStr += tmp.options[tmp.cur].key === 'all' ? '' : `${tabNavData[curNavKey][i].key}=${tmp.options[tmp.cur].key}&`;
+				if('taskTime_more' === tmp.options[tmp.cur].key){
+					let navName = tabNavData[curNavKey][i].name;
+					queryStr += 'filterTaskDate' ===  navName? `taskBeginDate=${dateFormat(state.dropdown[navName].startTime)}&taskEndDate=${dateFormat(state.dropdown[navName].endTime)}&` : `rcvOrCompBeginDate=${dateFormat(state.dropdown[navName].startTime)}&rcvOrCompEndDate=${dateFormat(state.dropdown[navName].endTime)}&`;
+				}
 			}
 		}
 
