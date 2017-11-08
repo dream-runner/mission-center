@@ -1,5 +1,5 @@
 import { SHOW_MENU, HIDE_MENU, CHANGE_DROPDOWN_CHECKED, CHANGE_DROPDOWN_INIT,SET_SELECTEDFORMSID,SET_SELECTEDCATEGORYID } from '../constants/ActionTypes'
-import { GETCATEGORY_REQUEST, GETCATEGORY_SUCCESS, GETCATEGORY_FAILURE} from '../constants/ActionTypes'
+import { GETCATEGORY_REQUEST, GETCATEGORY_SUCCESS, GETCATEGORY_FAILURE, OPEN_DATEPERIODPICKER, ON_STARTTIME_CHENGE, ON_ENDTIME_CHENGE} from '../constants/ActionTypes'
 import guid from 'angular-uid'
 import moment from 'moment'
 const baseTimeFilter = [
@@ -176,11 +176,11 @@ const initialState = {
 // 同时只能打开一个下拉框
 function toggleOneOpen(state, action) {
 	for(var k in state){
-		if(state[k] && state[k].isOpen){
+		if(state[k] && state[k].isOpen && -1===[ON_ENDTIME_CHENGE, ON_STARTTIME_CHENGE, OPEN_DATEPERIODPICKER].indexOf(action.type)){
 			state[k].isOpen = false;
 		}
 	}
-	if(action.type === SHOW_MENU){
+	if([SHOW_MENU, OPEN_DATEPERIODPICKER].indexOf(action.type)>-1){
 		return true;
 	} else {
 		return false;
