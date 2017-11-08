@@ -13,7 +13,7 @@ class App extends Component {
 			hideMenu
 		} = this.props
 		return (
-			<div className="container" onClick={ hideMenu }>
+			<div className="container">
 				<NavContainer/> {/*上面五个分类的*/}
 				<ListContainer/>
 				<FormListContainer/>

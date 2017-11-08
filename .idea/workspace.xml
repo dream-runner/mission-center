@@ -6,10 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="4cf78981-d718-42bf-9307-5c39fb9d4ab2" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/Tab.js" afterPath="$PROJECT_DIR$/components/Tab.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/containers/App.js" afterPath="$PROJECT_DIR$/containers/App.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/containers/DropdownContainer.js" afterPath="$PROJECT_DIR$/containers/DropdownContainer.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/reducers/dropdown.js" afterPath="$PROJECT_DIR$/reducers/dropdown.js" />
     </list>
     <ignored path="mission-center.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -79,7 +76,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DropdownContainer.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="DropdownContainer.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/containers/DropdownContainer.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="246">
@@ -92,11 +89,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="App.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="App.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/containers/App.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="191">
-              <caret line="15" column="53" lean-forward="false" selection-start-line="15" selection-start-column="32" selection-end-line="15" selection-end-column="53" />
+              <caret line="15" column="32" lean-forward="false" selection-start-line="15" selection-start-column="32" selection-end-line="15" selection-end-column="32" />
               <folding />
             </state>
           </provider>
@@ -171,8 +168,8 @@
       <find>dateFormat</find>
       <find>debugger</find>
       <find>hidemenu</find>
-      <find>isopen</find>
       <find>toggleOneOpen</find>
+      <find>isopen</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -237,8 +234,8 @@
         <option value="$PROJECT_DIR$/containers/ListContainer/notFinishContainer.js" />
         <option value="$PROJECT_DIR$/reducers/dropdown.js" />
         <option value="$PROJECT_DIR$/components/Tab.js" />
-        <option value="$PROJECT_DIR$/containers/App.js" />
         <option value="$PROJECT_DIR$/containers/DropdownContainer.js" />
+        <option value="$PROJECT_DIR$/containers/App.js" />
       </list>
     </option>
   </component>
@@ -482,7 +479,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="206133000" />
+    <option name="totallyTimeSpent" value="206575000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -958,14 +955,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/containers/App.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="191">
-          <caret line="15" column="53" lean-forward="false" selection-start-line="15" selection-start-column="32" selection-end-line="15" selection-end-column="53" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/containers/DropdownContainer.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="246">
@@ -974,6 +963,14 @@
             <element signature="e#236#290#0" expanded="true" />
             <marker date="1510152901585" expanded="true" signature="7:15" ph="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/containers/App.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="191">
+          <caret line="15" column="32" lean-forward="false" selection-start-line="15" selection-start-column="32" selection-end-line="15" selection-end-column="32" />
+          <folding />
         </state>
       </provider>
     </entry>
