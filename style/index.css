@@ -608,6 +608,7 @@ html, body {
     text-align: center;
     vertical-align: middle;
 	align-items: center;
+	width: 68px;
 }
 #mission-center-root .list-wrap .item-status .btn-tip {
 	min-width: 60px;
@@ -1041,8 +1042,12 @@ html, body {
     height: 100%;
     vertical-align: middle;
 }
+
+.modal-content {
+	border: 0!important;
+}
 .mission-center-confirm .modal-content {
-    border: 0 none;
+    border: 0;
     display: inline-block;
     width: 100%;
     vertical-align: middle;
@@ -1250,9 +1255,13 @@ html, body {
 }
 /*日期选择器*/
 .date-picker-modal{
-	height: 200px;
+	height: 220px;
 	padding: 20px;
 	text-align: center;
+}
+.date-picker-modal .title{
+	color: #9E9E9E;
+	margin: 0 0 10px 0;
 }
 .date-picker-modal>div,
 .date-picker-modal .react-datepicker-wrapper,

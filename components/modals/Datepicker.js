@@ -13,8 +13,9 @@ class Datepicker extends Component{
 		return (
 				<Modal show={show}>
 					<div className="date-picker-modal">
-						<ReactDatepicker placeholderText="请选择起始时间" dateFormat="YYYY-MM-DD" selected={startTime} onChange={onStartTimeChange.bind(this)}/>--
-						<ReactDatepicker placeholderText="请选择结束时间" dateFormat="YYYY-MM-DD" selected={endTime} onChange={ onEndTimeChange.bind(this) }/>
+						<h3 className="title">请选择过滤时间段：</h3>
+						<ReactDatepicker locale="zh-cn" placeholderText="请选择起始时间" dateFormat="YYYY-MM-DD" selected={startTime} onChange={onStartTimeChange.bind(this)}/>--
+						<ReactDatepicker locale="zh-cn" placeholderText="请选择结束时间" dateFormat="YYYY-MM-DD" selected={endTime} onChange={ onEndTimeChange.bind(this) }/>
 					</div>
 					<Modal.Footer onClick={()=>{}}>
 						<Button onClick={onCancel}>取消</Button>

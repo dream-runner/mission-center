@@ -66,7 +66,9 @@ class FinishContainer extends Component {
 			try{list = JSON.parse(processInstance.keyFeature);}catch(e){}
 			if(list && Object.prototype.toString.call(list) == '[object Array]' ){
 				str = list.map((item,index) =>{
-					return <li key={index}>{item.key}:{item.value}</li>
+					return <li key={index}>{item.key}:
+						<span dangerouslySetInnerHTML={{__html:item.value.replace(/\$PRINTASHTML\$/g,'')}}></span>
+						</li>
 				});
 			}
 			return <ul className="remark-list">{str}</ul>;

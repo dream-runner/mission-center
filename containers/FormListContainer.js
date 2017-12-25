@@ -43,11 +43,11 @@ class FormListContainer extends Component {
 										for(var i=0,l=name.length;i<l;i++){
 											$lenCalDom.innerHTML = name.substring(0,i+1);
 											if($lenCalDom.clientWidth>340){
-												$lenCalDom.remove();
+												$lenCalDom.parentNode.removeChild($lenCalDom);
 												return name.substring(0,i+1)+'...';
 											}
 										}
-										$lenCalDom.remove();
+										$lenCalDom.parentNode.removeChild($lenCalDom);
 										return name;
 									})(form.name)}</span>
 									<div className="txt"><span>{descripsion}</span></div>

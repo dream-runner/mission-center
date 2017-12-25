@@ -71,12 +71,12 @@ export function show() {
                     if (response.ok) {
                         response.text().then(text => {
                             if (text) {
-                                // try {
+                                try {
                                     let json = JSON.parse(text)
                                     dispatch(getListSuccess(json))
-                                // } catch (e) {
-                                    // dispatch(getListFailure(`something error……\n${e.message}`))
-                                // }
+                                } catch (e) {
+                                    dispatch(getListFailure(`something error……\n${e.message}`))
+                                }
                             } else {
                                 dispatch(getListFailure('Api return nothing……'))
                             }

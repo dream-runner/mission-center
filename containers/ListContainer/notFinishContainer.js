@@ -53,7 +53,6 @@ class notFinishContainer extends Component {
 								</div>
 							</div>
 							<div className="r">
-								{processStatus}
 								<span className="item-info-cell">{`接收时间：${processCreateTime}`}</span>
 							</div>
 							<div className="r">
@@ -84,7 +83,9 @@ class notFinishContainer extends Component {
 		}
 		if (list && Object.prototype.toString.call(list) == '[object Array]') {
 			str = list.map((item, index) => {
-				return <li key={index}>{item.key}:{item.value}</li>
+				return <li key={index}>{item.key}:
+					<span dangerouslySetInnerHTML={{__html:item.value.replace(/\$PRINTASHTML\$/g,'')}}></span>
+				</li>
 			});
 		}
 		return <ul className="remark-list">{str}</ul>;
