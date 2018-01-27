@@ -6,11 +6,20 @@ import timeFilter from '../../filter/time'
 import map from 'lodash/map'
 import '../../utils/index'
 import PageContainer from '../PageContainer'
+import cutTitle from '../../utils/nameCutter'
 
 
 class notFinishContainer extends Component {
+	constructor(args){
+		super(args);
+		let {items} = this.props;
+		this.state = {
+			renderItems : items
+		}
+	}
 	render() {
-		const {items, pagination} = this.props;
+		const {pagination} = this.props;
+		const {renderItems : items} = this.state;
 		const showPagination = pagination.pageTotal > 1 ? <PageContainer items={pagination.pageTotal}/> : '';
 
 		let node = map(items, (item, i) => {
@@ -26,7 +35,7 @@ class notFinishContainer extends Component {
 			let processCurAvatar = processInstance.startParticipant && processInstance.startParticipant.pic ?
 				<span className="avatar"><img src={processInstance.startParticipant.pic}
 																			alt={processInstance.startParticipant.name}/></span> : '';
-			let processTitle = processInstance.name || '';
+			let processTitle = processInstance.cuttedName || processInstance.name || '';
 			let processkeyFeature = this.getProcessKeyFeature(processInstance);
 			let processStatus = this.getProcessStatus(processInstance);
 			let processCreateTime = new Date(createTime).format('yyyy-MM-dd HH:mm');
@@ -48,7 +57,7 @@ class notFinishContainer extends Component {
 							</div>
 							<div className="m">
 								<div>
-									<h3>{processTitle}{processDueDate}</h3>
+									<h3 ref={0===i?'list_notfinish_m':''} dangerouslySetInnerHTML={{__html:'<span title="'+processInstance.name +'">'+processTitle+processDueDate+'</span>'}}></h3>
 									{processkeyFeature}
 								</div>
 							</div>
@@ -84,7 +93,7 @@ class notFinishContainer extends Component {
 		if (list && Object.prototype.toString.call(list) == '[object Array]') {
 			str = list.map((item, index) => {
 				return <li key={index}>{item.key}:
-					<span dangerouslySetInnerHTML={{__html:item.value.replace(/\$PRINTASHTML\$/g,'')}}></span>
+					<span dangerouslySetInnerHTML={{__html:(item.value+'').replace(/\$PRINTASHTML\$/g,'')}}></span>
 				</li>
 			});
 		}
@@ -119,6 +128,22 @@ class notFinishContainer extends Component {
 			e.preventDefault();
 			this.props.getBo(item);
 		}
+	}
+	componentDidMount(){
+		//表单标题显示两行 这需求真是sb之至；rile 搞到本地state里吧 不放全局了 f**k!
+		let {renderItems} = this.state;
+		let titleDomWidth = this.refs.list_notfinish_m.clientWidth;
+		let titleCuttedRenderItems = renderItems.map((item)=>{
+			let {processInstance, outtime, warning} = item;
+			if (!processInstance){
+				return item;
+			}
+			item.processInstance.cuttedName = cutTitle(item.processInstance.name, titleDomWidth, item.outtime||item.warning?30:0)
+			return item;
+		})
+		this.setState({
+			renderItems:titleCuttedRenderItems
+		})
 	}
 }
 

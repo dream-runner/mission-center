@@ -339,7 +339,9 @@ html, body {
     bottom: 0;
 }
 #mission-center-root .list-wrap h3 {
-	height: 30px;
+	width: 65%;
+	word-break: break-all;
+	max-height: 56px;
 	line-height: 30px;
     font-size: 14px;
     margin-bottom: 5px;
@@ -586,6 +588,9 @@ html, body {
 	flex:1;
 	display: flex;
 	align-items: center;
+}
+#mission-center-root .list-wrap .table-list .item-info .m > div {
+	width: 100%;
 }
 #mission-center-root .list-wrap .table-list .item-info .l{width: 38px; margin-right: 12px; -webkit-box-pack: center;}
 #mission-center-root .list-wrap .table-list .item-info .m{

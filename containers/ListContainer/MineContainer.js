@@ -7,18 +7,27 @@ import { show as confirmDialogShow, hide as confirmDialogHide } from '../../acti
 import { getRandomColor } from '../../components/RandomColor'
 import  PageContainer  from '../PageContainer'
 import timeFilter from '../../filter/time'
+import cutTitle from '../../utils/nameCutter'
 
 class MineContainer extends Component {
+		constructor(args){
+			super(args);
+			let {items} = this.props;
+			this.state = {
+				renderItems : items
+			}
+		}
 		render() {
-			const { items, pagination } = this.props;
+			const {pagination} = this.props;
+			const {renderItems : items} = this.state;
 			const showPagination = pagination.pageTotal > 1 ? <PageContainer items={pagination.pageTotal} /> : '';
 			let node = map(items, (item, i) => {
-				let {startParticipant, name, dueDate, startTime, icon} = item;
+				let {startParticipant, name, cuttedName, dueDate, startTime, icon} = item;
 				// let uname = (historicProcessInstance && historicProcessInstance.startParticipant && historicProcessInstance.startParticipant.name)||'';
 				let processInstance = item;
 				let processCurName = '';
 				let processCurAvatar = icon ? <span className={"avatar mine-avatar avatar-"+icon}></span> : <span className={"avatar mine-avatar avatar-icon-1"}></span>;
-				let processTitle = name || '';
+				let processTitle = cuttedName || name || '';
 				let processkeyFeature = this.getProcessKeyFeature(processInstance);
 				let processStatus = this.getProcessStatus(processInstance);
 				let processCreateTime = new Date(startTime).format('yyyy-MM-dd HH:mm');
@@ -33,7 +42,7 @@ class MineContainer extends Component {
 									</div>
 									<div className="m">
 										<div>
-											<h3>{processTitle}</h3>
+											<h3 ref={0===i?'list_mine_m':''} dangerouslySetInnerHTML={{__html:'<span title="'+name +'">'+processTitle+'</span>'}}></h3>
 											{processkeyFeature}
 										</div>
 									</div>
@@ -61,7 +70,7 @@ class MineContainer extends Component {
 			try{list = JSON.parse(processInstance.keyFeature);}catch(e){}
 			if(list && Object.prototype.toString.call(list) == '[object Array]' ){
 				str = list.map((item,index) =>{
-					return item?<li key={index}>{item.key+':'}<span dangerouslySetInnerHTML={{__html:item.value.replace(/\$PRINTASHTML\$/g,'')}}></span></li>:'';
+					return item?<li key={index}>{item.key+':'}<span dangerouslySetInnerHTML={{__html:(item.value+'').replace(/\$PRINTASHTML\$/g,'')}}></span></li>:'';
 				});
 			}
 			return <ul className="remark-list">{str}</ul>;
@@ -131,7 +140,20 @@ class MineContainer extends Component {
             let url = `${window.$ctx}/static/html/rt/browse.html?pk_bo=${item.formdata.form.pk_bo}&pk_boins=${item.formdata.form.pk_boins}&_=${+new Date()}`
             this.props.formDialogShow(url)
         }
-    }
+	}
+	componentDidMount(){
+		//表单标题显示两行 这需求真是sb之至；rile 搞到本地state里吧 不放全局了 f**k!
+		let {renderItems} = this.state;
+		let titleDomWidth = this.refs.list_mine_m.clientWidth;
+		let titleCuttedRenderItems = renderItems.map((item)=>{
+			let {processInstance, dueDate, createTime, procInsStartTime} = item;
+			item.cuttedName = cutTitle(item.name, titleDomWidth, 0)
+			return item;
+		})
+		this.setState({
+			renderItems:titleCuttedRenderItems
+		})
+	}
 }
 
 MineContainer.propTypes = {

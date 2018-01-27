@@ -6,10 +6,19 @@ import timeFilter from '../../filter/time'
 import map from 'lodash/map'
 import filter from 'lodash/filter'
 import PageContainer from '../PageContainer'
+import cutTitle from '../../utils/nameCutter'
 
 class FinishContainer extends Component {
+	constructor(args){
+		super(args);
+		let {items} = this.props;
+		this.state = {
+			renderItems : items
+		}
+	}
     render() {
-			const { items, pagination } = this.props;
+			const {pagination} = this.props;
+			const {renderItems : items} = this.state;
 			const showPagination = pagination.pageTotal > 1 ? <PageContainer items={pagination.pageTotal} /> : '';
 			let node = map(items, (item, i) => {
 				let {historicProcessInstance, dueDate, createTime, endTime:processCompleteTime} = item;
@@ -17,7 +26,7 @@ class FinishContainer extends Component {
 				let processInstance = historicProcessInstance;
 				let processCurName = processInstance.startParticipant && processInstance.startParticipant.name ? <span className="uname">{processInstance.startParticipant.name.substr(-2,2)}</span> : '';
 				let processCurAvatar = processInstance.startParticipant && processInstance.startParticipant.pic ? <span className="avatar"><img src={processInstance.startParticipant.pic} alt={processInstance.startParticipant.name} /></span> : '';
-				let processTitle = processInstance.name || '';
+				let processTitle = processInstance.cuttedName || processInstance.name || '';
 				let processkeyFeature = this.getProcessKeyFeature(processInstance);
 				let processStatus = this.getProcessStatus(item);
 				let processCreateTime = new Date(processInstance.startTime).format('yyyy-MM-dd HH:mm');
@@ -34,7 +43,7 @@ class FinishContainer extends Component {
 									</div>
 									<div className="m">
 										<div>
-											<h3>{processTitle}{processDueDate}</h3>
+											<h3 ref={0===i?'list_finish_m':''} dangerouslySetInnerHTML={{__html:'<span title="'+processInstance.name +'">'+processTitle+processDueDate+'</span>'}}></h3>
 											{processkeyFeature}
 										</div>
 									</div>
@@ -67,7 +76,7 @@ class FinishContainer extends Component {
 			if(list && Object.prototype.toString.call(list) == '[object Array]' ){
 				str = list.map((item,index) =>{
 					return <li key={index}>{item.key}:
-						<span dangerouslySetInnerHTML={{__html:item.value.replace(/\$PRINTASHTML\$/g,'')}}></span>
+						<span dangerouslySetInnerHTML={{__html:(item.value+'').replace(/\$PRINTASHTML\$/g,'')}}></span>
 						</li>
 				});
 			}
@@ -94,12 +103,28 @@ class FinishContainer extends Component {
 			}
 			return str;
 		}
-    showDetail(item) {
-        return (e) => {
-					e.preventDefault()
-            this.props.getBo(item)
-        }
-    }
+		showDetail(item) {
+			return (e) => {
+						e.preventDefault()
+				this.props.getBo(item)
+			}
+		}
+		componentDidMount(){
+			//表单标题显示两行 这需求真是sb之至；rile 搞到本地state里吧 不放全局了 f**k!
+			let {renderItems} = this.state;
+			let titleDomWidth = this.refs.list_finish_m.clientWidth;
+			let titleCuttedRenderItems = renderItems.map((item)=>{
+				let {historicProcessInstance, dueDate, createTime, procInsStartTime} = item;
+				if (!historicProcessInstance){
+					return item;
+				}
+				item.historicProcessInstance.cuttedName = cutTitle(item.historicProcessInstance.name, titleDomWidth,0)
+				return item;
+			})
+			this.setState({
+				renderItems:titleCuttedRenderItems
+			})
+		}
 }
 
 FinishContainer.propTypes = {
