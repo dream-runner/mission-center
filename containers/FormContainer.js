@@ -17,7 +17,7 @@ class FormContainer extends Component {
 
 		// 提供给详情页面使用
 		window.onHide = this.hideDialog.bind(this);
-
+		
 		return (
 			<Dialog show={isOpen} onHide={this.hideDialog.bind(this)} dialogClassName="form-dialog" title="审批详情"
 							noFooter={true} customClose={true}>

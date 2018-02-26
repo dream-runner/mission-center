@@ -196,8 +196,8 @@ html, body {
 #mission-center-root .navbar-default .navbar-nav > .active > a,
 #mission-center-root .navbar-default .navbar-nav > .active > a:hover {
     background: #fff;
-    color:#29B6F6;
-    border-bottom: 2px solid #29B6F6;
+    color:#E14C46;
+    border-bottom: 2px solid #E14C46;
 }
 #mission-center-root .navbar-default .navbar-nav > li > a,
 #mission-center-root .navbar-default .navbar-nav > li > a:hover {
@@ -219,14 +219,14 @@ html, body {
 	outline: none;
     line-height: 32px;
     text-align: center;
-    background: #29B6F6;
-    border-color: #29B6F6;
+    background: #E14C46;
+    border-color: #E14C46;
     border-radius: 4px;
     color: #fff;
 }
 #mission-center-root .navbar-form .btn:hover {
-    background: #29B6F6;
-    border-color: #29B6F6;
+    background: #E14C46;
+    border-color: #E14C46;
 }
 #mission-center-root .row {
     margin-bottom: 10px;
@@ -439,7 +439,7 @@ html, body {
 }
 
 #mission-center-root .list-wrap .table-list .item-info .uname{
-	background: #29B6F6;
+	background: #E14C46;
 	z-index: 10;
 }
 
@@ -848,6 +848,7 @@ html, body {
 .form-dialog .modal-header{
 	border-bottom: 1px solid #EDEDED;
 	text-align: center;
+	display: none;
 }
 .form-dialog .modal-title{
 	color: #262626;
@@ -893,7 +894,7 @@ html, body {
 .form-dialog .modal-body {
     padding: 0;
     position: absolute;
-    top: 51px;
+    top: 0;
     bottom: 0;
     left: 0;
     right: 0;
