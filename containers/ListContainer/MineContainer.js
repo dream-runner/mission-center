@@ -147,7 +147,7 @@ class MineContainer extends Component {
 		let titleDomWidth = this.refs.list_mine_m.clientWidth;
 		let titleCuttedRenderItems = renderItems.map((item)=>{
 			let {processInstance, dueDate, createTime, procInsStartTime} = item;
-			item.cuttedName = cutTitle(item.name, titleDomWidth, 0)
+			item.cuttedName = cutTitle(item.name||'', titleDomWidth, 0)
 			return item;
 		})
 		this.setState({

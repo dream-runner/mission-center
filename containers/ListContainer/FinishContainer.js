@@ -118,7 +118,7 @@ class FinishContainer extends Component {
 				if (!historicProcessInstance){
 					return item;
 				}
-				item.historicProcessInstance.cuttedName = cutTitle(item.historicProcessInstance.name, titleDomWidth,0)
+				item.historicProcessInstance.cuttedName = cutTitle(item.historicProcessInstance.name||'', titleDomWidth,0)
 				return item;
 			})
 			this.setState({

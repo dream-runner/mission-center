@@ -43,9 +43,9 @@ class notFinishContainer extends Component {
 			let dueDateTime = dueDate && new Date(dueDate).getTime();
 			let processDueDate ='';
 			if(item.outtime){
-				processDueDate = <span className="sts-warning duedate">超期</span>;
+				processDueDate = '<span class="sts-warning duedate">超期</span>';
 			}else if(item.warning){
-				processDueDate = <span className="sts-warning warning">预警</span>;
+				processDueDate = '<span class="sts-warning warning">预警</span>';
 			}
 			return (
 				<div key={i} className="item tab-doing">
@@ -138,7 +138,7 @@ class notFinishContainer extends Component {
 			if (!processInstance){
 				return item;
 			}
-			item.processInstance.cuttedName = cutTitle(item.processInstance.name, titleDomWidth, item.outtime||item.warning?30:0)
+			item.processInstance.cuttedName = cutTitle(item.processInstance.name||'', titleDomWidth, item.outtime||item.warning?30:0)
 			return item;
 		})
 		this.setState({
