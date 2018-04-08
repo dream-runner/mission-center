@@ -88,7 +88,7 @@ class MineContainer extends Component {
 					str = <span className="btn-tip btn-tip-stop">{processInstance.deleteReason==='OUTTIMEDELETED'?'超期终止':'已终止'}</span>;
 				} else if(processInstance.state === 'end' && processInstance.deleteReason === 'WITHDRAW_SUBMIT'){
 					str = <span className="btn-tip btn-tip-done">草稿</span>;
-				} else if(processInstance.state === 'end' && processInstance.deleteReason == null){
+				} else if(processInstance.state === 'end' && (processInstance.deleteReason == null || 'jumpEnd' === processInstance.deleteReason)){
 						str = <span className="btn-tip btn-tip-done">已完成</span>;
 				} else if(processInstance.state === 'end' && processInstance.deleteReason == 'REJECTTOSTART_DELETED'){
 						str = <span className="btn-tip btn-tip-done">驳回草稿</span>;
@@ -147,7 +147,7 @@ class MineContainer extends Component {
 		let titleDomWidth = this.refs.list_mine_m.clientWidth;
 		let titleCuttedRenderItems = renderItems.map((item)=>{
 			let {processInstance, dueDate, createTime, procInsStartTime} = item;
-			item.cuttedName = cutTitle(item.name, titleDomWidth, 0)
+			item.cuttedName = cutTitle(item.name||'', titleDomWidth, 0)
 			return item;
 		})
 		this.setState({

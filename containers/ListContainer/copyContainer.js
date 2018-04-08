@@ -109,7 +109,7 @@ class copyContainer extends Component {
 		let titleDomWidth = this.refs.list_copy_m.clientWidth;
 		let titleCuttedRenderItems = renderItems.map((item)=>{
 			let {historicProcessInstance} = item;
-			item.titleCutted = cutTitle(item.title||historicProcessInstance.name,titleDomWidth,0)
+			item.titleCutted = cutTitle(item.title||historicProcessInstance.name||'',titleDomWidth,0)
 			return item;
 		})
 		this.setState({

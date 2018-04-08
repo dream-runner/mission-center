@@ -138,7 +138,7 @@ class notFinishContainer extends Component {
 			if (!processInstance){
 				return item;
 			}
-			item.processInstance.cuttedName = cutTitle(item.processInstance.name, titleDomWidth, item.outtime||item.warning?30:0)
+			item.processInstance.cuttedName = cutTitle(item.processInstance.name||'', titleDomWidth, item.outtime||item.warning?30:0)
 			return item;
 		})
 		this.setState({
